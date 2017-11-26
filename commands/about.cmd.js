@@ -8,7 +8,7 @@ module.exports = {
         .setTimestamp(new Date())
         .setFooter("This bot is owned by RONTheCookie#7386.",client.users.get(config.ownerID).avatarURL)
         .addField("Let's help you get started!",`Type ${config.prefix}help to see a list of commands!
-        Good luck 😃`)
+Good luck 😃`)
         .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
     );
     },
