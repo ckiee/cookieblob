@@ -6,6 +6,7 @@ module.exports = {
     meta: {
         name: "ping",
         description: ":ping_pong:",
-        usage: []
+        usage: [],
+        permissionLevel:0
     }
 }
