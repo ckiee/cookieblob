@@ -1,0 +1,27 @@
+{
+  "name": "cookieblob",
+  "version": "1.0.0",
+  "description": "Cookieblob discord bot",
+  "main": "cookieblob.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RONTheCookie/cookieblob.git"
+  },
+  "keywords": [
+    "cookieblob",
+    "discord",
+    "bot"
+  ],
+  "author": "RONTheCookie",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/RONTheCookie/cookieblob/issues"
+  },
+  "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
