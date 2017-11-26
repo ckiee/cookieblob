@@ -1,5 +1,4 @@
-import { RichEmbed } from "discord.js";
-
+const RichEmbed = require("discord.js").RichEmbed;
 const animals = requrie("random-animal");
 const util = require("../util");
 module.exports = {
