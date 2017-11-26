@@ -81,6 +81,7 @@ function getCommand(name) {
  * @typedef {Object} Config
  * @property {String} token
  * @property {String} prefix 
+ * @property {String} ownerID 
  */
 
 /**
