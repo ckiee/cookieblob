@@ -1,4 +1,4 @@
-import { RichEmbed } from "discord.js";
+const RichEmbed = require("discord.js").RichEmbed;
 const cookieblob = require("./cookieblob");
 /**
  * Generate a invalid usage embed
