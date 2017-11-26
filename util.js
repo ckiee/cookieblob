@@ -11,8 +11,7 @@ function invalidUsageEmbed(msg,cmdName) {
         .setColor(0xea2112)
         .setAuthor(msg.author.tag, msg.author.avatarURL)
         .setTitle("Invalid Usage!")
-        .setDescription(`Invalid usage!
-        Proper usage: \`${renderUsage(cmdName)}\``)
+        .setDescription(`Proper usage: \`${renderUsage(cmdName)}\``)
         .setFooter("Invalid usage error",cookieblob.client.user.avatarURL);
 }
 /**
