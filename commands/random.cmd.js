@@ -6,15 +6,15 @@ module.exports = {
         if (args.length != 1) return msg.channel.send(util.invalidUsageEmbed(msg,"random"));
         switch (args[0]) {
             case "cat":
-            let url = await animals.cat();
+            let cat = await animals.cat();
             msg.channel.send(new RichEmbed()
-            .setImage(url)
+            .setImage(cat)
             );
             break;
             case "dog":
-            let url = await animals.dog();
+            let dog = await animals.dog();
             msg.channel.send(new RichEmbed()
-            .setImage(url)
+            .setImage(dog)
             );
             break;
             default: 
