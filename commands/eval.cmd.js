@@ -1,3 +1,5 @@
+const cookieblob = require("../cookieblob");
+const datastorage = require("../datastorage");
 module.exports = {
     run: async (msg, args, client) => {
         try {
