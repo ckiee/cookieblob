@@ -16,7 +16,8 @@ class GuildData {
     constructor(guildID) {
         this.guildData = null;
         this.guildID = guildID;
-        this.makeDefaultSettings();
+        this.updateFromDB();
+        if (guildData == null) this.makeDefaultSettings();
     }
     /**
      * Get all of the updates from the database.
