@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const config = getConfig();
 const glob = require("glob");
 let commands = {};
+require("./datastorage.js");
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
 });
