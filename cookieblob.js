@@ -25,6 +25,7 @@ client.on('message', msg => { // Command handler on-message listener
         if (cmdModule.meta == null) throw Error(`Command module ${cmdModule} did not export 'meta'`);
         if (typeof cmdModule.run != "function") throw Error(`Command module ${JSON.stringify(cmdModule)} did not export 'run' or did not export 'run' as type 'function'`);
         commands[cmdModule.meta.name] = cmdModule;
+        console.log(`Loaded command ${cmdModule.meta.name}`);
     });
 })().then(()=>{
     client.login(config.token); // Only login after we finished finding commands
