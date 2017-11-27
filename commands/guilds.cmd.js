@@ -8,7 +8,7 @@ module.exports = {
         msg.channel.send(content);
     },
     meta: {
-        name: "guild",
+        name: "guilds",
         description: "Show all guilds.",
         usage: [],
         permissionLevel:0
