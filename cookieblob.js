@@ -16,11 +16,7 @@ client.on('message', msg => { // Command handler on-message listener
     let cmd = getCommand(uiCmd);
     let args = msg.content.split(" ").slice(1);
     if (cmd == null) return;
-    if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) {
-        msg.channel.send(":x: No permission! This incident has been logged.");
-        console.log(`${msg.author.tag} (${msg.author.id}) tried to execute bot owner-only command '${cmd.meta.name}'.`);
-        return;
-    }
+    if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
     cmd.run(msg, args, client);
 });
 
