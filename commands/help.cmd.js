@@ -3,9 +3,8 @@ const RichEmbed = require("discord.js").RichEmbed;
 module.exports = {
     run: async (msg, args, client) => {
         let embed = new RichEmbed()
-            .setAuthor(msg.author.tag,msg.author.avatarURL)
+            .setAuthor("Cookieblob command list",msg.author.avatarURL)
             .setColor(0xffc300)
-            .setTitle("***Cookieblob command list***")
             .setTimestamp(new Date())
         Object.keys(cookieblob.commands).forEach( key => {
             let cmd = cookieblob.getCommand(key);
