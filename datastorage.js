@@ -14,7 +14,7 @@ class GuildData {
      * @param {String} guildID 
      */
     constructor(guildID) {
-        this.guildData = {};
+        this.guildData = null;
         this.guildID = guildID;
         this.updateFromDB();
         if (this.guildData == null) this.makeDefaultSettings();
