@@ -1,7 +1,7 @@
 'use strict';
 /** @module cookieblob */
-const RichEmbed = Discord.RichEmbed;
 const Discord = require("discord.js");
+const RichEmbed = Discord.RichEmbed;
 const client = new Discord.Client();
 const config = getConfig();
 const glob = require("glob");
@@ -31,7 +31,7 @@ client.on('message', msg => { // Command handler on-message listener
         .setTitle("Cookieblob Error")
         .setTimestamp(new Date())
     );
-    
+
     }
 });
 
