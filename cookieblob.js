@@ -1,5 +1,6 @@
 'use strict';
 /** @module cookieblob */
+const RichEmbed = Discord.RichEmbed;
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = getConfig();
@@ -22,7 +23,16 @@ client.on('message', msg => { // Command handler on-message listener
        if (msg.member.roles.find("name",modRole) == null 
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
     }
-    cmd.run(msg, args, client);
+    try { cmd.run(msg, args, client); } catch (error) {
+        msg.channel.send(new RichEmbed()
+        .setColor(0xed1a07)
+        .setDescription("There was a error while executing that command. I've reported the error for you.")
+        .setAuthor(msg.author.tag,msg.author.avatarURL)
+        .setTitle("Cookieblob Error")
+        .setTimestamp(new Date())
+    );
+    
+    }
 });
 
 (async function(){ // Command explorer
