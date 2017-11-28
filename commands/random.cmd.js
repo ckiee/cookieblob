@@ -26,6 +26,7 @@ module.exports = {
         name: "random",
         description: "Get a random cat or dog.",
         usage: ["cat/dog"],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }

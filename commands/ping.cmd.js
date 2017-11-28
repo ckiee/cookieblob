@@ -7,6 +7,7 @@ module.exports = {
         name: "ping",
         description: ":ping_pong:",
         usage: [],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }

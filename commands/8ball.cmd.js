@@ -8,7 +8,8 @@ module.exports = {
         name: "8ball",
         description: ":8ball: Ask the 8ball a question.",
         usage: ["question"],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }
 function getRandomInt(min, max) { // from mdn https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random

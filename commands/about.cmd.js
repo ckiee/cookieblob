@@ -19,6 +19,7 @@ Good luck 😃`)
         name: "about",
         description: "Some info about Cookieblob.",
         usage: [],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }

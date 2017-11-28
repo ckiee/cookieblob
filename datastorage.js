@@ -37,7 +37,7 @@ class GuildData {
     makeDefaultSettings() {
         this.guildData = {
             id:this.guildID,
-            modRole:"Mod",
+            modRole:"", //setmodrole for this
         };
         this.updateToDB();
     }

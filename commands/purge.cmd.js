@@ -13,6 +13,7 @@ module.exports = {
         name: "purge",
         description: "Purge messages.",
         usage: ["amount"],
-        permissionLevel:"modRole"
+        permissionLevel:"modRole",
+        guildOnly:false
     }
 }

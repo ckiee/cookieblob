@@ -20,9 +20,12 @@ client.on('message', msg => { // Command handler on-message listener
     if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
     if (msg.guild) {
        let modRole = require("./datastorage").getGuildData(msg.guild.id).guildData.modRole;
-       if (msg.member.roles.find("name",modRole) == null 
+       if (msg.member.roles.get(modRole) == null 
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
+       else if (msg.guild.ownerID != msg.member.user.id 
+            && cmd.meta.permissionLevel == "guildOwner") return msg.channel.send(":x: Only guild owners can execute this command");
     }
+    if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     try { cmd.run(msg, args, client); } catch (error) {
         msg.channel.send(new RichEmbed()
         .setColor(0xed1a07)
@@ -84,6 +87,7 @@ function exploreCommandsFolder(){
  * @property {String} description
  * @property {Array<String>} usage
  * @property {String} permissionLevel
+ * @property {Boolean} guildOnly
  */
 
 /**

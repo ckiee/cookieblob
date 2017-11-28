@@ -17,6 +17,7 @@ Usage: \`${require("../util").renderUsage(key)}\``);
         name: "help",
         description: "Show the list of commands you are currently looking at!",
         usage: [],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }

@@ -11,6 +11,7 @@ module.exports = {
         name: "guilds",
         description: "Show all guilds.",
         usage: [],
-        permissionLevel:0
+        permissionLevel:0,
+        guildOnly:false
     }
 }
