@@ -5,7 +5,7 @@ module.exports = {
         let count = parseInt(args[0]);
         if (count == null) msg.channel.send(require("../util").invalidUsageEmbed(msg, "purge"));
         let deleted = await msg.channel.bulkDelete(count);
-        msg.channel.send(`:ok_hand: Removed ${deleted} messages.`).then(m => {
+        msg.channel.send(`:ok_hand: Removed ${deleted.size} messages.`).then(m => {
             m.delete(1000*30);
         });
     },
