@@ -106,6 +106,7 @@ function getCommand(name) {
  * @property {String} token
  * @property {String} prefix 
  * @property {String} ownerID 
+ * @property {String} ytKey
  */
 
 /**

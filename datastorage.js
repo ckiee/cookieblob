@@ -23,6 +23,7 @@ class GuildData {
      * Get all of the updates from the database.
      */
     updateFromDB() {
+        if (guildData.get(this.guildID) == null) return null;
         this.guildData = JSON.parse(guildData.get(this.guildID)[0].data);
     }
     /**
