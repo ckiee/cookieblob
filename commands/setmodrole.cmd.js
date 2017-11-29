@@ -1,7 +1,13 @@
 const datastorage = require("../datastorage");
 module.exports = {
     run: async (msg, args, client) => {
+        if (args.length != 1) msg.channel.send(require("../util").invalidUsageEmbed(msg, "setmodrole"));
         let gd = datastorage.getGuildData(msg.guild.id);
+        let role = msg.guild.roles.find("name",args[0]);
+        if (role == null) return msg.channel.send(":x: Invalid role!");
+        gd.guildData.modRole = role.id;
+        gd.updateToDB();
+        msg.channel.send(`:ok_hand: Updated mod role to '${role.name}'.`);
     },
     meta: {
         name: "setmodrole",
