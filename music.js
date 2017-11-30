@@ -70,7 +70,7 @@ function searchAddToQueue(msg, searchQuery) {
  * @param {String} searchQuery
  */
 async function play(msg, searchQuery) {
-    searchAddToQueue(msg, searchQuery);
+    await searchAddToQueue(msg, searchQuery);
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
