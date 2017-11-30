@@ -83,3 +83,8 @@ async function play(msg, searchQuery) {
     .setURL(sq.youtubeResult.link)
 );
 }
+
+module.exports = {
+    play: play,
+    searchAddToQueue: searchAddToQueue
+}
