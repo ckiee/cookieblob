@@ -52,11 +52,11 @@ function getMusicGuild(guildID) {
  * @param {Message} msg 
  * @param {String} searchQuery 
  */
-async function searchAddToQueue(msg, searchQuery) {
+function searchAddToQueue(msg, searchQuery) {
     return new Promise((resolve,reject)=>{
         yts(searchQuery,searchoptions,(error,results)=>{
             if (error) reject(error);
-            await msg.channel.send(JSON.stringify(results));
+            console.log(`\n\n\n\n\n\n\n${results}\n\n\n\n\n\n`);
             let result = results[0];
             let mg = getMusicGuild(msg.guild.id);
             mg.addToQueue(msg.author, result);
