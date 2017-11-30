@@ -79,7 +79,7 @@ async function play(msg, searchQuery) {
     .setAuthor(msg.author.username, msg.author.avatarURL)
     .setTimestamp(new Date())
     .setTitle(sq.youtube.title)
-    .setImage(sq.youtube.thumbnails.maxres.link)
+    .setImage(sq.youtube.thumbnails.high.url)
     .setURL(sq.youtube.link)
 );
 }
