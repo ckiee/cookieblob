@@ -1,4 +1,4 @@
-const { Message, User, RichEmbed } = require('discord.js');
+const { Message, User, RichEmbed, StreamDispatcher } = require('discord.js');
 const cookieblob = require("./cookieblob");
 let guilds = {};
 const ytdl = require("ytdl-core");
@@ -12,8 +12,18 @@ var searchoptions = {
 
 class MusicGuildData {
     constructor(guildID) {
+        this.dispatcher = null;
         this.queue = [];
         guilds[guildID] = this;
+    }
+    setDispatcher(dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+    /**
+     * @returns {StreamDispatcher}
+     */
+    getDispatcher() {
+        return this.dispatcher;
     }
     /**
      * 
@@ -33,7 +43,7 @@ class MusicGuildData {
 /**
  * @typedef {Object} QueueEntry
  * @property {User} user
- * @property {Object} youtubeResult
+ * @property {Object} youtube
  */
 
 
@@ -66,14 +76,17 @@ function searchAddToQueue(msg, searchQuery) {
 
 /**
  * @param {Message} msg
- * @param {String} searchQuery
  */
-async function play(msg, searchQuery) {
-    await searchAddToQueue(msg, searchQuery);
+async function play(msg) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
-    voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}));
+    mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"})));
+    mg.getDispatcher().on('end',reason => {
+        let sqa = mg.shiftQueue();
+        if (sqa == null) voiceChannel.disconnect();
+        else play(msg);
+    });
     msg.channel.send(new RichEmbed()
     .setColor(0x0ea5d3)
     .setAuthor(msg.author.username, msg.author.avatarURL)
