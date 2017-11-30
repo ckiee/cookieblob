@@ -73,14 +73,14 @@ async function play(msg, searchQuery) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
-    voiceChannel.playStream(ytdl(sq.youtubeResult.link,{filter:"audio"}));
+    voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}));
     msg.channel.send(new RichEmbed()
     .setColor(0x0ea5d3)
     .setAuthor(msg.author.username, msg.author.avatarURL)
     .setTimestamp(new Date())
-    .setTitle(sq.youtubeResult.title)
-    .setImage(sq.youtubeResult.thumbnails.maxres.url)
-    .setURL(sq.youtubeResult.link)
+    .setTitle(sq.youtube.title)
+    .setImage(sq.youtube.thumbnails.maxres.url)
+    .setURL(sq.youtube.link)
 );
 }
 
