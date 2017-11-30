@@ -55,7 +55,7 @@ function getMusicGuild(guildID) {
 function searchAddToQueue(msg, searchQuery) {
     return new Promise((resolve,reject)=>{
         yts(searchQuery,searchoptions,(error,results)=>{
-            if (error) reject(error);
+            if (error) return reject(error);
             console.log(results.length);
             let result = results[0];
             let mg = getMusicGuild(msg.guild.id);
