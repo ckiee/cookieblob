@@ -26,6 +26,8 @@
     "enmap": "^0.4.2",
     "enmap-rethink": "^1.0.0",
     "glob": "^7.1.2",
-    "random-animal": "^1.0.7"
+    "random-animal": "^1.0.7",
+    "youtube-search": "^1.0.10",
+    "ytdl-core": "^0.18.3"
   }
 }
