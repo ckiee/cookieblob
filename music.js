@@ -56,6 +56,7 @@ function searchAddToQueue(msg, searchQuery) {
     return new Promise((resolve,reject)=>{
         yts(searchQuery,searchoptions,(error,results)=>{
             if (error) reject(error);
+            console.log(results);
             let result = results[0];
             let mg = getMusicGuild(msg.guild.id);
             mg.addToQueue(msg.author, result);
