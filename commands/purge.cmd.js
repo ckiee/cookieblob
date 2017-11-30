@@ -14,6 +14,6 @@ module.exports = {
         description: "Purge messages.",
         usage: ["amount"],
         permissionLevel:"modRole",
-        guildOnly:false
+        guildOnly:true
     }
 }
