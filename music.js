@@ -94,6 +94,7 @@ async function play(msg) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
+    console.log("Started stream",sq.youtube.link)
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.getDispatcher().on('end',reason => {
         let sqa = mg.queue[0];
