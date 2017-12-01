@@ -10,7 +10,7 @@ const glob = require("glob");
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
-    childprocess.exec("git rev-parse HEAD",(error, stdout, stderr)=>{
+    childprocess.exec("git log --pretty=format:'%h' -n 1",(error, stdout, stderr)=>{
         if (error) console.error("Could not get last git commit hash! Error:", error);
         else {
             // Cool, right?
