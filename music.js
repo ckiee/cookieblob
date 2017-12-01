@@ -101,6 +101,7 @@ async function play(msg) {
         let sqa = mg.queue[0];
         mg.setPlaying(false);
         if (sqa == null) {
+            console.log('dced');
             voiceChannel.disconnect();
         }
         else {
