@@ -6,7 +6,7 @@ module.exports = {
      * @param {Array<String>} args
      * @param {Client} client
      */
-    run: async (msg, args, client) => {
+    run:  (msg, args, client) => {
         let mg = music.getMusicGuild(msg.guild.id);
         if (!mg.playing) return msg.channel.send(":x: There is nothing to skip!");
         mg.getDispatcher().end("skip");
