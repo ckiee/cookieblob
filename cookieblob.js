@@ -126,6 +126,12 @@ function getCommand(name) {
 function getConfig(){
     return require("./config.json");
 }
+
+process.on('unhandledRejection', function(reason, promise){
+    promise.catch(console.error);
+    console.error(reason);
+});
+
 module.exports = {
     config:config,
     client:client,
