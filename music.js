@@ -100,6 +100,7 @@ async function play(msg) {
         console.log(sqa);
         mg.setPlaying(false);
         if (sqa == null) {
+            console.log("left vc because there is no next song to play in queue")
             voiceChannel.disconnect();
         }
         else {
