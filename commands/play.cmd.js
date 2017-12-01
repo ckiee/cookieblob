@@ -14,7 +14,7 @@ module.exports = {
     },
     meta: {
         name: "play",
-        description: ":musical_note: Play some music!",
+        description: "🎵 Play some music!",
         usage: ["search query"],
         permissionLevel:0,
         guildOnly:true
