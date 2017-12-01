@@ -97,17 +97,15 @@ async function play(msg) {
     let sq = mg.shiftQueue();
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.getDispatcher().on('end',reason => {
-        setTimeout(()=>{
-            console.log(reason);
-            let sqa = mg.queue[0];
-            mg.setPlaying(false);
-            if (sqa == null) {
-                voiceChannel.disconnect();
-            }
-            else {
-                play(msg).catch(console.error);
-            } 
-        },200);
+        console.log(reason);
+        let sqa = mg.queue[0];
+        mg.setPlaying(false);
+        if (sqa == null) {
+            voiceChannel.disconnect();
+        }
+        else {
+            play(msg).catch(console.error);
+        } 
     });
     mg.setPlaying(true);
     msg.channel.send(new RichEmbed()
