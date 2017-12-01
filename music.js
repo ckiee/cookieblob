@@ -107,7 +107,7 @@ async function play(msg) {
             else {
                 play(msg).catch(console.error);
             } 
-        },1000);
+        },500);
     });
     mg.setPlaying(true);
     msg.channel.send(new RichEmbed()
