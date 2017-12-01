@@ -101,7 +101,10 @@ async function play(msg) {
         if (sqa == null) {
             voiceChannel.disconnect();
         }
-        else play(msg);
+        else {
+            play(msg);
+            if (reason == "skip") msg.channel.send("[debug] attempting to play next song.");
+        } 
     });
     mg.setPlaying(true);
     msg.channel.send(new RichEmbed()
