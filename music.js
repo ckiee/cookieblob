@@ -97,7 +97,7 @@ async function play(msg) {
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.getDispatcher().on('end',reason => {
         let sqa = mg.queue[0];
-        console.log(mg.queue.map(v=>{return v.youtube.title;}));
+        console.log(reason, mg.queue.map(v=>{return v.youtube.title;}));
         mg.setPlaying(false);
         if (sqa == null) {
             console.log("left vc because there is no next song to play in queue")
