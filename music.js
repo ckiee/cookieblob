@@ -103,7 +103,7 @@ async function play(msg) {
         }
         else {
             if (reason == "skip") msg.channel.send("[debug] attempting to play next song.");
-            play(msg);
+            play(msg).catch(console.error);
         } 
     });
     mg.setPlaying(true);
