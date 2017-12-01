@@ -102,8 +102,8 @@ async function play(msg) {
             voiceChannel.disconnect();
         }
         else {
-            play(msg);
             if (reason == "skip") msg.channel.send("[debug] attempting to play next song.");
+            play(msg);
         } 
     });
     mg.setPlaying(true);
