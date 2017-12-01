@@ -9,7 +9,7 @@ module.exports = {
     run: async (msg, args, client) => {
         if (args.length < 1) msg.channel.send(require("../util").invalidUsageEmbed(msg, "play"));
         let mg = music.getMusicGuild(msg.guild.id);
-        music.searchAddToQueue(msg, args.join(" "));
+        await music.searchAddToQueue(msg, args.join(" "));
         if (!mg.playing) music.play(msg);
     },
     meta: {
