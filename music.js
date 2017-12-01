@@ -107,6 +107,7 @@ async function play(msg) {
     msg.channel.send(new RichEmbed()
     .setColor(0x0ea5d3)
     .setAuthor(msg.author.username, msg.author.avatarURL)
+    .setDescription(sq.youtube.description)
     .setTimestamp(new Date())
     .setTitle(sq.youtube.title)
     .setImage(sq.youtube.thumbnails.high.url)
