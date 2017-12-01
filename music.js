@@ -97,6 +97,7 @@ async function play(msg) {
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.getDispatcher().on('end',reason => {
         let sqa = mg.queue[0];
+        console.log(sqa);
         mg.setPlaying(false);
         if (sqa == null) {
             voiceChannel.disconnect();
