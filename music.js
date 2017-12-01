@@ -94,19 +94,14 @@ async function play(msg) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
-    console.log("Started stream",sq.youtube.link)
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.getDispatcher().on('end',reason => {
         let sqa = mg.queue[0];
-        console.log(reason, mg.queue.map(v=>{return v.youtube.title;}));
         mg.setPlaying(false);
-        console.log(new Error().stack);
         if (sqa == null) {
-            console.log("left vc because there is no next song to play in queue")
             voiceChannel.disconnect();
         }
         else {
-            if (reason == "skip") msg.channel.send("[debug] attempting to play next song.");
             play(msg).catch(console.error);
         } 
     });
