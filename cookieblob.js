@@ -5,10 +5,18 @@ const RichEmbed = Discord.RichEmbed;
 const client = new Discord.Client();
 const datastorage = require("./datastorage");
 const config = getConfig();
+const childprocess = require("child_process");
 const glob = require("glob");
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
+    childprocess.exec("git rev-parse HEAD",(error, stdout, stderr)=>{
+        if (error) console.error("Could not get last git commit hash! Error:", error);
+        else {
+            // Cool, right?
+            client.guilds.get("344028874906009612").channels.find("name","git-updates").send(`Running cookieblob version ${stdout}`);
+        }
+    });
 });
 client.on('message', msg => { // Command handler on-message listener
     if (msg.author.bot) return;
@@ -27,7 +35,7 @@ client.on('message', msg => { // Command handler on-message listener
         else if ( !(msg.guild.ownerID == msg.member.user.id || msg.member.hasPermission("ADMINISTRATOR")) 
         && cmd.meta.permissionLevel == "guildAdmin") return msg.channel.send(":x: Only guild admins or guild owners can use this command.");
     }
-    
+
     if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     
     try { cmd.run(msg, args, client); } catch (error) {
