@@ -14,10 +14,23 @@ class MusicGuildData {
     constructor(guildID) {
         this.dispatcher = null;
         this.queue = [];
+        this.playing = false;
         guilds[guildID] = this;
     }
     setDispatcher(dispatcher) {
         this.dispatcher = dispatcher;
+    }
+    /**
+     * @property {Boolean} value
+     */
+    setPlaying(value) {
+        this.playing = value;
+    }
+    /**
+     * @returns {Boolean}
+     */
+    getPlaying() {
+        return this.playing;
     }
     /**
      * @returns {StreamDispatcher}
@@ -84,9 +97,13 @@ async function play(msg) {
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"})));
     mg.getDispatcher().on('end',reason => {
         let sqa = mg.shiftQueue();
-        if (sqa == null) voiceChannel.disconnect();
+        if (sqa == null) {
+            voiceChannel.disconnect();
+            mg.setPlaying(false);
+        }
         else play(msg);
     });
+    mg.setPlaying(true);
     msg.channel.send(new RichEmbed()
     .setColor(0x0ea5d3)
     .setAuthor(msg.author.username, msg.author.avatarURL)
@@ -99,5 +116,6 @@ async function play(msg) {
 
 module.exports = {
     play: play,
-    searchAddToQueue: searchAddToQueue
+    searchAddToQueue: searchAddToQueue,
+    getMusicGuild: getMusicGuild
 }

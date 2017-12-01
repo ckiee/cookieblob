@@ -27,7 +27,9 @@ client.on('message', msg => { // Command handler on-message listener
         else if ( !(msg.guild.ownerID == msg.member.user.id || msg.member.hasPermission("ADMINISTRATOR")) 
         && cmd.meta.permissionLevel == "guildAdmin") return msg.channel.send(":x: Only guild admins or guild owners can use this command.");
     }
+    
     if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
+    
     try { cmd.run(msg, args, client); } catch (error) {
         msg.channel.send(new RichEmbed()
         .setColor(0xed1a07)
