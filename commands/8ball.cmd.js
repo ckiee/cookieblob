@@ -6,7 +6,7 @@ module.exports = {
     },
     meta: {
         name: "8ball",
-        description: ":8ball: Ask the 8ball a question.",
+        description: "🎱 Ask the 8ball a question.",
         usage: ["question"],
         permissionLevel:0,
         guildOnly:false
