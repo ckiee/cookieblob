@@ -82,7 +82,7 @@ function searchAddToQueue(msg, searchQuery) {
             let result = results[0];
             let mg = getMusicGuild(msg.guild.id);
             mg.addToQueue(msg.author, result);
-            resolve(mg);
+            resolve(result);
         });
     });
 }
