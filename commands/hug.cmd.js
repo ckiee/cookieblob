@@ -6,9 +6,8 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first()}`)
         if (msg.mentions.members.first() == null) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "hug"));
-        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first().tag}!`);
+        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first().tag}!*`);
     },
     meta: {
         name: "hug",
