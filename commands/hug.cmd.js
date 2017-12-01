@@ -7,7 +7,8 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         if (msg.mentions.members.first() == null) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "hug"));
-        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first().tag}!*`);
+        if (msg.author.id == msg.mentions.users.first().id) return msg.channel.send("Why are you hugging yourself?");
+        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first().tag}!* ${msg.mentions.users.first().id==client.user.id ? "Yay!" : ""}`);
     },
     meta: {
         name: "hug",
