@@ -100,6 +100,7 @@ async function play(msg) {
         let sqa = mg.queue[0];
         console.log(reason, mg.queue.map(v=>{return v.youtube.title;}));
         mg.setPlaying(false);
+        console.log(new Error().stack);
         if (sqa == null) {
             console.log("left vc because there is no next song to play in queue")
             voiceChannel.disconnect();
