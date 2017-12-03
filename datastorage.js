@@ -11,7 +11,7 @@ class GuildData {
      * @param {String} guildID 
      */
     constructor(guildID) {
-        return new Promise((resolve, reject)=>{
+        this.ready = new Promise((resolve, reject)=>{
             this.guildData = null;
             this.guildID = guildID;
             this.updateFromDB().then(()=>{
@@ -51,7 +51,11 @@ class GuildData {
  * @returns {GuildData} Guild data class instance 
  */
 async function getGuildData(guildID) {
-    if (guildDataClassInstances[guildID] == null) guildDataClassInstances[guildID] = await new GuildData(guildID);
+    if (guildDataClassInstances[guildID] == null)  {
+        let gd = new GuildData(guildID);
+        await gd.ready;
+        guildDataClassInstances[guildID] = gd;
+    }
     return guildDataClassInstances[guildID];
 }
 async function setupDatabase() {
