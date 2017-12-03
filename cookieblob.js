@@ -132,7 +132,6 @@ function getCommand(name) {
 function getConfig(){
     return require("./config.json");
 }
-console.log('rtconnection', rethinkConnection);
 module.exports = {
     config:config,
     client:client,
@@ -141,4 +140,5 @@ module.exports = {
     exploreCommandsFolder: exploreCommandsFolder,
     rethinkConnection: rethinkConnection
 }
+console.log('rtconnection', rethinkConnection);
 })();
