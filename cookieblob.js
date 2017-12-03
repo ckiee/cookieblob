@@ -12,6 +12,7 @@ process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
 const rethinkConnection = await r.connect({db:"cookieblob"});
+module.exports.rethinkConnection = rethinkConnection;
 const datastorage = require("./datastorage");
 let commands = {};
 client.on('ready',()=>{
@@ -138,6 +139,5 @@ module.exports = {
     commands:commands,
     getCommand: getCommand,
     exploreCommandsFolder: exploreCommandsFolder,
-    rethinkConnection: rethinkConnection
 }
 })();
