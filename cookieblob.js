@@ -25,6 +25,11 @@ client.on('ready',()=>{
     //         client.guilds.get("344028874906009612").channels.find("name","git-updates").send(`Running cookieblob version ${stdout}`);
     //     }
     // });
+    const ug = ()=>{
+        client.user.setPresence({activity:{name:`${config.prefix}help | ${client.guilds.size} guilds!`, type:"WATCHING"}});
+    }
+    ug();
+    setInterval(ug, 1000*60*5);
 });
 client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
