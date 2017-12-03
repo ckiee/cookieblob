@@ -1,5 +1,7 @@
 const r = require('rethinkdb');
+const connection = require("./cookieblob").rethinkConnection;
 let guildDataClassInstances = {};
+let guilds = r.table("guildData");
 /**
  * Class for guild data.
  */
@@ -9,32 +11,38 @@ class GuildData {
      * @param {String} guildID 
      */
     constructor(guildID) {
-        this.guildData = null;
-        this.guildID = guildID;
-        this.updateFromDB();
-        if (this.guildData == null) this.makeDefaultSettings();
+        return new Promise((resolve, reject)=>{
+            this.guildData = null;
+            this.guildID = guildID;
+            this.updateFromDB().then(()=>{
+                if (this.guildData == null) this.makeDefaultSettings();
+            }).then(resolve).catch(reject);
+        });
     }
     /**
      * Get all of the updates from the database.
      */
-    updateFromDB() {
-
+    async updateFromDB() {
+        this.guildData = await guilds.get(this.guildID).run(connection);
+        console.log('get',this.guildID, this.guildData);
     }
     /**
      * Send all of our updates to the database, if there are any.
      */
-    updateToDB() {
-        
+    async updateToDB() {
+        let result = await guilds.get(this.guildID).update(this.guildData).run(connection);
+        console.log('update',this.guildID, result, this.guildData);
+        return result;
     }
     /**
      * Set all of the guild data back to default. THIS WILL WIPE ALL OLD GUILD DATA.
      */
-    makeDefaultSettings() {
+    async makeDefaultSettings() {
         this.guildData = {
             id:this.guildID,
             modRole:"", //setmodrole for this
         };
-        this.updateToDB();
+        await this.updateToDB();
     }
 }
 /**
@@ -42,10 +50,15 @@ class GuildData {
  * @param {String} guildID
  * @returns {GuildData} Guild data class instance 
  */
-function getGuildData(guildID) {
-    if (guildDataClassInstances[guildID] == null) guildDataClassInstances[guildID] = new GuildData(guildID);
+async function getGuildData(guildID) {
+    if (guildDataClassInstances[guildID] == null) guildDataClassInstances[guildID] = await new GuildData(guildID);
     return guildDataClassInstances[guildID];
 }
+async function setupDatabase() {
+    await r.dbCreate("cookieblob").run(connection);
+    await r.db("cookieblob").tableCreate("guildData").run(connection);
+}
 module.exports = {
-    getGuildData: getGuildData
+    getGuildData: getGuildData,
+    setupDatabase: setupDatabase
 }

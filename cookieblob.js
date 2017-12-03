@@ -1,5 +1,6 @@
 'use strict';
 /** @module cookieblob */
+(async()=>{
 const Discord = require("discord.js");
 const RichEmbed = Discord.RichEmbed;
 const client = new Discord.Client();
@@ -7,6 +8,8 @@ const datastorage = require("./datastorage");
 const config = getConfig();
 const childprocess = require("child_process");
 const glob = require("glob");
+const r = require('rethinkdb');
+const rethinkConnection = await r.connect({db:"cookieblob"});
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
@@ -132,5 +135,7 @@ module.exports = {
     client:client,
     commands:commands,
     getCommand: getCommand,
-    exploreCommandsFolder: exploreCommandsFolder
+    exploreCommandsFolder: exploreCommandsFolder,
+    rethinkConnection: rethinkConnection
 }
+})();
