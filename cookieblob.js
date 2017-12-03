@@ -36,7 +36,6 @@ client.on('message', async msg => { // Command handler on-message listener
     if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
     if (msg.guild) {
        let gd = await datastorage.getGuildData(msg.guild.id);
-       await gd.ready;
        let modRole = gd.guildData.modRole;
        if (msg.member.roles.get(modRole) == null 
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
