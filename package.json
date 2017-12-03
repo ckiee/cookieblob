@@ -24,6 +24,7 @@
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
     "glob": "^7.1.2",
+    "node-opus": "^0.2.7",
     "random-animal": "^1.0.7",
     "rethinkdb": "^2.3.3",
     "youtube-search": "^1.0.10",
