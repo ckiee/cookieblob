@@ -140,5 +140,4 @@ module.exports = {
     exploreCommandsFolder: exploreCommandsFolder,
     rethinkConnection: rethinkConnection
 }
-console.log('rtconnection', rethinkConnection);
 })();

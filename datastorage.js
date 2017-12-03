@@ -1,6 +1,6 @@
 const r = require('rethinkdb');
 const connection = require("./cookieblob").rethinkConnection;
-console.log('connection', connection);
+console.log('cookieblob', require("./cookieblob"));
 let guildDataClassInstances = {};
 let guilds = r.table("guildData");
 /**
