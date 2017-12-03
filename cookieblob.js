@@ -4,7 +4,6 @@
 const Discord = require("discord.js");
 const RichEmbed = Discord.RichEmbed;
 const client = new Discord.Client();
-const datastorage = require("./datastorage");
 const config = getConfig();
 const childprocess = require("child_process");
 const glob = require("glob");
@@ -13,6 +12,7 @@ process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
 const rethinkConnection = await r.connect({db:"cookieblob"});
+const datastorage = require("./datastorage");
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
