@@ -10,13 +10,13 @@ const glob = require("glob");
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
-    childprocess.exec("git log --pretty=format:'%h' -n 1",(error, stdout, stderr)=>{
-        if (error) console.error("Could not get last git commit hash! Error:", error);
-        else {
-            // Cool, right?
-            client.guilds.get("344028874906009612").channels.find("name","git-updates").send(`Running cookieblob version ${stdout}`);
-        }
-    });
+    // childprocess.exec("git log --pretty=format:'%h' -n 1",(error, stdout, stderr)=>{
+    //     if (error) console.error("Could not get last git commit hash! Error:", error);
+    //     else {
+    //         // Cool, right?
+    //         client.guilds.get("344028874906009612").channels.find("name","git-updates").send(`Running cookieblob version ${stdout}`);
+    //     }
+    // });
 });
 client.on('message', msg => { // Command handler on-message listener
     if (msg.author.bot) return;
