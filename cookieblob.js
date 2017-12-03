@@ -12,6 +12,7 @@ process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
 const rethinkConnection = await r.connect({db:"cookieblob"});
+console.log('rtconnection', rethinkConnection);
 const datastorage = require("./datastorage");
 let commands = {};
 client.on('ready',()=>{
