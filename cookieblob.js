@@ -9,6 +9,9 @@ const config = getConfig();
 const childprocess = require("child_process");
 const glob = require("glob");
 const r = require('rethinkdb');
+process.on('unhandledRejection', error => {
+    console.error(error.stack);
+});
 const rethinkConnection = await r.connect({db:"cookieblob"});
 let commands = {};
 client.on('ready',()=>{
