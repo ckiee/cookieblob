@@ -11,7 +11,7 @@ const updateLocalConnection = (cnct)=>{
 class GuildData {
     /**
      * New guild data class
-     * @param {String} guildID 
+     * @param {String} guildID
      */
     constructor(guildID) {
         this.ready = new Promise((resolve, reject)=>{

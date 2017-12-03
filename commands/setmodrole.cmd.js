@@ -4,8 +4,7 @@ module.exports = {
         if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "setmodrole"));
         let role = msg.guild.roles.find("name",args.join(" "));
         if (role == null) return msg.channel.send(":x: Invalid role!");
-        let gd = datastorage.getGuildData(msg.guild.id);
-        await gd.ready;
+        let gd = await datastorage.getGuildData(msg.guild.id);
         gd.guildData.modRole = role.id;
         await gd.updateToDB();
         msg.channel.send(`:ok_hand: Updated mod role to '${role.name}'.`);
