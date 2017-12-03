@@ -1,6 +1,5 @@
 'use strict';
 /** @module cookieblob */
-(async()=>{
 const Discord = require("discord.js");
 const RichEmbed = Discord.RichEmbed;
 const client = new Discord.Client();
@@ -11,17 +10,11 @@ const r = require('rethinkdb');
 process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
-const rethinkConnection = await r.connect({db:"cookieblob"});
+r.connect({db:"cookieblob"}).then(rethinkConnection=>{
+    module.exports.rethinkConnection = rethinkConnection;
+});
 const datastorage = require("./datastorage");
 let commands = {};
-module.exports = {
-    config:config,
-    client:client,
-    commands:commands,
-    getCommand: getCommand,
-    exploreCommandsFolder: exploreCommandsFolder,
-    rethinkConnection:rethinkConnection
-}
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
     // childprocess.exec("git log --pretty=format:'%h' -n 1",(error, stdout, stderr)=>{
@@ -140,4 +133,10 @@ function getCommand(name) {
 function getConfig(){
     return require("./config.json");
 }
-})();
+module.exports = {
+    config:config,
+    client:client,
+    commands:commands,
+    getCommand: getCommand,
+    exploreCommandsFolder: exploreCommandsFolder
+}
