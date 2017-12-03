@@ -21,7 +21,7 @@ client.on('ready',()=>{
     //     }
     // });
 });
-client.on('message', msg => { // Command handler on-message listener
+client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
     if (!msg.content.toLowerCase().startsWith(config.prefix)) return; 
     let uiCmd = msg.content.toLowerCase().split(" ")[0].slice(config.prefix.length); // ui stands for 'User Inputted' here
