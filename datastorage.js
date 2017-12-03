@@ -2,6 +2,9 @@ const r = require('rethinkdb');
 const connection = require("./cookieblob").rethinkConnection;
 let guildDataClassInstances = {};
 let guilds = r.table("guildData");
+const updateLocalConnection = (cnct)=>{
+    connection = cnct;
+}
 /**
  * Class for guild data.
  */
@@ -64,5 +67,6 @@ async function setupDatabase() {
 }
 module.exports = {
     getGuildData: getGuildData,
-    setupDatabase: setupDatabase
+    setupDatabase: setupDatabase,
+    updateLocalConnection: updateLocalConnection
 }

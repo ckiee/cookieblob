@@ -10,10 +10,11 @@ const r = require('rethinkdb');
 process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
+const datastorage = require("./datastorage");
 r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     module.exports.rethinkConnection = rethinkConnection;
+    datastorage.updateLocalConnection(rethinkConnection);
 });
-const datastorage = require("./datastorage");
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
