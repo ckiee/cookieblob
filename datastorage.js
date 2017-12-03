@@ -1,9 +1,3 @@
-const Enmap = require("enmap");
-const EnmapRethink = require("enmap-rethink");
-
-// Guild data
-const guildDataRethink = new EnmapRethink({name:"guildData"});
-const guildData = new Enmap({provider:guildDataRethink});
 let guildDataClassInstances = {};
 /**
  * Class for guild data.
@@ -23,14 +17,13 @@ class GuildData {
      * Get all of the updates from the database.
      */
     updateFromDB() {
-        if (guildData.get(this.guildID) == null) return null;
-        this.guildData = JSON.parse(guildData.get(this.guildID)[0].data);
+
     }
     /**
      * Send all of our updates to the database, if there are any.
      */
     updateToDB() {
-        guildData.set(this.guildID,this.guildData);
+        
     }
     /**
      * Set all of the guild data back to default. THIS WILL WIPE ALL OLD GUILD DATA.

@@ -23,8 +23,6 @@
   "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
   "dependencies": {
     "discord.js": "^11.2.1",
-    "enmap": "^0.4.2",
-    "enmap-rethink": "^1.0.0",
     "glob": "^7.1.2",
     "opusscript": "0.0.4",
     "random-animal": "^1.0.7",
