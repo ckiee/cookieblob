@@ -1,5 +1,5 @@
 const r = require('rethinkdb');
-const connection = require("./cookieblob").rethinkConnection;
+let connection = require("./cookieblob").rethinkConnection;
 let guildDataClassInstances = {};
 let guilds = r.table("guildData");
 const updateLocalConnection = (cnct)=>{
