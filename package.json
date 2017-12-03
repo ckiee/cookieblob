@@ -26,6 +26,7 @@
     "glob": "^7.1.2",
     "opusscript": "0.0.4",
     "random-animal": "^1.0.7",
+    "rethinkdb": "^2.3.3",
     "youtube-search": "^1.0.10",
     "ytdl-core": "^0.18.3"
   }

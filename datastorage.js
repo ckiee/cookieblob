@@ -1,3 +1,4 @@
+const r = require('rethinkdb');
 let guildDataClassInstances = {};
 /**
  * Class for guild data.
