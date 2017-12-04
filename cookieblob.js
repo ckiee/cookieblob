@@ -2,6 +2,7 @@
 /** @module cookieblob */
 const Discord = require("discord.js");
 const RichEmbed = Discord.RichEmbed;
+const request = require("request");
 const client = new Discord.Client();
 const config = getConfig();
 const childprocess = require("child_process");
@@ -15,6 +16,21 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     module.exports.rethinkConnection = rethinkConnection;
     datastorage.updateLocalConnection(rethinkConnection);
 });
+function postBotStats(base, token) {
+    request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
+        headers: {
+            Authorization: token
+        },  
+        json:true,
+        body: {
+            server_count: client.guilds.size
+        }
+    });
+}
+function postStatsOnAllSites() {
+    postBotStats("bots.discord.pw", config.botsdiscordpwToken);
+    postBotStats("discordbots.org", config.discordbotsorgToken);
+}
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
@@ -124,6 +140,8 @@ function getCommand(name) {
  * @property {String} prefix 
  * @property {String} ownerID 
  * @property {String} ytKey
+ * @property {String} discordbotsorgToken
+ * @property {String} botsdiscordpwToken
  */
 
 /**
