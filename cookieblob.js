@@ -26,7 +26,7 @@ client.on('ready',()=>{
     //     }
     // });
     const ug = ()=>{
-        client.user.setPresence({activity:{name:`${config.prefix}help | ${client.guilds.size} guilds!`, type:"WATCHING"}});
+        client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     }
     ug();
     setInterval(ug, 1000*60*5);
