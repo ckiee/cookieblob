@@ -18,13 +18,6 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
-    // childprocess.exec("git log --pretty=format:'%h' -n 1",(error, stdout, stderr)=>{
-    //     if (error) console.error("Could not get last git commit hash! Error:", error);
-    //     else {
-    //         // Cool, right?
-    //         client.guilds.get("344028874906009612").channels.find("name","git-updates").send(`Running cookieblob version ${stdout}`);
-    //     }
-    // });
     const ug = ()=>{
         client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     }
