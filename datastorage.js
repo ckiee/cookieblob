@@ -21,7 +21,9 @@ class GuildData {
             this.updateFromDB().then(()=>{
                 if (this.guildData == null) {
                     this.makeDefaultSettings();
-                    guilds.insert(this.guildData);
+                    guilds.insert(this.guildData).run(connection).then(res=>{
+                        console.log(res);
+                    });
                     console.log(`[datastorage] created new entry for guild ${this.guildID} with data ${require("util").inspect(this.guildData)} `);
                 }
             }).then(resolve).catch(reject);
