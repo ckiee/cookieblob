@@ -22,7 +22,6 @@ class GuildData {
                 if (this.guildData == null) {
                     this.makeDefaultSettings();
                     guilds.insert(this.guildData);
-                    this.updateToDB();
                     console.log(`[datastorage] created new entry for guild ${this.guildID}`);
                 }
             }).then(resolve).catch(reject);
