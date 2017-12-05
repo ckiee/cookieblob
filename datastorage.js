@@ -22,7 +22,7 @@ class GuildData {
                 if (this.guildData == null) {
                     this.makeDefaultSettings();
                     guilds.insert(this.guildData);
-                    console.log(`[datastorage] created new entry for guild ${this.guildID} with data ${this.guildData} `);
+                    console.log(`[datastorage] created new entry for guild ${this.guildID} with data ${require("util").inspect(this.guildData)} `);
                 }
             }).then(resolve).catch(reject);
         });
