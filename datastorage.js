@@ -4,7 +4,7 @@ let guildDataClassInstances = {};
 let guilds = r.table("guildData");
 const updateLocalConnection = (cnct)=>{
     connection = cnct;
-    r.table("guildData").run(connection).then(result => {console.log('guild data dump:');console.log(result.toArray)})
+    r.table("guildData").run(connection).then(result => {console.log('guild data dump:');result.toArray().then((betterresult)=>{console.log(betterresult)})})
 }
 /**
  * Class for guild data.
