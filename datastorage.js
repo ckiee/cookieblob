@@ -22,7 +22,7 @@ class GuildData {
                 if (this.guildData == null) {
                     this.makeDefaultSettings();
                     guilds.insert(this.guildData);
-                    console.log(`[datastorage] created new entry for guild ${this.guildID}`);
+                    console.log(`[datastorage] created new entry for guild ${this.guildID} with data ${this.guildData} `);
                 }
             }).then(resolve).catch(reject);
         });
@@ -50,7 +50,6 @@ class GuildData {
             id:this.guildID,
             modRole:"", //setmodrole for this
         };
-        await this.updateToDB();
     }
 }
 /**
