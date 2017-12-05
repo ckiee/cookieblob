@@ -18,7 +18,12 @@ class GuildData {
             this.guildData = null;
             this.guildID = guildID;
             this.updateFromDB().then(()=>{
-                if (this.guildData == null) this.makeDefaultSettings();
+                if (this.guildData == null) {
+                    this.makeDefaultSettings();
+                    guilds.insert(this.guildData);
+                    this.updateToDB();
+                    console.log()
+                }
             }).then(resolve).catch(reject);
         });
     }
