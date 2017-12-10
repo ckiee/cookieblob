@@ -1,8 +1,8 @@
 const cookieblob = require("../cookieblob");
-const RichEmbed = require("discord.js").RichEmbed;
+const MessageEmbed = require("discord.js").MessageEmbed;
 module.exports = {
     run: async (msg, args, client) => {
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
             .setColor(0xffc300)
             .setTimestamp(new Date())

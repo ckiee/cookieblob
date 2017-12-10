@@ -1,7 +1,7 @@
 'use strict';
 /** @module cookieblob */
 const Discord = require("discord.js");
-const RichEmbed = Discord.RichEmbed;
+const MessageEmbed = Discord.MessageEmbed;
 const request = require("request");
 const client = new Discord.Client();
 const config = getConfig();
@@ -62,7 +62,7 @@ client.on('message', async msg => { // Command handler on-message listener
     if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     
     try { cmd.run(msg, args, client); } catch (error) {
-        msg.channel.send(new RichEmbed()
+        msg.channel.send(new MessageEmbed()
         .setColor(0xed1a07)
         .setDescription("There was a error while executing that command. I've reported the error for you.")
         .setAuthor(msg.author.tag,msg.author.avatarURL)

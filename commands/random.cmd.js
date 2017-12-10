@@ -1,4 +1,4 @@
-const RichEmbed = require("discord.js").RichEmbed;
+const MessageEmbed = require("discord.js").MessageEmbed;
 const animals = require("random-animal");
 const util = require("../util");
 module.exports = {
@@ -7,13 +7,13 @@ module.exports = {
         switch (args[0]) {
             case "cat":
             let cat = await animals.cat();
-            msg.channel.send(new RichEmbed()
+            msg.channel.send(new MessageEmbed()
             .setImage(cat)
             );
             break;
             case "dog":
             let dog = await animals.dog();
-            msg.channel.send(new RichEmbed()
+            msg.channel.send(new MessageEmbed()
             .setImage(dog)
             );
             break;

@@ -1,9 +1,9 @@
-const RichEmbed = require("discord.js").RichEmbed;
+const MessageEmbed = require("discord.js").MessageEmbed;
 const config = require("../cookieblob").config;
 const github_emote = "<:github:384690138749468682>";
 module.exports = {
     run: async (msg, args, client) => {
-        msg.channel.send(new RichEmbed()
+        msg.channel.send(new MessageEmbed()
         .setColor(0xffc300)
         .setAuthor("Cookieblob",client.user.avatarURL)
         .setTimestamp(new Date())
