@@ -26,6 +26,7 @@
     "glob": "^7.1.2",
     "opusscript": "0.0.6",
     "random-animal": "^1.0.7",
+    "reload-require": "^1.0.0",
     "request": "^2.83.0",
     "rethinkdb": "^2.3.3",
     "youtube-search": "^1.0.10",

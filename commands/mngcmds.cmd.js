@@ -1,4 +1,5 @@
 const cookieblob = require("../cookieblob");
+const reload = require("reload-require");
 const datastorage = require("../datastorage");
 const {Message, Client} = require("discord.js");
 module.exports = {
@@ -20,6 +21,14 @@ module.exports = {
             if (typeof cmdModule.run != "function") throw Error(`Command module ${JSON.stringify(cmdModule)} did not export 'run' or did not export 'run' as type 'function'`);
             cookieblob.commands[cmdModule.meta.name] = cmdModule;
             console.log(`${msg.author.tag} loaded command ${cmdModule.meta.name}`);
+            msg.channel.send(`:ok_hand: loaded command ${cmdModule.meta.name}!`);
+            break;
+
+            case "reload":
+            let cmdModule = reload(`./${args[1]}.cmd.js`);
+            cookieblob.commands[cmdModule.meta.name] = cmdModule;
+            console.log(`${msg.author.tag} reloaded command ${cmdModule.meta.name}`);
+            msg.channel.send(`:ok_hand: reloaded command ${cmdModule.meta.name}!`);
             break;
 
             default:
