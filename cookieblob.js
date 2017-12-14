@@ -75,7 +75,7 @@ client.on('message', async msg => { // Command handler on-message listener
         .setTitle("Cookieblob Error")
         .setTimestamp(new Date())
     );
-
+    throw error;
     }
 });
 
