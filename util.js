@@ -1,13 +1,13 @@
-const RichEmbed = require("discord.js").RichEmbed;
+const MessageEmbed = require("discord.js").MessageEmbed;
 const cookieblob = require("./cookieblob");
 /**
  * Generate a invalid usage embed
  * @param {String} properUsage 
  * @param {Message} msg
- * @returns {RichEmbed}
+ * @returns {MessageEmbed}
  */
 function invalidUsageEmbed(msg,cmdName) {
-    return new RichEmbed()
+    return new MessageEmbed()
         .setColor(0xea2112)
         .setAuthor(msg.author.tag, msg.author.avatarURL)
         .setTitle("Invalid Usage!")

@@ -1,4 +1,4 @@
-const { Message, User, RichEmbed, StreamDispatcher } = require('discord.js');
+const { Message, User, MessageEmbed, StreamDispatcher } = require('discord.js');
 const cookieblob = require("./cookieblob");
 let guilds = {};
 const ytdl = require("ytdl-core");
@@ -110,7 +110,7 @@ async function play(msg) {
         },500);
     });
     mg.setPlaying(true);
-    msg.channel.send(new RichEmbed()
+    msg.channel.send(new MessageEmbed()
     .setColor(0x0ea5d3)
     .setAuthor(msg.author.username, msg.author.avatarURL)
     .setDescription(sq.youtube.description)
