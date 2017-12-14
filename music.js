@@ -15,6 +15,7 @@ class MusicGuildData {
         this.dispatcher = null;
         this.queue = [];
         this.playing = false;
+        this.playingTitle = "";
         guilds[guildID] = this;
     }
     setDispatcher(dispatcher) {
@@ -52,6 +53,16 @@ class MusicGuildData {
     shiftQueue() {
         return this.queue.shift();
     }
+    /**
+     * @returns {String}
+     */
+    getPlayingTitle() {return this.playingTitle;}
+
+    /**
+     * 
+     * @param {String} value 
+     */
+    setPlayingTitle(value) {this.playingTitle = value;}
 }
 /**
  * @typedef {Object} QueueEntry
@@ -96,6 +107,7 @@ async function play(msg) {
     if (voiceChannel == null) voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
+    mg.setPlayingTitle(sq.youtube.title);
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
             let sqa = mg.queue[0];
