@@ -99,7 +99,6 @@ async function play(msg) {
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
             let sqa = mg.queue[0];
-            console.log(sqa);
             mg.setPlaying(false);
             if (sqa == null) {
                 voiceChannel.disconnect();

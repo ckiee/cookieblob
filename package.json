@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
   "dependencies": {
+    "death": "^1.1.0",
     "discord.js": "github:hydrabolt/discord.js",
     "glob": "^7.1.2",
-    "node-opus": "^0.2.7",
     "random-animal": "^1.0.7",
     "request": "^2.83.0",
     "rethinkdb": "^2.3.3",
