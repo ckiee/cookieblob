@@ -12,7 +12,7 @@ module.exports = {
         if (!mg.playing) return msg.channel.send(":x: There is nothing to show!");
         let discordBlock = '```'
         let content = `${discordBlock}
-Now playing: ${mg.getPlayingTitle==""?"Unknown":mg.getPlayingTitle()}`;
+Now playing: ${mg.getPlayingTitle()==""?"Unknown":mg.getPlayingTitle()}`;
         mg.queue.forEach((v, i)=>{
             content+=`\n${v.youtube.title}`;
         });
