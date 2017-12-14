@@ -99,6 +99,7 @@ async function play(msg) {
     console.log('playing', sq==null?'sqisnull':'notnull'+sq.youtube.link);
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
+            console.log('ended');
             let sqa = mg.queue[0];
             mg.setPlaying(false);
             if (sqa == null) {
