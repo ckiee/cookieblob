@@ -20,8 +20,8 @@ Now playing: ${mg.getPlayingTitle==""?"Unknown":mg.getPlayingTitle}`;
         msg.channel.send(content);
     },
     meta: {
-        name: "skip",
-        description: "🎵 Skip the currently playing music.",
+        name: "quee",
+        description: "🎵 See all music in the queue.",
         usage: [],
         permissionLevel:0,
         guildOnly:true
