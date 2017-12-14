@@ -7,13 +7,15 @@ const client = new Discord.Client();
 const config = getConfig();
 const childprocess = require("child_process");
 const glob = require("glob");
-const death = require("death");
 const r = require('rethinkdb');
 process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
-death( async (signal, err)=>{
-    await client.destroy();
+process.stdin.resume();
+process.on('SIGINT', function () {
+  console.log("Safely destroyed discord client!");
+  client.destroy();
+  process.exit();
 });
 const datastorage = require("./datastorage");
 r.connect({db:"cookieblob"}).then(rethinkConnection=>{

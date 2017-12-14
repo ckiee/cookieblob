@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
   "dependencies": {
-    "death": "^1.1.0",
     "discord.js": "github:hydrabolt/discord.js",
     "glob": "^7.1.2",
     "random-animal": "^1.0.7",
