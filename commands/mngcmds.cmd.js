@@ -25,10 +25,10 @@ module.exports = {
             break;
 
             case "reload":
-            let cmdModule = reload(`./${args[1]}.cmd.js`);
-            cookieblob.commands[cmdModule.meta.name] = cmdModule;
-            console.log(`${msg.author.tag} reloaded command ${cmdModule.meta.name}`);
-            msg.channel.send(`:ok_hand: reloaded command ${cmdModule.meta.name}!`);
+            let cmdModuleR = reload(`./${args[1]}.cmd.js`);
+            cookieblob.commands[cmdModuleR.meta.name] = cmdModuleR;
+            console.log(`${msg.author.tag} reloaded command ${cmdModuleR.meta.name}`);
+            msg.channel.send(`:ok_hand: reloaded command ${cmdModuleR.meta.name}!`);
             break;
 
             default:
