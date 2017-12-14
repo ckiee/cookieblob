@@ -96,7 +96,7 @@ async function play(msg) {
     if (voiceChannel == null) voiceChannel = await msg.member.voiceChannel.join();
     let sq = mg.shiftQueue();
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
-    console.log('playing ', sq==null?'sqisnull':'notnull');
+    console.log('playing', sq==null?'sqisnull':'notnull'+sq.youtube.link);
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
             let sqa = mg.queue[0];
