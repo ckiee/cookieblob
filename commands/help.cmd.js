@@ -1,6 +1,11 @@
 const cookieblob = require("../cookieblob");
-const MessageEmbed = require("discord.js").MessageEmbed;
+const {MessageEmbed, Message, Client} = require("discord.js");
 module.exports = {
+    /**
+     * @argument {Message} msg
+     * @argument {Client} client
+     * @argument {Array<String>} args 
+     */
     run: async (msg, args, client) => {
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
@@ -8,6 +13,7 @@ module.exports = {
             .setTimestamp(new Date())
         Object.keys(cookieblob.commands).forEach( key => {
             let cmd = cookieblob.getCommand(key);
+            if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID) return;
             embed.addField(key,`Description: \`${cmd.meta.description}\` 
 Usage: \`${require("../util").renderUsage(key)}\``);
         });
