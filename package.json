@@ -24,6 +24,7 @@
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
     "glob": "^7.1.2",
+    "opusscript": "0.0.6",
     "random-animal": "^1.0.7",
     "request": "^2.83.0",
     "rethinkdb": "^2.3.3",
