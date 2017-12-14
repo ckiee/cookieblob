@@ -20,7 +20,7 @@ Now playing: ${mg.getPlayingTitle==""?"Unknown":mg.getPlayingTitle}`;
         msg.channel.send(content);
     },
     meta: {
-        name: "quee",
+        name: "queue",
         description: "🎵 See all music in the queue.",
         usage: [],
         permissionLevel:0,
