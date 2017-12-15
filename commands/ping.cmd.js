@@ -5,7 +5,7 @@ module.exports = {
     },
     meta: {
         name: "ping",
-        description: ":ping_pong:",
+        description: "🏓",
         usage: [],
         permissionLevel:0,
         guildOnly:false
