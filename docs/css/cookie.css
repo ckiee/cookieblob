@@ -1,9 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Spectral+SC');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:600');
 html {
-    @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-    @import url('https://fonts.googleapis.com/css?family=Spectral+SC');
-    @import url('https://fonts.googleapis.com/css?family=Ubuntu');
-    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:600');
     
     --sunflower: #f1c40f;
     --orange: #f39c12;
@@ -32,8 +32,6 @@ body {
     animation-iteration-count: infinite;
 }
 
-#blob-title:hover {
-}
 
 @keyframes title {
     0% { color: orange; }
@@ -45,9 +43,7 @@ body {
     100%{ color: orange; }
 }
 
-#blob-logo {
-    
-}
+
 
 #blob-invite {
     font-family: "Montserrat", sans-serif;
