@@ -1,5 +1,4 @@
 const cookieblob = require("../cookieblob");
-const reload = require("require-reload")(requrie);
 const datastorage = require("../datastorage");
 const {Message, Client} = require("discord.js");
 module.exports = {
@@ -25,8 +24,9 @@ module.exports = {
             break;
 
             case "reload":
-            console.log(`./${args[1]}.cmd.js`);
-            let cmdModuleR = reload(`./${args[1]}.cmd.js`);
+            let mPath = `./${args[1]}.cmd.js`;
+            delete require.cache[require.resolve(mPath)];  
+            let cmdModuleR = require(mPath);
             cookieblob.commands[cmdModuleR.meta.name] = cmdModuleR;
             console.log(`${msg.author.tag} reloaded command ${cmdModuleR.meta.name}`);
             msg.channel.send(`:ok_hand: reloaded command ${cmdModuleR.meta.name}!`);
