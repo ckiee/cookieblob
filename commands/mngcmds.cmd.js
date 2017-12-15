@@ -1,5 +1,5 @@
 const cookieblob = require("../cookieblob");
-const reload = require("reload-require");
+const reload = require("require-reload")(requrie);
 const datastorage = require("../datastorage");
 const {Message, Client} = require("discord.js");
 module.exports = {
