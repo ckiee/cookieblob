@@ -1,0 +1,218 @@
+html {
+    @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    @import url('https://fonts.googleapis.com/css?family=Spectral+SC');
+    @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:600');
+    
+    --sunflower: #f1c40f;
+    --orange: #f39c12;
+    
+    --carrot: #e67e22;
+    --pumpkin: #d35400;
+    
+    background-color: rgb(245, 245, 245);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    margin-top: calc(0% + 175px);
+    text-align: center;
+    padding-bottom: 250px;
+}
+
+#blob-title {
+    font-family: "Open Sans", sans-serif;
+    animation-name: title;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+#blob-title:hover {
+}
+
+@keyframes title {
+    0% { color: orange; }
+    10% { color: orangered; }
+    40% { color: red; }
+    50% { color: darkred; }
+    60% { color: red; }
+    90% { color: orangered; }
+    100%{ color: orange; }
+}
+
+#blob-logo {
+    
+}
+
+#blob-invite {
+    font-family: "Montserrat", sans-serif;
+    margin-top: -10px;
+    color: white;
+    border-radius: 10px;
+    border-color: var(--carrot);
+    border-width: 10px;
+    border-style: dotted;
+    background-color: var(--carrot);
+    color: black;
+    transition: 1s;
+}
+
+#blob-invite:hover {
+    border-color: var(--sunflower);
+    border-width: 10px;
+    border-style: dotted;
+    background-color: var(--sunflower);
+    color: white;
+    transition: .5s;
+    
+    
+}
+
+#nav-blob {
+    list-style: none;
+    overflow: auto;
+    background-color:  var(--orange);
+    margin: 0;
+    height: 100%;
+}
+
+#nav-blob li.right {
+    float: right;
+}
+
+#nav-blob li.left {
+    float: left;
+}
+
+#nav-blob li a.text {
+    font-family: "Open Sans", sans-serif;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 32px 32px;
+    transition: .5s;
+}
+
+#nav-blob li a.active {
+    background-color: var(--carrot);
+}
+
+#nav-blob li a.image img {
+    margin-top: 8px;
+    margin-right: 100px;
+}
+
+#nav-title {
+    position: inherit;
+}
+
+#nav-blob li a.text:hover {
+    background-color: var(--carrot);
+}
+
+a {
+    text-decoration: none;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    height: 250px;   /* Height of the footer */
+    background: #34495e;
+    text-align: center;
+}
+
+#credits {
+    position: relative;
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    padding-top: 25px;
+}
+
+#credits a {
+    color: white;
+    text-decoration: underline;
+}
+
+#copyright {
+    position: relative;
+    color: lightgray;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-top: 155px;
+}
+
+#about {
+    font-size: 32px;
+    margin-top: -5px;
+    font-family: "Open Sans", sans-serif;
+}
+
+#about-text {
+    font-size: 18px;
+    font-family: "Open Sans", sans-serif;
+    margin-top: -25px;
+}
+
+.circle
+    {
+    width:100px;
+    height:100px;
+    border-radius:250px;
+    font-size:25px;
+    color: var(--pumpkin);
+    line-height:100px;
+    text-align:center;
+    border: 3px solid var(--pumpkin);
+    position:relative;
+        display: inline-block;
+        font-family: "Open Sans", sans-serif;
+    }
+
+.contact {
+    position: absolute;
+    padding-left: 500px;
+    font-family: "Open Sans", sans-serif;
+    color: white;
+}
+
+.contact-list {
+    list-style: none;
+    margin-left: calc(50% - 180px);
+}
+
+.contact-item {
+    display: inline;
+}
+
+.fa {
+    position: relative;
+    padding-top: 10px;
+    float: left;
+    padding-left: 50px;
+    font-size: 5px;
+    width: 10px;
+    text-decoration: none;
+}
+.fa:hover {
+    opacity: 0.7;
+}
+.fa-twitter {
+    color: white;
+}
+.fa-github {
+    color: white;
+}
+
+.fa-envelope {
+    color: white;
+}
+
+.fa-info {
+    color:  white;
+}
