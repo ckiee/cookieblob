@@ -25,6 +25,7 @@ module.exports = {
             break;
 
             case "reload":
+            console.log(`./${args[1]}.cmd.js`);
             let cmdModuleR = reload(`./${args[1]}.cmd.js`);
             cookieblob.commands[cmdModuleR.meta.name] = cmdModuleR;
             console.log(`${msg.author.tag} reloaded command ${cmdModuleR.meta.name}`);
