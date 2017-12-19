@@ -20,14 +20,14 @@ module.exports = {
             return;
         }
         let initalCount = count;
-        let m = await msg.channel.send(`:timer: ${count}`);
+        let m = await msg.channel.send(`:timer: ${count}.`);
         async function handle() {
             if (count < 1) {
                 await m.edit(`:ok_hand: Your countdown to ${initalCount} has finished.`);
                 msg.channel.send(`<@${msg.author.id}> ^`);
             } else {
                 count--;
-                await msg.edit(`:timer: ${count}`);
+                await m.edit(`:timer: ${count}.`);
                 setTimeout(handle, 1000);
             }
         }
