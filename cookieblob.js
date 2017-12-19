@@ -37,6 +37,8 @@ function postStatsOnAllSites() {
     postBotStats("bots.discord.pw", config.botsdiscordpwToken);
     postBotStats("discordbots.org", config.discordbotsorgToken);
 }
+client.on('guildCreate', postStatsOnAllSites);
+client.on('guildRemove', postStatsOnAllSites);
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
@@ -45,6 +47,7 @@ client.on('ready',()=>{
     }
     ug();
     setInterval(ug, 1000*60*5);
+    postStatsOnAllSites();
 });
 client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
