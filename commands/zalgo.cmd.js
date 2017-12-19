@@ -1,4 +1,5 @@
 const {Client, Message}  = require("discord.js");
+const zalgo = require("to-zalgo");
 module.exports = {
                 /**
      * @param {Message} msg
@@ -6,12 +7,12 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        let m = await msg.channel.send("Pong! :ping_pong:");
-        m.edit(`Pong! :ping_pong: (Roundtrip: ${m.createdTimestamp - msg.createdTimestamp}ms | One-way: ${~~client.ping}ms)`);
+        let c = zalgo(args.join(" "));
+        msg.channel.send(`Zalgoified: *\`${c}\`*`);
     },
     meta: {
-        name: "ping",
-        description: "🏓",
+        name: "zalgo",
+        description: "Convert normal text into zalgo text.",
         usage: [],
         permissionLevel:0,
         guildOnly:false

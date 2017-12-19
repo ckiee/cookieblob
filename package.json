@@ -28,6 +28,7 @@
     "random-animal": "^1.0.7",
     "request": "^2.83.0",
     "rethinkdb": "^2.3.3",
+    "to-zalgo": "^1.0.1",
     "youtube-search": "^1.0.10",
     "ytdl-core": "^0.18.3"
   }
