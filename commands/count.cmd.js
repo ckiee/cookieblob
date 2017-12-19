@@ -21,7 +21,7 @@ module.exports = {
         }
         let initalCount = count;
         let m = await msg.channel.send(`:timer: ${count}`);
-        function handle() {
+        async function handle() {
             if (count < 1) {
                 await m.edit(`:ok_hand: Your countdown to ${initalCount} has finished.`);
                 msg.channel.send(`<@${msg.author.id}> ^`);
