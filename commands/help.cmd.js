@@ -7,16 +7,16 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
+        let c = Object.keys(cookieblob.commands).map(v => cookieblob.getCommand(v))
+        .filter(x => cmd.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID)
+        .map(c =>`***${c.meta.name}***\nDescription: \`${cmd.meta.description}\` 
+Usage: \`${require("../util").renderUsage(key)}\``).join("\n\n");
+
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
             .setColor(0xffc300)
             .setTimestamp(new Date())
-        Object.keys(cookieblob.commands).forEach( key => {
-            let cmd = cookieblob.getCommand(key);
-            if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID) return;
-            embed.addField(key,`Description: \`${cmd.meta.description}\` 
-Usage: \`${require("../util").renderUsage(key)}\``);
-        });
+            .setDescription(c);
         msg.channel.send(embed);
     },
     meta: {
