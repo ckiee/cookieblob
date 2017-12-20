@@ -11,7 +11,7 @@ module.exports = {
         if (!msg.guild.me.hasPermission("MANAGE_MESSAGES")) return msg.channel.send(":x: I need `Manage Messages` permissions for this! (So I can remove your reactions for my page system!)");
         const abandonTime = 120000;//ms
         const cpp = 10; // commands per page
-        const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel == "botAdmin" || cm.meta.permissionLevel == "botOwner");
+        const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin" || cm.meta.permissionLevel != "botOwner");
         let currentPage = 0;
         const controlArrow = "arrow_forward"; // ▶
         async function makeEmbed(page) {
