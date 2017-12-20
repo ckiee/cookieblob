@@ -13,7 +13,8 @@ module.exports = {
             .setColor(0xffc300)
             .setTimestamp(new Date())
             .setDescription(c);
-        msg.channel.send(embed);
+        let m = await msg.channel.send(embed);
+        m.delete(60000);
     },
     meta: {
         name: "help",
