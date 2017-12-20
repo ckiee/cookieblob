@@ -18,7 +18,7 @@ module.exports = {
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, cpp);
             let embed = new MessageEmbed()
-            .setAuthor("Cookieblob command list",msg.author.avatarURL)
+            .setAuthor("Cookieblob command list - Page "+currentPage+1,msg.author.avatarURL)
             .setColor(0xffc300)
             .setTimestamp(new Date());
             pageCmds.forEach(cmd => {
@@ -29,15 +29,20 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         }
         let m = await msg.channel.send(await makeEmbed(currentPage/*should be 0*/));
         async function makeCollector() {
-        msg.channel.send("[DEBUG] started collector function PAGE"+currentPage);
         await m.react(controlArrow);
         const collector = m.createReactionCollector(
             (reaction, user) => reaction.emoji.name == controlArrow && user.id != m.author.id,
             {time: abandonTime}
         );
         collector.on('collect', async r => {
-            msg.channel.send(`[DEBUG] COLLECTED! me=${r.me}`);
             collector.stop("ignoreMeCookieblob");
+            let nextPage = currentPage + 1;
+            let pageCmds = commands.slice(page*cpp, cpp);
+            if (pageCmds.length == 0) {
+                let xOm = await msg.channel.send(`:x: This page is the last page.`);
+                await r.remove(msg.author);
+                setTimeout(xOm.delete, abandonTime/4);
+            }
             currentPage++;
             await r.remove(msg.author);
             await m.edit(await makeEmbed(currentPage));
