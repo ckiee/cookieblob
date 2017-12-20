@@ -20,7 +20,7 @@ Afk Channel \`${g.afkChannel?g.afkChannel.name:"*none*"}\`
 Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}\`
 Emojis \`${g.emojis.map(v => `<:${v.name}:${v.id}>`).join(", ")}\`
 Region \`${g.region}\`
-Special Features \`${g.features.map(v => v.toLowerCase()).join(", ")}\``
+Special Features \`${g.features.map(v => v.toLowerCase()).join(", ")==""?g.features.map(v => v.toLowerCase()).join(", "):"***none***"}\``
         )
     );
     },
