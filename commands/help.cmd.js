@@ -7,10 +7,7 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
-        let c = Object.keys(cookieblob.commands).map(v => cookieblob.getCommand(v))
-        .filter(x => x.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID)
-        .map(c =>`***${c.meta.name}***\nDescription: \`${c.meta.description}\` 
-Usage: \`${require("../util").renderUsage(c.meta.name)}\``).join("\n\n");
+        let c = Object.keys(cookieblob.commands).map(v => cookieblob.getCommand(v)).filter(x => x.meta.permissionLevel == "botOwner").map(c =>`***${c.meta.name}***\nDescription: \`${c.meta.description}\` Usage: \`${require("../util").renderUsage(c.meta.name)}\``).join("\n\n");
         console.log('!helpcmd!',c);
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
