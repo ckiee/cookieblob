@@ -12,7 +12,6 @@ module.exports = {
         const abandonTime = 120000;//ms
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin" || cm.meta.permissionLevel != "botOwner");
-        msg.channel.send("[debug] amount of commands "+commands.length);
         let currentPage = 0;
         const controlArrow = "▶";
         const backwardsArrow = "◀";
@@ -48,7 +47,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
                 setTimeout(async()=>{await xOm.delete();}, abandonTime/4);
                 return;
             }
-            currentPage++;
+            if (backwards) currentPage--; else currentPage++;
             await r.remove(msg.author);
             await m.edit(await makeEmbed(currentPage));
             await makeCollector(backwards);
