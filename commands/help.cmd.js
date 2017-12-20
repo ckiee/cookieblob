@@ -16,6 +16,7 @@ module.exports = {
         const controlArrow = "▶";
         const backwardsArrow = "◀";
         async function makeEmbed(page) {
+            console.log('got called with page', page);
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, cpp);
             let embed = new MessageEmbed()
@@ -39,7 +40,6 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         collector.on('collect', async r => {
             let nextPage = backwards ? currentPage - 1: currentPage + 1;
             let pageCmds = commands.slice(nextPage*cpp, nextPage*cpp + cpp);
-            console.log(pageCmds.map(xc => xc.meta.name));
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
                 await r.remove(msg.author);
