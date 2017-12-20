@@ -14,6 +14,7 @@ module.exports = {
             .setTimestamp(new Date())
             .setDescription(c);
         let m = await msg.channel.send(embed);
+        if (msg.deleteable) msg.delete();
         setTimeout(()=>{
             m.delete();
         },60000);
