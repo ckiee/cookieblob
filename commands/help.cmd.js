@@ -32,7 +32,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         msg.channel.send("[DEBUG] started collector function PAGE"+currentPage);
         await m.react(controlArrow);
         const collector = m.createReactionCollector(
-            (reaction, user) => reaction.emoji.name == controlArrow && user.id == m.author.id,
+            (reaction, user) => reaction.emoji.name == controlArrow && user.id != m.author.id,
             {time: abandonTime}
         );
         collector.on('collect', async r => {
