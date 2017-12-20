@@ -13,14 +13,14 @@ module.exports = {
         .setThumbnail(g.iconURL)
         .setColor(0x0ea5d3)
         .setDescription(
-`Member count ${g.memberCount}
-Guild Leader ${g.owner.user.tag} (${g.ownerID})
-Roles (${g.roles.size}) ${g.roles.map(v => v.name).join(", ")}
-Afk Channel ${g.afkChannel?g.afkChannel.name:"*none*"}
-Channels (${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}
-Emojis ${g.emojis.map(v => v.name).join(", ")}
-Region ${g.region}
-Special Features ${g.features.map(v => v.toLowerCase()).join(", ")}`
+`Member count \`${g.memberCount}\`
+Guild Leader \`${g.owner.user.tag} (${g.ownerID})\`
+Roles \`(${g.roles.size}) ${g.roles.map(v => v.name).join(", ")}\`
+Afk Channel \`${g.afkChannel?g.afkChannel.name:"*none*"}\`
+Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}\`
+Emojis \`${g.emojis.map(v => v.name).join(", ")}\`
+Region \`${g.region}\`
+Special Features \`${g.features.map(v => v.toLowerCase()).join(", ")}\``
         )
     );
     },
