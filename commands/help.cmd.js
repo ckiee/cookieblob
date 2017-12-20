@@ -8,9 +8,9 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         let c = Object.keys(cookieblob.commands).map(v => cookieblob.getCommand(v))
-        .filter(x => cmd.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID)
-        .map(c =>`***${c.meta.name}***\nDescription: \`${cmd.meta.description}\` 
-Usage: \`${require("../util").renderUsage(key)}\``).join("\n\n");
+        .filter(x => x.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID)
+        .map(c =>`***${c.meta.name}***\nDescription: \`${c.meta.description}\` 
+Usage: \`${require("../util").renderUsage(c.meta.name)}\``).join("\n\n");
 
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
