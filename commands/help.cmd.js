@@ -14,7 +14,9 @@ module.exports = {
             .setTimestamp(new Date())
             .setDescription(c);
         let m = await msg.channel.send(embed);
-        m.delete(60000);
+        setTimeout(()=>{
+            m.delete();
+        },60000);
     },
     meta: {
         name: "help",
