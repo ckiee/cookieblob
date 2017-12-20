@@ -29,6 +29,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         }
         let m = await msg.channel.send(await makeEmbed(currentPage/*should be 0*/));
         async function makeCollector() {
+        msg.channel.send("[DEBUG] started collector function");
         await m.react(controlArrow);
         const collector = msg.createReactionCollector(
             (reaction, user) => reaction.emoji.name == controlArrow && user.id == msg.author.id,
