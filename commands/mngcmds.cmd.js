@@ -41,7 +41,7 @@ module.exports = {
         name: "mngcmds",
         description: "Manage commands.",
         usage: ["load/reload","load:name/reload:name"],
-        permissionLevel:"botOwner",
+        permissionLevel:"botAdmin",
         guildOnly:false
     }
 }

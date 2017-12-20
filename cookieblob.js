@@ -57,6 +57,7 @@ client.on('message', async msg => { // Command handler on-message listener
     let args = msg.content.split(" ").slice(1);
     if (cmd == null) return;
     if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
+    if (cmd.meta.permissionLevel == "botAdmin" && config.admins.indexOf(msg.author.id)==-1) return msg.channel.send(":x: No permission!");
     if (msg.guild) {
        let gd = await datastorage.getGuildData(msg.guild.id);
        let modRole = gd.guildData.modRole;
