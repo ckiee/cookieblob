@@ -59,6 +59,16 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
     }
     await makeCollector(true);
     await makeCollector(false);
+    const xEmote = "❌";
+    m.react(xEmote);
+    const xColl = m.createReactionCollector(
+        (reaction, user) => reaction.emoji.name == xEmote && user.id != m.author.id,
+        {time: abandonTime}
+    );
+    xColl.on('collect', async xG => {
+        if (msg.deletable) msg.delete("user request");
+        m.delete();
+    });
     },
     meta: {
         name: "help",
