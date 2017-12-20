@@ -27,7 +27,7 @@ module.exports = {
             });
             return embed;
         }
-        let m = await msg.channel.send(makeEmbed(currentPage/*should be 0*/));
+        let m = await msg.channel.send(await makeEmbed(currentPage/*should be 0*/));
         async function makeCollector() {
         const collector = msg.createReactionCollector(
             (reaction, user) => reaction.emoji.name == controlArrow && user.id == msg.author.id,
