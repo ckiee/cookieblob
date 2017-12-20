@@ -37,16 +37,16 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             {time: abandonTime}
         );
         collector.on('collect', async r => {
-            collector.stop("ignoreMeCookieblob");
             let nextPage = backwards ? currentPage - 1: currentPage + 1;
             let pageCmds = commands.slice(nextPage*cpp, nextPage*cpp + cpp);
             console.log(pageCmds.map(xc => xc.meta.name));
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
                 await r.remove(msg.author);
-                setTimeout(async()=>{await xOm.delete();}, abandonTime/4);
+                setTimeout(async()=>{await xOm.delete();}, 1000*30);
                 return;
             }
+            collector.stop("ignoreMeCookieblob");
             if (backwards) currentPage--; else currentPage++;
             await r.remove(msg.author);
             await m.edit(await makeEmbed(currentPage));
