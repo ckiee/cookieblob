@@ -8,7 +8,6 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         let c = Object.keys(cookieblob.commands).map(v => cookieblob.getCommand(v)).filter(x => x.meta.permissionLevel != "botOwner").map(c =>`***${c.meta.name}***\nDescription: \`${c.meta.description}\` Usage: \`${require("../util").renderUsage(c.meta.name)}\``).join("\n\n");
-        console.log('!helpcmd!',c);
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
             .setColor(0xffc300)
