@@ -17,8 +17,7 @@ module.exports = {
         const backwardsArrow = "◀";
         async function makeEmbed(page) {
             let startFrom = page*cpp;
-            let pageCmds = commands.slice(startFrom, startFrom*cpp + cpp);
-            console.log(startFrom, startFrom*cpp + cpp);
+            let pageCmds = commands.slice(startFrom, startFrom + cpp);
             let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
             .setColor(0xffc300)
