@@ -17,7 +17,7 @@ module.exports = {
         const backwardsArrow = "◀";
         async function makeEmbed(page) {
             let startFrom = page*cpp;
-            let pageCmds = commands.slice(startFrom, cpp);
+            let pageCmds = commands.slice(startFrom, nextPage*cpp + cpp);
             let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
             .setColor(0xffc300)
@@ -49,7 +49,6 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             if (backwards) currentPage--; else currentPage++;
             await r.remove(msg.author);
             let newEmbed = await makeEmbed(currentPage);
-            console.log(newEmbed);
             await m.edit(newEmbed);
             await makeCollector(backwards);
         });
