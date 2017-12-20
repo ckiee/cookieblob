@@ -11,7 +11,7 @@ module.exports = {
         .filter(x => x.meta.permissionLevel == "botOwner" && msg.author.id != cookieblob.config.ownerID)
         .map(c =>`***${c.meta.name}***\nDescription: \`${c.meta.description}\` 
 Usage: \`${require("../util").renderUsage(c.meta.name)}\``).join("\n\n");
-
+        console.log('!helpcmd!',c);
         let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list",msg.author.avatarURL)
             .setColor(0xffc300)
