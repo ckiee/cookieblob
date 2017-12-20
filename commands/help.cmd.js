@@ -36,9 +36,10 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             {time: abandonTime}
         );
         collector.on('collect', async r => {
-            msg.channel.send("[DEBUG] COLLECTED!");
+            msg.channel.send(`[DEBUG] COLLECTED! me=${r.me}`);
             collector.stop("ignoreMeCookieblob");
             currentPage++;
+            await r.remove(msg.author);
             await m.edit(await makeEmbed(currentPage));
             await makeCollector();
         });
