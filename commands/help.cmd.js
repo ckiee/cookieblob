@@ -13,7 +13,7 @@ module.exports = {
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin" || cm.meta.permissionLevel != "botOwner");
         let currentPage = 0;
-        const controlArrow = "arrow_forward"; // ▶
+        const controlArrow = "▶";
         async function makeEmbed(page) {
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, cpp);
@@ -31,8 +31,8 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         async function makeCollector() {
         msg.channel.send("[DEBUG] started collector function");
         await m.react(controlArrow);
-        const collector = msg.createReactionCollector(
-            (reaction, user) => reaction.emoji.name == controlArrow && user.id == msg.author.id,
+        const collector = m.createReactionCollector(
+            (reaction, user) => reaction.emoji.name == controlArrow && user.id == m.author.id,
             {time: abandonTime}
         );
         collector.on('collect', async r => {
