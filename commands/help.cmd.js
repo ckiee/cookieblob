@@ -16,7 +16,6 @@ module.exports = {
         const controlArrow = "▶";
         const backwardsArrow = "◀";
         async function makeEmbed(page) {
-            console.log('got called with page', page);
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, cpp);
             let embed = new MessageEmbed()
@@ -49,7 +48,9 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             collector.stop("ignoreMeCookieblob");
             if (backwards) currentPage--; else currentPage++;
             await r.remove(msg.author);
-            await m.edit(await makeEmbed(currentPage));
+            let newEmbed = await makeEmbed(currentPage);
+            console.log(newEmbed);
+            await m.edit(newEmbed);
             await makeCollector(backwards);
         });
         collector.on('end', async (coll, reason) => {
