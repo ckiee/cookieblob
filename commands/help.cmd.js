@@ -42,6 +42,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
                 let xOm = await msg.channel.send(`:x: This page is the last page.`);
                 await r.remove(msg.author);
                 setTimeout(xOm.delete, abandonTime/4);
+                return;
             }
             currentPage++;
             await r.remove(msg.author);
