@@ -13,7 +13,6 @@ module.exports = {
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin" || cm.meta.permissionLevel != "botOwner");
         msg.channel.send("[debug] amount of commands "+commands.length);
-        console.log(commands);
         let currentPage = 0;
         const controlArrow = "▶";
         const backwardsArrow = "◀";
@@ -42,6 +41,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             collector.stop("ignoreMeCookieblob");
             let nextPage = backwards ? currentPage - 1: currentPage + 1;
             let pageCmds = commands.slice(nextPage*cpp, nextPage*cpp + cpp);
+            console.log(pageCmds);
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
                 await r.remove(msg.author);
