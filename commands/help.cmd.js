@@ -18,7 +18,7 @@ module.exports = {
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, cpp);
             let embed = new MessageEmbed()
-            .setAuthor("Cookieblob command list - Page "+currentPage+1,msg.author.avatarURL)
+            .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
             .setColor(0xffc300)
             .setTimestamp(new Date());
             pageCmds.forEach(cmd => {
@@ -37,7 +37,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         collector.on('collect', async r => {
             collector.stop("ignoreMeCookieblob");
             let nextPage = currentPage + 1;
-            let pageCmds = commands.slice(page*cpp, cpp);
+            let pageCmds = commands.slice(nextPage*cpp, cpp);
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the last page.`);
                 await r.remove(msg.author);
