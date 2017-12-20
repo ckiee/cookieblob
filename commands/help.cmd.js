@@ -33,7 +33,7 @@ module.exports = {
             (reaction, user) => reaction.emoji.name == controlArrow && user.id == msg.author.id,
             {time: abandonTime}
         );
-        collector.on('collect', r => {
+        collector.on('collect', async r => {
             collector.stop("ignoreMeCookieblob");
             currentPage++;
             await m.edit(await makeEmbed(currentPage));
