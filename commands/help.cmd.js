@@ -42,7 +42,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             collector.stop("ignoreMeCookieblob");
             let nextPage = backwards ? currentPage - 1: currentPage + 1;
             let pageCmds = commands.slice(nextPage*cpp, cpp);
-            console.log('pageCmds');
+            console.log('pageCmds',nextPage*cpp,cpp);
             console.log(pageCmds);
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
