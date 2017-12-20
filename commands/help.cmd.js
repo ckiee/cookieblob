@@ -11,13 +11,14 @@ module.exports = {
         if (!msg.guild.me.hasPermission("MANAGE_MESSAGES")) return msg.channel.send(":x: I need `Manage Messages` permissions for this! (So I can remove your reactions for my page system!)");
         const abandonTime = 120000;//ms
         const cpp = 10; // commands per page
-        const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin" || cm.meta.permissionLevel != "botOwner");
+        const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
         let currentPage = 0;
         const controlArrow = "▶";
         const backwardsArrow = "◀";
         async function makeEmbed(page) {
             let startFrom = page*cpp;
             let pageCmds = commands.slice(startFrom, startFrom*cpp + cpp);
+            console.log(startFrom, startFrom*cpp + cpp);
             let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
             .setColor(0xffc300)
