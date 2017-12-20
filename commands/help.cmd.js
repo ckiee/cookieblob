@@ -23,17 +23,19 @@ module.exports = {
             .setTimestamp(new Date());
             pageCmds.forEach(cmd => {
                 embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
-                Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);                
+Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);                
             });
             return embed;
         }
         let m = await msg.channel.send(await makeEmbed(currentPage/*should be 0*/));
         async function makeCollector() {
+        await m.react(controlArrow);
         const collector = msg.createReactionCollector(
             (reaction, user) => reaction.emoji.name == controlArrow && user.id == msg.author.id,
             {time: abandonTime}
         );
         collector.on('collect', async r => {
+            msg.channel.send("[DEBUG] COLLECTED!");
             collector.stop("ignoreMeCookieblob");
             currentPage++;
             await m.edit(await makeEmbed(currentPage));
