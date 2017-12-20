@@ -41,9 +41,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
         collector.on('collect', async r => {
             collector.stop("ignoreMeCookieblob");
             let nextPage = backwards ? currentPage - 1: currentPage + 1;
-            let pageCmds = commands.slice(nextPage*cpp, cpp);
-            console.log('pageCmds',nextPage*cpp,cpp);
-            console.log(pageCmds);
+            let pageCmds = commands.slice(nextPage*cpp, nextPage*cpp + cpp);
             if (pageCmds.length == 0) {
                 let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
                 await r.remove(msg.author);
