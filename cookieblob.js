@@ -18,9 +18,11 @@ process.on('SIGINT', function () {
   process.exit();
 });
 const datastorage = require("./datastorage");
+let connection; 
 r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     module.exports.rethinkConnection = rethinkConnection;
     datastorage.updateLocalConnection(rethinkConnection);
+    connection = rethinkConnection;
 });
 function postBotStats(base, token) {
     request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
@@ -71,6 +73,18 @@ client.on('message', async msg => { // Command handler on-message listener
 
     if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     
+    //make sure we dont block the entire thing.
+    (async()=>{
+    const table = r.table("cmdusages");
+    let curr = await table.get(cmd.meta.name).run(connection);
+    if (curr == null) {
+        await table.insert({id:cmd.meta.name, count:1}).run(connection);
+    } else {
+        curr.count++;
+        await table.get(cmd.meta.name).update(curr).run(connection);
+    }
+})();
+
     try { cmd.run(msg, args, client); } catch (error) {
         msg.channel.send(new MessageEmbed()
         .setColor(0xed1a07)
