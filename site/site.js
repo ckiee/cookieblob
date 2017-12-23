@@ -2,7 +2,7 @@ const express = require("express");
 let app = express();
 app.set('view engine', 'ejs');
 app.get("/", (req, res)=>{
-    res.render("index.ejs")
+    res.render("index.ejs", {guildAmount:require("../cookieblob").client.guilds.size});
 });
 app.use(express.static("static"));
 app.listen(8085, function() {
