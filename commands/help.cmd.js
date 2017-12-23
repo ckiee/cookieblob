@@ -15,11 +15,57 @@ module.exports = {
         let currentPage = 0;
         const controlArrow = "▶";
         const backwardsArrow = "◀";
-        let embed = new MessageEmbed()
-        .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
-        .setColor(0xffc300)
-        .setTimestamp(new Date());
         const xEmote = "❌";
+        async function makeEmbed() {
+            let startFrom = currentPage*cpp;
+            let pageCmds = commands.slice(startFrom, startFrom + cpp);
+            let embed = new MessageEmbed()
+            .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
+            .setColor(0xffc300)
+            .setTimestamp(new Date());
+            pageCmds.forEach(cmd => {
+                embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
+                Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
+            });
+            return embed;
+        }
+        let emB = await makeEmbed();
+        let m = await msg.channel.send(emB);
+        await m.react(controlArrow);
+        await m.react(backwardsArrow);
+        await m.react(xEmote);
+        async function movePage(backwards) {
+            if (backwards) currentPage--;
+            else currentPage++;
+            let emBn = await makeEmbed();
+            await m.edit(emBn);
+        }
+        async function makePageMoveCollector(backwards) {
+            let collector = m.createReactionCollector(
+                (reaction, user) => reaction.emoji.name == backwards?backwardsArrow:controlArrow && user.id === msg.author.id,
+                {time:abandonTime}
+            );
+            collector.on('collect', async r => {
+                await movePage(backwards);
+            });
+            collector.on('end', async collected => {
+               await m.delete(); 
+            });
+        }
+
+        await makePageMoveCollector(true);
+        await makePageMoveCollector(false);
+        let exitCollector = m.createReactionCollector(
+            (reaction, user) => reaction.emoji.name == xEmote && user.id === msg.author.id,
+            {time:abandonTime}
+        );
+        collector.on('collect', async r => {
+            if (msg.deletable) await msg.delete();
+            if (m.deleteable) await m.delete();
+        });
+        collector.on('end', async collected => {
+           await m.delete(); 
+        });
     },
     meta: {
         name: "help",
