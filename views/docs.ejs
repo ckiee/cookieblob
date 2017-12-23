@@ -8,7 +8,7 @@
         <h1><a href="/">Home</a></h1>
         <h3>Cookieblob Docs</h3>
         <p><%-
-        commands.map(cmd => `cb!${cmd.meta.name} - Usage: ${renderUsage(cmd.meta.name)} - Description: ${cmd.meta.description}`).join("<br>")
+        commands.map(cmd => `cb!${cmd.meta.name} - Description: ${cmd.meta.description} - Usage: ${renderUsage(cmd.meta.name)}`).join("<br><br>")
         %></p>
     </body>
 </html>
