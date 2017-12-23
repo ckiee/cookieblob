@@ -27,7 +27,18 @@ function renderUsage(cmdName) {
     });
     return ubu;
 }
+
+        /**
+         * 
+         * @param {String} str
+         * @returns {String} 
+         */
+        function filter(str) {
+            const r = "[REDACTED]";
+            return str.split(cookieblob.config.botsdiscordpwToken).join(r).split(cookieblob.config.discordbotsorgToken).join(r).split(cookieblob.config.ytKey).join(r).split(cookieblob.config.token).join(r);
+        } 
 module.exports = {
     invalidUsageEmbed: invalidUsageEmbed,
-    renderUsage: renderUsage
+    renderUsage: renderUsage,
+    filter:filter
 }

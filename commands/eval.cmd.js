@@ -2,16 +2,8 @@ const cookieblob = require("../cookieblob");
 const datastorage = require("../datastorage");
 module.exports = {
     run: async (msg, args, client) => {
-        /**
-         * 
-         * @param {String} str
-         * @returns {String} 
-         */
-        function filter(str) {
-            const r = "[REDACTED]";
-            return str.split(cookieblob.config.botsdiscordpwToken).join(r).split(cookieblob.config.discordbotsorgToken).join(r).split(cookieblob.config.ytKey).join(r).split(cookieblob.config.token).join(r);
-        } 
         try {
+            const filter = require("../util").filter;
         const toEval = args.join(" ");
         let result = eval(toEval);
         if (typeof result != "string") result = require("util").inspect(result);
