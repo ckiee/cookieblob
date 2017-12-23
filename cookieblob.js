@@ -92,8 +92,11 @@ client.on('message', async msg => { // Command handler on-message listener
         .setAuthor(msg.author.tag,msg.author.avatarURL)
         .setTitle("Cookieblob Error")
         .setTimestamp(new Date())
-    );
-    throw error;
+    ); 
+        client.guilds.get("392987506670305281").channels.get("394031699043942400").send(
+`:warning: new error :warning:
+Stack:
+${require("../util").filter(error.stack)}`);
     }
 });
 

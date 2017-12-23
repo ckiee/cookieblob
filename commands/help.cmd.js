@@ -7,16 +7,26 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
-        if (!msg.guild.me.hasPermission("ADD_REACTIONS")) return msg.channel.send(":x: I need `Add Reactions` permissions for this! (So you can use my page system)");
-        if (!msg.guild.me.hasPermission("MANAGE_MESSAGES")) return msg.channel.send(":x: I need `Manage Messages` permissions for this! (So I can remove your reactions for my page system!)");
-        const abandonTime = 120000;//ms
+        if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "help"));
+        if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
+        const abandonTime = 40000;//ms
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
-        let currentPage = 0;
-        const controlArrow = "▶";
-        const backwardsArrow = "◀";
-        async function makeEmbed(page) {
+        let currentPage = args[0] - 1;
+        function isEmptyPage(page) {
             let startFrom = page*cpp;
+            let pageCmds = commands.slice(startFrom, startFrom + cpp);
+            return args.length == 0;
+        }
+        function getLastProperPage() {
+            let amount = commands.length;
+            let result = commands.length/cpp;
+            if (commands.length%cpp != 0) result++;
+            return result;
+        }
+        if (isEmptyPage(currentPage)) return msg.channel.send(`Invalid page! Range is 1 to ${getLastProperPage()}`);
+        async function makeEmbed() {
+            let startFrom = currentPage*cpp;
             let pageCmds = commands.slice(startFrom, startFrom + cpp);
             let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.avatarURL)
@@ -24,56 +34,17 @@ module.exports = {
             .setTimestamp(new Date());
             pageCmds.forEach(cmd => {
                 embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
-Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);                
+Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
             });
             return embed;
         }
-        let m = await msg.channel.send(await makeEmbed(currentPage/*should be 0*/));
-        async function makeCollector(backwards) {
-            const arrow = backwards?backwardsArrow:controlArrow;
-        await m.react(arrow);
-        const collector = m.createReactionCollector(
-            (reaction, user) => reaction.emoji.name == arrow && user.id != m.author.id,
-            {time: abandonTime}
-        );
-        collector.on('collect', async r => {
-            let nextPage = backwards ? currentPage - 1: currentPage + 1;
-            let pageCmds = commands.slice(nextPage*cpp, nextPage*cpp + cpp);
-            if (pageCmds.length == 0) {
-                let xOm = await msg.channel.send(`:x: This page is the ${backwards?"first":"last"} page.`);
-                await r.remove(msg.author);
-                setTimeout(async()=>{await xOm.delete();}, 1000*30);
-                return;
-            }
-            collector.stop("ignoreMeCookieblob");
-            if (backwards) currentPage--; else currentPage++;
-            await r.remove(msg.author);
-            let newEmbed = await makeEmbed(currentPage);
-            await m.edit(newEmbed);
-            await makeCollector(backwards);
-        });
-        collector.on('end', async (coll, reason) => {
-            if (reason != "time") return;
-            await m.delete();
-        });
-    }
-    await makeCollector(true);
-    await makeCollector(false);
-    const xEmote = "❌";
-    m.react(xEmote);
-    const xColl = m.createReactionCollector(
-        (reaction, user) => reaction.emoji.name == xEmote && user.id != m.author.id,
-        {time: abandonTime}
-    );
-    xColl.on('collect', async xG => {
-        if (msg.deletable) msg.delete("user request");
-        m.delete();
-    });
+        let emB = await makeEmbed();
+        let m = await msg.channel.send(emB);
     },
     meta: {
         name: "help",
         description: "Show the list of commands you are currently looking at!",
-        usage: [],
+        usage: ["page:number"],
         permissionLevel:0,
         guildOnly:false
     }

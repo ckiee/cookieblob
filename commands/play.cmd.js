@@ -7,7 +7,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) msg.channel.send(require("../util").invalidUsageEmbed(msg, "play"));
+        if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "play"));
         let vc = msg.member.voiceChannel;
         if (vc == null) {
             msg.channel.send(":x: You are not in a voice channel!");
