@@ -47,6 +47,7 @@ Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);
             );
             collector.on('collect', async r => {
                 await movePage(backwards);
+                await r.remove(msg.author.id);
             });
             collector.on('end', async collected => {
                await m.delete(); 
