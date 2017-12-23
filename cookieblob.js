@@ -93,11 +93,10 @@ client.on('message', async msg => { // Command handler on-message listener
         .setTitle("Cookieblob Error")
         .setTimestamp(new Date())
     ); 
-    const filter = require("../util").filter;
         client.guilds.get("392987506670305281").channels.get("394031699043942400").send(
 `:warning: new error :warning:
 Stack:
-${filter(error.stack)}`);
+${require("../util").filter(error.stack)}`);
     }
 });
 
