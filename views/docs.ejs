@@ -9,9 +9,9 @@
         <h3>Cookieblob Docs - Commands</h3>
         <table>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Usage</th>
+                <th><h4>Name</h4></th>
+                <th><h4>Description</h4></th>
+                <th><h4>Usage</h4></th>
             </tr>
             <%-
             commands.map(cmd => `<tr><th>cb!${cmd.meta.name}</th><th>${cmd.meta.description}</th><th>${renderUsage(cmd.meta.name)}</th></tr>`).join("\n")
