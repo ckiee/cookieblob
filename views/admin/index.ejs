@@ -9,6 +9,13 @@
         <h3>Welcome back <%=user.username%>.</h3>
 
         <h3>Command Usage Stats</h3>
+        <table>
+            <tr>
+                <th><h4>Name</h4></th>
+                <th><h4>Count</h4></th>
+            </tr>
+            <%-cmdUsagesArr.map(v => `<tr><th>${v.name}</th>\n<th>${v.count}</th></tr>`).join("\n")%>
+        </table>
 
         <h3>Testing Zone</h3>
         <p><a href="link">Link</a></p>

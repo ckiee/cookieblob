@@ -14,10 +14,10 @@ router.use(function(req, res, next) {
     next();
 })
 router.get("/", async (req, res)=>{
-    let cmdusagesArr = await (await r.table("cmdusages").run(conn)).toArray();
+    let cmdUsagesArr = await (await r.table("cmdusages").run(conn)).toArray();
     let cmdUsages = {};
-    cmdusagesArr.forEach(cu => {
+    cmdUsagesArr.forEach(cu => {
         cmdUsages[cu.id] = cu.count;
     });
-    res.render("admin/index", {user: req.user, cookieblob: cookieblob, cmdUsages: cmdUsages});
+    res.render("admin/index", {user: req.user, cookieblob: cookieblob, cmdUsages: cmdUsages, cmdUsagesArr: cmdUsagesArr});
 });
