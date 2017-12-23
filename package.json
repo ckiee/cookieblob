@@ -23,6 +23,7 @@
   "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "glob": "^7.1.2",
     "opusscript": "0.0.6",

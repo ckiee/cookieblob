@@ -24,7 +24,7 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     datastorage.updateLocalConnection(rethinkConnection);
     connection = rethinkConnection;
 });
-let site = require("./site");
+let site = require("./site/site.js");
 function postBotStats(base, token) {
     request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
         headers: {
