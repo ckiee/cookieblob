@@ -7,7 +7,7 @@ module.exports = {
         .setColor(0xffc300)
         .setAuthor("Cookieblob",client.user.avatarURL)
         .setTimestamp(new Date())
-        .setFooter("This bot is owned by RONTheCookie#7386.",client.users.get(config.ownerID).avatarURL)
+        .setFooter("This bot is owned by RONTheCookie#7386 & Jellz#9453.",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
         .addField("Let's help you get started!",`Type ${config.prefix}help to see a list of commands!
 Good luck 😃`)
         .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
