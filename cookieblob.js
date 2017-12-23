@@ -24,7 +24,6 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     datastorage.updateLocalConnection(rethinkConnection);
     connection = rethinkConnection;
 });
-let site = require("./site/site.js");
 function postBotStats(base, token) {
     request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
         headers: {
@@ -45,6 +44,7 @@ client.on('guildRemove', postStatsOnAllSites);
 let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
+    let site = require("./site/site.js");
     const ug = ()=>{
         client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     }
