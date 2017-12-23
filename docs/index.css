@@ -1,0 +1,18 @@
+h1 {
+    color: goldenrod;
+}
+
+a:hover {
+    color: orangered;
+    text-decoration: none;    
+}
+
+a {
+    color: goldenrod;
+    text-decoration: none;
+}
+
+body {
+    font-family: Cabin, sans-serif;
+    text-align: center;
+}
