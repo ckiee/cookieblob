@@ -31,8 +31,8 @@ router.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(passport.initialize());
+router.use(passport.session());
 router.get('/', passport.authenticate('discord', { scope: scopes }), function(req, res) {
     res.redirect("/");
 });
