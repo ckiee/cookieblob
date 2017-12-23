@@ -170,6 +170,8 @@ function getCommand(name) {
  * @property {String} ytKey
  * @property {String} discordbotsorgToken
  * @property {String} botsdiscordpwToken
+ * @property {String} clientSecret
+ * @property {String} secretRand
  */
 
 /**

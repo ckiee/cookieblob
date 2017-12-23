@@ -1,4 +1,5 @@
 const express = require("express");
-let app = require("./site").app;
+const app = require("./site").app;
+let oauthguard = require("./oauthguard");
 let router = express.Router();
-app.use("/admin", router);
+oauthguard.router.use("/admin", router);
