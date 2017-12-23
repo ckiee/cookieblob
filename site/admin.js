@@ -14,7 +14,7 @@ router.use(function(req, res, next) {
     next();
 })
 router.get("/", async (req, res)=>{
-    let cmdusages = (await (await r.table("cmdusages").run(conn)).toArray());
+    let cmdusages = await (await r.table("cmdusages").run(conn)).toArray();
     console.log(cmdusages);
     res.render("admin/index", {user: req.user, cookieblob: cookieblob});
 });
