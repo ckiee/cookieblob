@@ -9,7 +9,7 @@ module.exports = {
     run: async (msg, args, client) => {
         if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "help"));
         if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
-        const abandonTime = 120000;//ms
+        const abandonTime = 40000;//ms
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
         let currentPage = args[0] - 1;
