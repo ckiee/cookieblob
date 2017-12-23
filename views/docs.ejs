@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Cookieblob - Docs</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Cabin">
+        <link rel="stylesheet" type="text/css" href="./index.css">
+    </head>
+    <body>
+        <h1><a href="/">Home</a></h1>
+        <h3>Cookieblob Docs</h3>
+        <p><%=
+        commands.map(cmd => `cb!${cmd.meta.name} - Usage: ${renderUsage(cmd.meta.name)} - Description: ${cmd.meta.description}`).join("<br>")
+        %></p>
+    </body>
+</html>
