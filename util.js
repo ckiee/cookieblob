@@ -21,11 +21,7 @@ function invalidUsageEmbed(msg,cmdName) {
  */
 function renderUsage(cmdName) {
     let cmd = cookieblob.getCommand(cmdName);
-    let ubu = `${cookieblob.config.prefix}${cmd.meta.name}`;
-    cmd.meta.usage.forEach((v)=>{
-        ubu+=` <${v}>`;
-    });
-    return ubu;
+    return `${cookieblob.config.prefix}${cmd.meta.name} ${cmd.meta.usage.map(us => `<${us}>`).join(" ")}`;
 }
 
         /**
