@@ -45,7 +45,7 @@ router.get('/logout', function(req, res) {
 });
 router.use(function(req, res, next) {
     if (req.isAuthenticated()) return next();
-    res.send("Not logged in!");
+    res.redirect("/oauthguard");
 });
 router.get("/test", (req,res)=>{
     res.send("Beep boop. You're logged in as "+req.user.username);
