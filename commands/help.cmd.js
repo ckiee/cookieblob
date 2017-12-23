@@ -31,8 +31,8 @@ module.exports = {
         }
         let emB = await makeEmbed();
         let m = await msg.channel.send(emB);
-        await m.react(controlArrow);
         await m.react(backwardsArrow);
+        await m.react(controlArrow);
         await m.react(xEmote);
         async function movePage(backwards) {
             if (backwards) currentPage--;
@@ -59,11 +59,11 @@ module.exports = {
             (reaction, user) => reaction.emoji.name == xEmote && user.id === msg.author.id,
             {time:abandonTime}
         );
-        collector.on('collect', async r => {
+        exitCollector.on('collect', async r => {
             if (msg.deletable) await msg.delete();
             if (m.deleteable) await m.delete();
         });
-        collector.on('end', async collected => {
+        exitCollector.on('end', async collected => {
            await m.delete(); 
         });
     },
