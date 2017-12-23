@@ -11,7 +11,7 @@ module.exports = {
         .addField("Let's help you get started!",`Type ${config.prefix}help to see a list of commands!
 Good luck 😃`)
         .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
-        .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true);
+        .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true)
         .addField("Learn more?",
 `[${github_emote} Github](https://github.com/ronthecookie/cookieblob)`)
     );
