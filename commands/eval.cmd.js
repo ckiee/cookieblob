@@ -9,7 +9,7 @@ module.exports = {
         if (result.split("") > 1999) return msg.channel.send("Message is over the discord message contents limit.");
         msg.channel.send("```"+require("../util").filter(result)+"```");
         } catch (error) {
-            msg.channel.send("Error!```"+require("../util").filter(error)+"```");
+            msg.channel.send("Error!```"+require("../util").filter(error.stack)+"```");
         }
     },
     meta: {
