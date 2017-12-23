@@ -2,7 +2,7 @@ const express = require("express");
 let app = express();
 app.set('view engine', 'ejs');
 app.get("/", (req, res)=>{
-    res.render("static/index.ejs")
+    res.render("index.ejs")
 });
 app.use(express.static("static"));
 app.listen(8085, function() {
