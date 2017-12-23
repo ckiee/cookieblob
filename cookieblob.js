@@ -172,6 +172,7 @@ function getCommand(name) {
  * @property {String} botsdiscordpwToken
  * @property {String} clientSecret
  * @property {String} secretRand
+ * @property {Array<String>} admins
  */
 
 /**
