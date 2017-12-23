@@ -25,7 +25,7 @@ module.exports = {
             .setTimestamp(new Date());
             pageCmds.forEach(cmd => {
                 embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
-                Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
+Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
             });
             return embed;
         }
