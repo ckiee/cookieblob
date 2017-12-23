@@ -17,3 +17,11 @@ body {
     text-align: center;
     background-color: pink;
 }
+table, th, td {
+    border: 5px solid black;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 1%;
+}

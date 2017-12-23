@@ -6,9 +6,16 @@
     </head>
     <body>
         <h1><a href="/">Home</a></h1>
-        <h3>Cookieblob Docs</h3>
-        <p><%-
-        commands.map(cmd => `cb!${cmd.meta.name} - Description: ${cmd.meta.description} - Usage: ${renderUsage(cmd.meta.name)}`).join("<br><br>")
-        %></p>
+        <h3>Cookieblob Docs - Commands</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Usage</th>
+            </tr>
+            <%-
+            commands.map(cmd => `<tr><th>cb!${cmd.meta.name}</th><th>${cmd.meta.description}</th><th>${renderUsage(cmd.meta.name)}</th></tr>`).join("\n")
+            %>
+        </table>
     </body>
 </html>
