@@ -1,24 +1,62 @@
 <html>
-    <head>
-        <title>Cookieblob - Admin</title>
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Cabin">
-        <link rel="stylesheet" type="text/css" href="/index.css">
-    </head>
-    <body>
-        <h1><a href="#">Cookieblob Admin Dashboard</a></h1>
-        <h3>Welcome back <%=user.username%>.</h3>
-
-        <h3>Command Usage Stats</h4>
-        <table>
-            <tr>
-                <th><h4>Name</h4></th>
-                <th><h4>Count</h4></th>
-            </tr>
-            <%-cmdUsagesArr.sort( (v1, v2) => v1.count-v2.count).reverse().map(v => `<tr><th>${v.id}</th>\n<th>${v.count}</th></tr>`).join("\n")%>
-        </table>
-
-        <h3>Testing Zone</h3>
-        <p><a href="link">Link</a></p>
-        <p style="color:orange;"><strong>Some text</strong></p>
-    </body>
-</html>
+        <head>
+            <link href="../static/index.css" type="text/css" rel="stylesheet">
+            <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Cabin">        
+            <title>Cookieblob Admin</title>
+        </head>
+        <body>
+            <h1>Cookieblob Admin</h1>
+            <h3>This is the Administrator dashboard for Cookieblob.</h3>
+            <div align="center" style="display: inline-block;">
+                <h4>Blacklist Users</h4>
+                <p>This module will (un)blacklist Cookieblob users, preventing them from using Cookieblob.</p>
+                <form>
+                    <label for="blklistUserID">ID to (un)blacklist:</label>
+                    <input type="text" id="blklistUserID" name="blklistUserID" placeholder="Discord User ID">
+                    <input type="submit" value="Blacklist">
+                    <input type="submit" value="Unblacklist">
+                </form>
+                <p class="smalltitle">Currently Blacklisted Users</p>
+                <ul>
+                    <li><strong>Jellz#9453 </strong>(250536623270264833)</li>
+                    <li><strong>Toro#5207 </strong>(128145061752995840)</li>
+                    <li><strong>Aura#9763 </strong>(242180968012578817)</li>
+                </ul>
+            </div>
+            <div align="center" style="display: inline-block;">
+                <h4>Statistics</h4>
+                <p>This module displays Cookieblob statistics.</p>
+                <p class="smalltitle">Statistics</p>
+                <ul>
+                    <li><strong>Cookieblob Dev member count: </strong>24</li>
+                    <li><strong>Cookieblob guild count: </strong>62</li>
+                    <li><strong>Cookieblob user count: </strong>21603</li>
+                    <li><strong>Most used Cookieblob command: </strong>cb!zalgo</li>
+                    <li><strong>Most active Cookieblob-using guild: </strong>Cookieblob Dev</li>
+                </ul>
+            </div>
+            <div align="center" style="display: inline-block;">
+                <h4>Announcement</h4>
+                <p>This module will post a Cookieblob announcement to all subscribed people in Cookieblob Dev.</p>
+                <form>
+                        <label for="announcement">Message to announce:</label>
+                        <input type="text" id="announcement" name="announcement" placeholder="Announcement">
+                        <input type="submit" value="Publish Announcement">
+                </form>
+                <p class="smalltitle">Recent Announcements</p>
+                <ul>
+                    <li><strong>Jellz#9453 </strong>mwahahahahaa i **HACKED** cookieblob!!! also I **WON'T** bake ron cookies</li>
+                    <li><strong>RONTheCookie#7386 </strong>Music now supports YouTube livestreams!</li>
+                    <li><strong>RONTheCookie#7386 </strong>Jellz is going to make me cookies yay</li>
+                </ul>
+            </div>
+            <div align="center" style="display: inline-block;">
+                <button type="button">Go to RethinkDB</button>
+                <button type="button">Restart Cookieblob</button>
+                <button type="button">View Documentation</button>
+            </div> 
+        </body>
+        <footer>
+            <p>Logged in as Jellz#9453 (Bot Admin)</p>
+        </footer>
+    </html>

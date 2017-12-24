@@ -1,0 +1,30 @@
+h1, h3 {
+    color: orangered;
+    text-align: center;
+}
+
+body {
+    font-family: Cabin;
+    background-color: gold;
+}
+
+.smalltitle {
+    text-decoration: underline;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
