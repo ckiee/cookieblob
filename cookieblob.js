@@ -120,11 +120,7 @@ ${require("../util").filter(error.stack)}`);
  * @returns {Array<Object>} The modules 
  */
 function loadFileNames(arr) {
-    let a = [];
-    arr.forEach((b)=>{
-        a.push(require("./"+b));
-    });
-    return a;
+    return arr.map(v => require(`./${v}`));
 }
 
 /**
