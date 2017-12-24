@@ -14,7 +14,7 @@
                 <th><h4>Usage</h4></th>
             </tr>
             <%-
-            commands.map(cmd => `<tr><th>cb!${cmd.meta.name}</th><th>${cmd.meta.description}</th><th>${renderUsage(cmd.meta.name)}</th></tr>`).join("\n")
+            commands.map(cmd => `<tr><th>cb!${cmd.meta.name}</th><th>${cmd.meta.description}</th><th>${renderUsage(cmd.meta.name).split("<").join("&lt;").split(">").join("&gt;")}</th></tr>`).join("\n")
             %>
         </table></center>
     </body>
