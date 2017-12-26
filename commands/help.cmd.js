@@ -7,7 +7,7 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) args.push(1);
+        if (args.length < 1) require('../util.js').invalidUsageEmbed(msg, 'help');
         if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
         const abandonTime = 40000;//ms
         const cpp = 10; // commands per page
