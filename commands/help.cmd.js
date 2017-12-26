@@ -7,7 +7,7 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) require('../util.js').invalidUsageEmbed(msg, 'help');
+        if (args.length < 1) args[0] = 1;
         if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
         const abandonTime = 40000;//ms
         const cpp = 10; // commands per page
@@ -22,7 +22,7 @@ module.exports = {
             let amount = commands.length;
             let result = commands.length/cpp;
             if (commands.length%cpp != 0) result++;
-            return result;
+            return ~~result;
         }
         if (isEmptyPage(currentPage)) return msg.channel.send(`Invalid page! Range is 1 to ${getLastProperPage()}`);
         async function makeEmbed() {
