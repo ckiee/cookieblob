@@ -30,7 +30,7 @@ module.exports = {
             
             case "give":
                 if (role == null) return msg.channel.send(INVALIDROLE);
-                let r = srs.filter(v => v.id == role.id)[0];
+                let r = sxl.filter(v => v.id == role.id)[0];
                 if (r == null) return msg.channel.send(":x: That role is not marked as a self-role.");
                 if (!msg.guild.me.hasPermission("MANAGE_ROLES")) return msg.channel.send(":x: Cookieblob needs the `Manage Roles` permission for this command to work");
                 msg.member.addRole(role, `Self-role by ${client.users.get(r.author)?client.users.get(r.author).tag:r.author}`);
@@ -38,7 +38,7 @@ module.exports = {
 
             case "remove":
                 if (role == null) return msg.channel.send(INVALIDROLE);
-                let rX = srs.filter(v => v.id == role.id)[0];
+                let rX = sxl.filter(v => v.id == role.id)[0];
                 if (rX == null) return msg.channel.send(":x: That role is not marked as a self-role.");
                 if (!msg.guild.me.hasPermission("MANAGE_ROLES")) return msg.channel.send(":x: Cookieblob needs the `Manage Roles` permission for this command to work");
                 if (msg.member.roles.get(role.id) == null) return msg.channel.send(":x: You don't have that role!");
