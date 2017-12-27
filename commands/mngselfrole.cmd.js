@@ -52,10 +52,6 @@ module.exports = {
             if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "mngselfrole"));
             break;
         }
-
-        gd.guildData.modRole = role.id;
-        await gd.updateToDB();
-        msg.channel.send(`:ok_hand: Updated mod role to '${role.name}'.`);
     },
     meta: {
         name: "mngselfrole",
