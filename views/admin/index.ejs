@@ -18,7 +18,13 @@
                     <li><strong>Cookieblob user count: </strong><%= cookieblob.client.users.size %></li>
                     <li><strong>Command usages</strong><li></li>
                 </ul>
-                <%-cmdUsagesArr.sort( (v1, v2) => v1.count-v2.count).reverse().map(v => `<tr><th>${v.id}</th>\n<th>${v.count}</th></tr>`).join("\n")%>
+                <table>
+                    <tr>
+                        <th><h4>Name</h4></th>
+                        <th><h4>Count</h4></th>
+                    </tr>
+                    <%-cmdUsagesArr.sort( (v1, v2) => v1.count-v2.count).reverse().map(v => `<tr><th>${v.id}</th>\n<th>${v.count}</th></tr>`).join("\n")%>
+                </table>
             </div>
 
         </body>
