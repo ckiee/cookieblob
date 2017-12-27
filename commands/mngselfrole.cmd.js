@@ -49,7 +49,7 @@ module.exports = {
             break;
 
             default:
-            if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "mngselfrole"));
+            msg.channel.send(require("../util").invalidUsageEmbed(msg, "mngselfrole"));
             break;
         }
     },
