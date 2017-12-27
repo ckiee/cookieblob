@@ -46,6 +46,7 @@ class GuildData {
         this.guildData = {
             id:this.guildID,
             modRole:"", //setmodrole for this
+            
         };
     }
 }
