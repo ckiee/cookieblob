@@ -34,7 +34,8 @@ module.exports = {
                 if (r == null) return msg.channel.send(":x: That role is not marked as a self-role.");
                 if (!msg.guild.me.hasPermission("MANAGE_ROLES")) return msg.channel.send(":x: Cookieblob needs the `Manage Roles` permission for this command to work");
                 msg.member.addRole(role, `Self-role by ${client.users.get(r.author)?client.users.get(r.author).tag:r.author}`);
-            break;
+                msg.channel.send(`:ok_hand: Added self-role \`${role.name}\`.`);
+                break;
 
             case "remove":
                 if (role == null) return msg.channel.send(INVALIDROLE);
