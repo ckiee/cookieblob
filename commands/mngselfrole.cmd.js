@@ -31,6 +31,7 @@ module.exports = {
             if (isNone) {
                 gd.guildData.selfRoles = [ele];
             } else {
+                if (gd.guildData.selfRoles.filter(v => v.id == ele.id).length != 0) return msg.channel.send(":x: That self-role already exists.");
                 gd.guildData.selfRoles.push(ele);
             }
             await gd.updateToDB();
@@ -48,7 +49,8 @@ module.exports = {
                 msg.channel.send(":x: That role is not a self-role!");
                 return;
             }
-            gd.guildData.selfRoles = srs.splice(srs.indexOf(r), 1);
+            srs.splice(srs.indexOf(r), 1);
+            gd.guildData.selfRoles = srs;
             await gd.updateToDB();
             msg.channel.send(`:ok_hand: Unmarked \`${role.name}\` as a self-role.`);
             break;
