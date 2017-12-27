@@ -63,8 +63,8 @@ module.exports = {
     meta: {
         name: "mngselfrole",
         description: "Manage the guild's self roles.",
-        usage: ["add/remove/list", "add:rolename/remove:rolename/list:none"],
-        permissionLevel:"botOwner",
+        usage: ["add/remove/list", "add:role/remove:role/list:none"],
+        permissionLevel:"guildAdmin",
         guildOnly:true
     }
 }
