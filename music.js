@@ -105,6 +105,7 @@ async function play(msg) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = msg.guild.voiceConnection;
     if (voiceChannel == null) voiceChannel = await msg.member.voiceChannel.join();
+    msg.guild.me.setDeaf(true);
     let sq = mg.shiftQueue();
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.setPlayingTitle(sq.youtube.title);
