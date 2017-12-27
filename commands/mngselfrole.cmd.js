@@ -22,7 +22,7 @@ module.exports = {
                 return;
             }
             let sxl = gd.guildData.selfRoles;
-            msg.channel.send(`Showing all self-roles in Guild ${msg.guild.name}:\n${sxl.map(v => `* ${msg.guild.roles.get(v.id)
+            msg.channel.send(`Showing all self-roles in Guild \`${msg.guild.name}\`:\n${sxl.map(v => `* ${msg.guild.roles.get(v.id)
                 ?msg.guild.roles.get(v.id).name:v.id}${client.users.get(v.author)?` (Added by: ${client.users.get(v.author).tag})`:''}`).join("\n")}`)
             break;
             case "add":
