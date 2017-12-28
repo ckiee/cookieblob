@@ -11,7 +11,6 @@ module.exports = {
         const INVALIDROLE = ":x: That role doesn't exist!";
         if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "selfrole"));
         let gd = await datastorage.getGuildData(msg.guild.id);
-        await gd.updateFromDB(); // just incase
         let isNone = gd.guildData.selfRoles == null;
         if (!isNone) isNone = gd.guildData.selfRoles.length == 0;
         if (isNone) {

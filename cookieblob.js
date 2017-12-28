@@ -45,6 +45,7 @@ let commands = {};
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
     let site = require("./site/site.js");
+    let starboard = require("./starboard");
     const ug = ()=>{
         client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     }

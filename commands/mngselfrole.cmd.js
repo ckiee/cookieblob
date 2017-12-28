@@ -12,7 +12,6 @@ module.exports = {
         let role = msg.guild.roles.find("name",args.slice(1).join(" "));
         if (role == null && msg.guild.roles.get(args[1]) != null) role = msg.guild.roles.get(args[1]);
         let gd = await datastorage.getGuildData(msg.guild.id);
-        await gd.updateFromDB(); // just incase
         let isNone = gd.guildData.selfRoles == null;
         if (!isNone) isNone = gd.guildData.selfRoles.length == 0;
         switch (args[0]) {
