@@ -1,7 +1,7 @@
 const datastorage = require("./datastorage");
 const cookieblob = require("./cookieblob");
 const table = require("rethinkdb").table("starboard");
-function handle(r, user) {
+async function handle(r, user) {
     const REACTIONAMOUNT = 3;
     const STAR = "⭐";
     if (!r.message.guild || r.count <= REACTIONAMOUNT || r.emoji != STAR || user.me) return;
