@@ -55,7 +55,7 @@ class GuildData {
  * @returns {GuildData} Guild data class instance 
  */
 async function getGuildData(guildID) {
-    if (guildDataClassInstances[guildID] == null)  {
+    if (!guildDataClassInstances[guildID])  {
         let gd = new GuildData(guildID);
         await gd.ready;
         guildDataClassInstances[guildID] = gd;
@@ -65,6 +65,7 @@ async function getGuildData(guildID) {
 async function setupDatabase() {
     await r.dbCreate("cookieblob").run(connection);
     await r.db("cookieblob").tableCreate("guildData").run(connection);
+    await r.db("cookieblob").tableCreate("starboard").run(connection);
 }
 module.exports = {
     getGuildData: getGuildData,
