@@ -2,6 +2,7 @@ const { MessageEmbed, Message } = require("discord.js");
 const cookieblob = require("./cookieblob");
 /**
  * Generate a invalid usage embed
+ * @deprecated Use the 'usage' method.
  * @param {String} properUsage 
  * @param {Message} msg
  * @returns {MessageEmbed}
@@ -45,5 +46,6 @@ async function usage(msg) {
 module.exports = {
     invalidUsageEmbed: invalidUsageEmbed,
     renderUsage: renderUsage,
-    filter:filter
+    filter:filter,
+    usage: usage
 }
