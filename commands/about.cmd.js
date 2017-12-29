@@ -1,4 +1,4 @@
-const MessageEmbed = require("discord.js").MessageEmbed;
+const { MessageEmbed } = require("discord.js");
 const config = require("../cookieblob").config;
 const github_emote = "<:github:384690138749468682>";
 module.exports = {

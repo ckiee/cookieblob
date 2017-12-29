@@ -8,10 +8,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) {
-            msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
-            return;
-        }
+        if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
         switch (args[0]) {
             case "load":
             if (args.length != 2) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds')); 

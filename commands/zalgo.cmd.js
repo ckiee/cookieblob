@@ -1,4 +1,4 @@
-const {Client, Message}  = require("discord.js");
+const {Client, Message} = require("discord.js");
 const zalgo = require("to-zalgo");
 module.exports = {
                 /**

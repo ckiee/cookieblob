@@ -7,7 +7,7 @@ module.exports = {
      * @argument {Array<String>} args 
      */
     run: async (msg, args, client) => {
-        const INVALIDROLE = ":x: That role doesn't exist!";
+        const invalidrole = ":x: That role doesn't exist!";
         if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "mngselfrole"));
         let role = msg.guild.roles.find("name",args.slice(1).join(" "));
         if (role == null && msg.guild.roles.get(args[1]) != null) role = msg.guild.roles.get(args[1]);
@@ -25,7 +25,7 @@ module.exports = {
                 ?msg.guild.roles.get(v.id).name:v.id}${client.users.get(v.author)?` (Added by: ${client.users.get(v.author).tag})`:''}`).join("\n")}`)
             break;
             case "add":
-            if (role == null) return msg.channel.send(INVALIDROLE);
+            if (role == null) return msg.channel.send(invalidrole);
             let ele = {id: role.id,author: msg.author.id};
             if (isNone) {
                 gd.guildData.selfRoles = [ele];
@@ -37,7 +37,7 @@ module.exports = {
             msg.channel.send(`:ok_hand: Marked role \`${role.name}\` as a self-role.`);
             break;
             case "remove":
-            if (role == null) return msg.channel.send(INVALIDROLE);
+            if (role == null) return msg.channel.send(invalidrole);
             if (isNone) {
                 msg.channel.send(":x: No self-roles to remove!");
                 return;

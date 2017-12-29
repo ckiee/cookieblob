@@ -1,4 +1,4 @@
-const MessageEmbed = require("discord.js").MessageEmbed;
+const { MessageEmbed } = require("discord.js");
 const animals = require("random-animal");
 const util = require("../util");
 module.exports = {

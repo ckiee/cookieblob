@@ -6,15 +6,9 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) {
-            msg.channel.send(require("../util").invalidUsageEmbed(msg, 'count'));
-            return;
-        }
+        if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'count'));
         let count = parseInt(args[0]);
-        if (count == null) {
-            msg.channel.send(require("../util").invalidUsageEmbed(msg, 'count'));
-            return;
-        }
+        if (count == null) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'count'));
         if (count > 60 || count < 5) {
             msg.channel.send("Invalid number! Count cannot be bigger than 60 or smaller than 5.");
             return;

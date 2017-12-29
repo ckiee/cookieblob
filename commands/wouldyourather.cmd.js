@@ -1,5 +1,5 @@
 const request = require("request");
-const {MessageEmbed, Client, Message}  = require("discord.js");
+const {MessageEmbed, Client, Message} = require("discord.js");
 module.exports = {
             /**
      * @param {Message} msg
