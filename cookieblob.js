@@ -1,9 +1,8 @@
 'use strict';
 /** @module cookieblob */
-const Discord = require("discord.js");
-const MessageEmbed = Discord.MessageEmbed;
+const {MessageEmbed, Client} = require("discord.js");
 const request = require("request");
-const client = new Discord.Client();
+const client = new Client();
 const config = getConfig();
 const childprocess = require("child_process");
 const glob = require("glob");
@@ -56,15 +55,23 @@ client.on('ready',()=>{
 client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
     if (!msg.content.toLowerCase().startsWith(config.prefix)) return; 
+
     let uiCmd = msg.content.toLowerCase().split(" ")[0].slice(config.prefix.length); // ui stands for 'User Inputted' here
     let cmd = getCommand(uiCmd);
+
     let args = msg.content.split(" ").slice(1);
-    if (cmd == null) return;
+
+    if (cmd == null) return; // Go away if it isnt a valid command.
+    // Global Permission checks
     if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
     if (cmd.meta.permissionLevel == "botAdmin" && config.admins.indexOf(msg.author.id)==-1) return msg.channel.send(":x: No permission!");
+    
     if (msg.guild) {
+        //Get that guild
        let gd = await datastorage.getGuildData(msg.guild.id);
        let modRole = gd.guildData.modRole;
+
+       // Guild permissions AYY
        if (msg.member.roles.get(modRole) == null 
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
        else if (msg.guild.ownerID != msg.member.user.id 
@@ -75,7 +82,7 @@ client.on('message', async msg => { // Command handler on-message listener
 
     if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     
-    //make sure we dont block the entire thing.
+    //We can quickly get our stats while we're executing the command.
     (async()=>{
     const table = r.table("cmdusages");
     let curr = await table.get(cmd.meta.name).run(connection);
