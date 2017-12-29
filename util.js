@@ -1,4 +1,4 @@
-const MessageEmbed = require("discord.js").MessageEmbed;
+const { MessageEmbed, Message } = require("discord.js");
 const cookieblob = require("./cookieblob");
 /**
  * Generate a invalid usage embed
@@ -24,15 +24,24 @@ function renderUsage(cmdName) {
     return `${cookieblob.config.prefix}${cmd.meta.name} ${cmd.meta.usage.map(us => `<${us}>`).join(" ")}`;
 }
 
-        /**
-         * 
-         * @param {String} str
-         * @returns {String} 
-         */
-        function filter(str) {
-            const r = "[REDACTED]";
-            return str.split(cookieblob.config.botsdiscordpwToken).join(r).split(cookieblob.config.discordbotsorgToken).join(r).split(cookieblob.config.ytKey).join(r).split(cookieblob.config.token).join(r);
-        } 
+/**
+    * 
+    * @param {String} str
+    * @returns {String} 
+*/
+function filter(str) {
+        const r = "[REDACTED]";
+        return str.split(cookieblob.config.botsdiscordpwToken).join(r).split(cookieblob.config.discordbotsorgToken).join(r).split(cookieblob.config.ytKey).join(r).split(cookieblob.config.token).join(r);
+} 
+/**
+ * A really nice way to send usage messages, forget the big mess.
+ * @param {Message} msg 
+ * @returns {Message} The message we sent.
+ */
+async function usage(msg) {
+    let cmd = msg.content.toLowerCase().split(" ")[0].slice(cookieblob.config.prefix.length); 
+    return await msg.channel.send(invalidUsageEmbed(msg, cmd));
+}
 module.exports = {
     invalidUsageEmbed: invalidUsageEmbed,
     renderUsage: renderUsage,
