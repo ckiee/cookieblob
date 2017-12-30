@@ -6,10 +6,10 @@ async function handle(r, user) {
     const star = "⭐";
     if (!r.message.guild || r.count <= reactionamount || r.emoji != star || user.me) return;
     let count = r.count;
-    let gd = await datastorage.getGuildData(r.guild.id);
+    let gd = await datastorage.getGuildData(r.message.guild.id);
     if (gd.guildData.starboard == null) return;
     if (r.count == reactionamount) {
-        let starChannel = r.guild.channels.get(gd.guildData.starboard);
+        let starChannel = r.message.guild.channels.get(gd.guildData.starboard);
         if (!starChannel) return; // channel does not exist );
         let m = await starChannel.send(`${star} ${count} ${r.message.tag} \`${r.message.content}\``);
         await table.insert({id: r.message.id /*orig message*/, count:count, target: m.id}).run(cookieblob.rethinkConnection);
