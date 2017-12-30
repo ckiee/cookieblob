@@ -3,5 +3,4 @@
 
 Cookieblob is a open-source [discord](https://discordapp.com) bot.
 
-## Terms:
-* You may only host a *public* instance of this bot if you have a written permission from [RONTheCookie](https://github.com/RONTheCookie)
+Just to clarify this: Cookieblob should not be self-hosted and you will not recieve any kind of support and/or assistance releated to a self-hosted Cookieblob instance.
