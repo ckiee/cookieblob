@@ -14,7 +14,7 @@ module.exports = {
     meta: {
         name: "qr",
         description: "Make a QR Code.",
-        usage: [],
+        usage: ["text"],
         permissionLevel:0,
         guildOnly:false
     }
