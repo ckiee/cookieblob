@@ -7,6 +7,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
+        if (args.length < 1) return require("../util").usage(msg);
         let c = args.join(" ");
         msg.channel.send(new MessageAttachment(qr.image(c, {type:"png"})));
     },
