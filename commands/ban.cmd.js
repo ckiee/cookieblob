@@ -20,7 +20,7 @@ module.exports = {
     meta: {
         name: "ban",
         description: "Ban a user.",
-        usage: ["member id/member mention"],
+        usage: ["member id/member mention", "reason"],
         permissionLevel:"modRole",
         guildOnly:true
     }
