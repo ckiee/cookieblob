@@ -8,8 +8,7 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         let c = args.join(" ");
-        let m = await msg.channel.send("<a:loadingrolling:393744853684584448> Generating QR code.");
-        await m.edit(new MessageAttachment(qr.image(c, {type:"png"})));
+        msg.channel.send(new MessageAttachment(qr.image(c, {type:"png"})));
     },
     meta: {
         name: "qr",
