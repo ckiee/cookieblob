@@ -76,7 +76,7 @@ client.on('message', async msg => { // Command handler on-message listener
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
        else if (msg.guild.ownerID != msg.member.user.id 
             && cmd.meta.permissionLevel == "guildOwner") return msg.channel.send(":x: Only guild owners can execute this command");
-        else if ( !(msg.guild.ownerID == msg.member.user.id || msg.member.hasPermission("ADMINISTRATOR")) 
+        else if ( !(msg.guild.ownerID == msg.member.user.id || msg.member.hasPermission("ADMINISTRATOR") || msg.author.id == config.ownerID) 
         && cmd.meta.permissionLevel == "guildAdmin") return msg.channel.send(":x: Only guild admins or guild owners can use this command.");
     }
 
