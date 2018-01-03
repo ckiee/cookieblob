@@ -51,6 +51,13 @@ client.on('ready',()=>{
     ug();
     setInterval(ug, 1000*60*5);
     postStatsOnAllSites();
+    const guildNotifyChannel = client.channels.get("397981790142464000");
+    client.on('guildCreate', g => {
+        guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
+    });
+    client.on('guildDelete', g => {
+        guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
+    });
 });
 client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
