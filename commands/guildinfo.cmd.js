@@ -28,7 +28,7 @@ Afk Channel \`${g.afkChannel?g.afkChannel.name:"*none*"}\`
 Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}\`
 
 
-Emojis ${g.emojis.join(", ")}
+Emojis ${g.emojis.map(emote => emote.toString()).join(" ")}
 
 
 Region \`${g.region}\`
