@@ -13,10 +13,9 @@ module.exports = {
         const cpp = 10; // commands per page
         const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
         let currentPage = args[0] - 1;
-        function isEmptyPage(page) {
-            let startFrom = page*cpp;
-            let pageCmds = commands.slice(startFrom, startFrom + cpp);
-            return args.length == 0;
+        if (isNaN(currentPage)) {
+            require("../util").usage(msg);
+            return;
         }
         function getLastProperPage() {
             let amount = commands.length;
@@ -24,7 +23,7 @@ module.exports = {
             if (commands.length%cpp != 0) result++;
             return ~~result;
         }
-        if (isEmptyPage(currentPage)) return msg.channel.send(`Invalid page! Range is 1 to ${getLastProperPage()}`);
+        if (currentPage > getLastProperPage()) return msg.channel.send(`Invalid page! Range is 1 to ${getLastProperPage()}`);
         async function makeEmbed() {
             let startFrom = currentPage*cpp;
             let pageCmds = commands.slice(startFrom, startFrom + cpp);

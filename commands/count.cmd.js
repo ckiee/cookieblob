@@ -1,4 +1,6 @@
 const {Client, Message}  = require("discord.js");
+let countAmount = 0;
+const maxCounts = 30; // should be able to handle that
 module.exports = {
                 /**
      * @param {Message} msg
@@ -13,12 +15,19 @@ module.exports = {
             msg.channel.send("Invalid number! Count cannot be bigger than 60 or smaller than 5.");
             return;
         }
+        if (countAmount >= maxCounts) {
+            msg.channel.send(":x: There are too many global countdowns already running, Please try again later.");
+            return;
+        } else {
+            countAmount++;
+        }
         let initalCount = count;
         let m = await msg.channel.send(`:timer: ${count}.`);
         async function handle() {
             if (count < 1) {
                 await m.edit(`:ok_hand: Your countdown to ${initalCount} has finished.`);
                 msg.channel.send(`<@${msg.author.id}> ^`);
+                countAmount--;
             } else {
                 count--;
                 await m.edit(`:timer: ${count}.`);
