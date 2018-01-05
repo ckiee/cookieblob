@@ -54,6 +54,9 @@ client.on('ready',()=>{
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
+        if (client.guilds.size == 100) {
+            guildNotifyChannel.send(`🎉 REACHED 100 GUILDS !!! 🎉 ${config.admins.map(v => `<@${v}>`).join(" ")}`);
+        }
     });
     client.on('guildDelete', g => {
         guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
