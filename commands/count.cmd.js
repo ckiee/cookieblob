@@ -1,6 +1,6 @@
 const {Client, Message}  = require("discord.js");
 let countAmount = 0;
-const maxCounts = 30; // should be able to handle that
+const maxCounts = 10; // should be able to handle that
 module.exports = {
                 /**
      * @param {Message} msg
