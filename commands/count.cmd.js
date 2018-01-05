@@ -1,6 +1,7 @@
 const {Client, Message}  = require("discord.js");
 let countAmount = 0;
 const maxCounts = 10; // should be able to handle that
+let timeouts = [];
 module.exports = {
                 /**
      * @param {Message} msg
@@ -34,7 +35,7 @@ module.exports = {
                 setTimeout(handle, 1000);
             }
         }
-        setTimeout(handle, 1000);
+        timeouts.push(setTimeout(handle, 1000));
     },
     meta: {
         name: "count",
@@ -42,5 +43,8 @@ module.exports = {
         usage: ["count from"],
         permissionLevel:0,
         guildOnly:false
+    },
+    clearAllTimers: function() {
+        timeouts.forEach(t => clearTimeout(t));
     }
 }
