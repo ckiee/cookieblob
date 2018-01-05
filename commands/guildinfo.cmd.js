@@ -18,21 +18,15 @@ module.exports = {
 
 Guild Leader \`${g.owner.user.tag} (${g.ownerID})\`
 
-
 Roles \`(${g.roles.size}) ${g.roles.map(v => v.name).join(", ")}\`
-
 
 Afk Channel \`${g.afkChannel?g.afkChannel.name:"*none*"}\`
 
-
 Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}\`
 
-
-Emojis ${g.emojis.map(emote => emote.toString()).join(" ")}
-
+Emojis ${g.emojis.array().join(" ")}
 
 Region \`${g.region}\`
-
 
 Special Features \`${g.features.length==0?"*none*":g.features.map(v => v.toLowerCase()).join(", ")}\``
         )
