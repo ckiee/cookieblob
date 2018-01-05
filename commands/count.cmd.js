@@ -41,7 +41,7 @@ module.exports = {
         name: "count",
         description: "Counts down from a number.",
         usage: ["count from"],
-        permissionLevel:0,
+        permissionLevel:"botOwner",
         guildOnly:false
     },
     clearAllTimers: function() {
