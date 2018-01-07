@@ -28,7 +28,7 @@ module.exports = {
             let startFrom = currentPage*cpp;
             let pageCmds = commands.slice(startFrom, startFrom + cpp);
             let embed = new MessageEmbed()
-            .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.displaydisplaydisplayAvatarURL()()())
+            .setAuthor("Cookieblob command list - Page "+(currentPage+1),msg.author.displayAvatarURL()()())
             .setColor(0xffc300)
             .setTimestamp(new Date())
             .setDescription(pageCmds.map(cmd => `**${cmd.meta.name}** - ${cmd.meta.description}\nUsage: ${require("../util").renderUsage(cmd.meta.name)}`).join("\n\n"));
