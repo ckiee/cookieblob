@@ -11,6 +11,7 @@ module.exports = {
         request.get("https://yesno.wtf/api/", {
             json:true,
         }, async (error, response, body) => {
+            console.log(body);
             let respo = JSON.parse(body);
             await m.edit(new MessageEmbed().setAuthor(msg.author.tag, msg.author.displayAvatarURL()).setColor(0xadf442)
             .setImage(respo.image).setTitle(respo.answer).setTimestamp(new Date()).setFooter("Supplied by https://yesno.wtf/"));
