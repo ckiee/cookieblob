@@ -7,7 +7,7 @@ module.exports = {
         let result = eval(toEval);
         if (typeof result != "string") result = require("util").inspect(result);
         if (result.split("") > 1999) return msg.channel.send("Message is over the discord message contents limit.");
-        msg.channel.send("```"+require("../util").filter(result)+"```");
+        msg.channel.send("```js\n"+require("../util").filter(result)+"\n```");
         } catch (error) {
             msg.channel.send("Error!```"+require("../util").filter(error.stack)+"```");
         }
