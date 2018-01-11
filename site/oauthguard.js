@@ -37,7 +37,7 @@ router.get('/', passport.authenticate('discord', { scope: scopes }), function(re
     res.redirect("/");
 });
 router.get('/callback',
-passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) { res.redirect('/oauthguard/dashboard') }
+passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) { res.redirect('/oauthguard/admin') }
 );
 router.get('/logout', function(req, res) {
     req.logout();
