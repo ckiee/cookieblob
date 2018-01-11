@@ -12,7 +12,7 @@ module.exports = {
             headers: {
                 Accept:"text/plain"
             }
-        }, (error, response, body) => {
+        }, async (error, response, body) => {
             let m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
             await m.edit(new MessageEmbed().setAuthor(msg.author.tag, msg.author.displayAvatarURL()).setColor(0xadf442).setDescription(`\`${body}\``).setTitle("Dad Joke"));
         });
