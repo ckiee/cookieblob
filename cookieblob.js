@@ -71,7 +71,7 @@ client.on('message', async msg => { // Command handler on-message listener
 
     let args = msg.content.split(" ").slice(1);
 
-    if (cmd == null) return; // Go away if it isnt a valid command.
+    if (!cmd) return; // Go away if it isnt a valid command.
     // Global Permission checks
     if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
     if (cmd.meta.permissionLevel == "botAdmin" && config.admins.indexOf(msg.author.id)==-1) return msg.channel.send(":x: No permission!");
@@ -105,17 +105,7 @@ client.on('message', async msg => { // Command handler on-message listener
 })();
 
     try { cmd.run(msg, args, client); } catch (error) {
-        msg.channel.send(new MessageEmbed()
-        .setColor(0xed1a07)
-        .setDescription("There was a error while executing that command. I've reported the error for you.")
-        .setAuthor(msg.author.tag,msg.author.avatarURL)
-        .setTitle("Cookieblob Error")
-        .setTimestamp(new Date())
-    ); 
-        client.guilds.get("392987506670305281").channels.get("394031699043942400").send(
-`:warning: new error :warning:
-Stack:
-${require("../util").filter(error.stack)}`);
+        console.error(`Error while executing command ${cmd.meta.name}`, error);
     }
 });
 
