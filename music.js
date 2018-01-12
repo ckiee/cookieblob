@@ -104,16 +104,17 @@ function searchAddToQueue(msg, searchQuery) {
 async function play(msg) {
     let mg = getMusicGuild(msg.guild.id);
     let voiceChannel = msg.guild.voiceConnection;
-    if (voiceChannel == null) voiceChannel = await msg.member.voiceChannel.join();
+    if (!voiceChannel) voiceChannel = await msg.member.voiceChannel.join();
     msg.guild.me.setDeaf(true);
     let sq = mg.shiftQueue();
     mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audio"}),{passes:5}));
     mg.setPlayingTitle(sq.youtube.title);
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
+            console.log("music ended",reason);
             let sqa = mg.queue[0];
             mg.setPlaying(false);
-            if (sqa == null) {
+            if (!sqa) {
                 voiceChannel.disconnect();
             }
             else {
