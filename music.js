@@ -1,140 +1,73 @@
-const { Message, User, MessageEmbed, StreamDispatcher } = require('discord.js');
-const cookieblob = require("./cookieblob");
-let guilds = {};
 const ytdl = require("ytdl-core");
-const yts = require('youtube-search');
-var searchoptions = {
-    maxResults: 1,
-    key: cookieblob.config.ytKey,
-    type:"video",
-    safeSearch:"none"
-};
+const { Message } = require("discord.js");
+// Lots of JSDoc for youtube-search.
+/**
+ * @typedef {Object} YouTubeThumbnail
+ * @property {String} url
+ * @property {Number} width
+ * @property {Number} height
+ */
+/**
+ * @typedef {Object} YouTubeSearchResultThumbnails
+ * @property {YoutubeThumbnail} default
+ * @property {YoutubeThumbnail} medium
+ * @property {YoutubeThumbnail} high
+ * @property {YoutubeThumbnail} standard
+ * @property {YoutubeThumbnail} maxres
+ */
+/**
+ * @typedef {Object} YoutubeSearchResult
+ * @property {String} id
+ * @property {String} link
+ * @property {String} kind
+ * @property {String} publishedAt
+ * @property {String} channelId
+ * @property {String} title
+ * @property {String} description
+ * @property {YoutubeSearchResultThumbnails} thumbnails
+ */
 
-class MusicGuildData {
-    constructor(guildID) {
-        this.dispatcher = null;
+/**
+ * Search with youtube-search
+ * @param {String} term 
+ * @returns {Promise<YoutubeSearchResult>}
+ */
+function search(term) {
+    return new Promise((resolve, reject) => {
+    const youtubeSearch = require("youtube-search");
+    youtubeSearch(term, {
+        maxResults: 1,
+        key: cookieblob.config.ytKey,
+        type:"video",
+        safeSearch:"none"
+    }, (err, results)=>{
+        if (err) return reject(err);
+        resolve(results[0]);
+    });
+});
+}
+class MusicGuild {
+    constructor() {
+        /**
+         * @type {YoutubeSearchResult[]}
+         */
         this.queue = [];
-        this.playing = false;
-        this.playingTitle = "";
-        guilds[guildID] = this;
+        /**
+         * @type {YoutubeSearchResult}
+         */
+        this.nowPlaying = null;
     }
-    setDispatcher(dispatcher) {
-        this.dispatcher = dispatcher;
-    }
-    /**
-     * @property {Boolean} value
-     */
-    setPlaying(value) {
-        this.playing = value;
-    }
-    /**
-     * @returns {Boolean}
-     */
-    getPlaying() {
-        return this.playing;
-    }
-    /**
-     * @returns {StreamDispatcher}
-     */
-    getDispatcher() {
-        return this.dispatcher;
-    }
-    /**
-     * 
-     * @param {User} user 
-     * @param {Object} youtubeResult 
-     */
-    addToQueue(user, youtubeResult) {
-        this.queue.push({user:user,youtube:youtubeResult});
-    }
-    /**
-     * @returns {QueueEntry}
-     */
-    shiftQueue() {
-        return this.queue.shift();
-    }
-    /**
-     * @returns {String}
-     */
-    getPlayingTitle() {return this.playingTitle;}
-
-    /**
-     * 
-     * @param {String} value 
-     */
-    setPlayingTitle(value) {this.playingTitle = value;}
-}
-/**
- * @typedef {Object} QueueEntry
- * @property {User} user
- * @property {Object} youtube
- */
-
-
-/**
- * 
- * @param {String} guildID 
- * @returns {MusicGuildData}
- */
-function getMusicGuild(guildID) {
-    if (guilds[guildID] == null) guilds[guildID] = new MusicGuildData(guildID);
-    return guilds[guildID];
 }
 
 /**
- * 
+ * Play the first queue item.
  * @param {Message} msg 
- * @param {String} searchQuery 
  */
-function searchAddToQueue(msg, searchQuery) {
-    return new Promise((resolve,reject)=>{
-        yts(searchQuery,searchoptions,(error,results)=>{
-            if (error) return reject(error);
-            let result = results[0];
-            let mg = getMusicGuild(msg.guild.id);
-            mg.addToQueue(msg.author, result);
-            resolve(result);
-        });
-    });
-}
-
-/**
- * @param {Message} msg
- */
-async function play(msg) {
-    let mg = getMusicGuild(msg.guild.id);
-    let voiceChannel = msg.guild.voiceConnection;
-    if (!voiceChannel) voiceChannel = await msg.member.voiceChannel.join();
-    msg.guild.me.setDeaf(true);
-    let sq = mg.shiftQueue();
-    mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audioonly"}),{passes:4}));
-    mg.setPlayingTitle(sq.youtube.title);
-    mg.getDispatcher().on('end',reason => {
-        setTimeout(()=>{
-            let sqa = mg.queue[0];
-            mg.setPlaying(false);
-            if (!sqa) {
-                console.log("music ended no more songs nr");
-                voiceChannel.disconnect();
-            } else {
-                play(msg).catch(console.error);
-            } 
-        },500);
-    });
-    mg.setPlaying(true);
-    msg.channel.send(new MessageEmbed()
-    .setColor(0x0ea5d3)
-    .setAuthor(msg.author.username, msg.author.avatarURL)
-    .setDescription(sq.youtube.description)
-    .setTimestamp(new Date())
-    .setTitle(sq.youtube.title)
-    .setImage(sq.youtube.thumbnails.high.url)
-    .setURL(sq.youtube.link)
-);
-}
-
-module.exports = {
-    play: play,
-    searchAddToQueue: searchAddToQueue,
-    getMusicGuild: getMusicGuild
+function play(msg) {
+    /**
+     * @type {MusicGuild}
+     */
+    let musicGuild = msg.guild.musicGuild;
+    let song = musicGuild.queue.shift();
+    musicGuild.nowPlaying = song
 }
