@@ -115,6 +115,7 @@ async function play(msg) {
             let sqa = mg.queue[0];
             mg.setPlaying(false);
             if (!sqa) {
+                console.log("music ended no more songs nr");
                 voiceChannel.disconnect();
             }
             else {
