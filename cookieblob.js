@@ -4,9 +4,10 @@ const {MessageEmbed, Client} = require("discord.js");
 const request = require("request");
 const client = new Client();
 const config = getConfig();
-const childprocess = require("child_process");
 const glob = require("glob");
 const r = require('rethinkdb');
+
+(function safetyThings() {
 process.on('unhandledRejection', error => {
     console.error(error.stack);
 });
@@ -16,6 +17,9 @@ process.on('SIGINT', function () {
   client.destroy();
   process.exit();
 });
+})();
+
+// Rethonk and datastorage
 const datastorage = require("./datastorage");
 let connection; 
 r.connect({db:"cookieblob"}).then(rethinkConnection=>{
@@ -23,6 +27,9 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
     datastorage.updateLocalConnection(rethinkConnection);
     connection = rethinkConnection;
 });
+
+
+//DBL & DB.ORG Stats updater
 function postBotStats(base, token) {
     request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
         headers: {
@@ -40,49 +47,54 @@ function postStatsOnAllSites() {
 }
 client.on('guildCreate', postStatsOnAllSites);
 client.on('guildRemove', postStatsOnAllSites);
+
+
+
 let commands = {};
+
+
 client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
-    let site = require("./site/site.js");
-    let starboard = require("./starboard");
-    const ug = ()=>{
-        client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
-    }
+    const site = require("./site/site.js");
+    const starboard = require("./starboard");
+    const ug = () => client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     ug();
     setInterval(ug, 1000*60*5);
     postStatsOnAllSites();
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
-        if (client.guilds.size == 100) {
-            guildNotifyChannel.send(`🎉 REACHED 100 GUILDS !!! 🎉 ${config.admins.map(v => `<@${v}>`).join(" ")}`);
-        }
     });
     client.on('guildDelete', g => {
         guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
     });
 });
+
+
+
 client.on('message', async msg => { // Command handler on-message listener
     if (msg.author.bot) return;
     if (!msg.content.toLowerCase().startsWith(config.prefix)) return; 
 
     let uiCmd = msg.content.toLowerCase().split(" ")[0].slice(config.prefix.length); // ui stands for 'User Inputted' here
     let cmd = getCommand(uiCmd);
-
+    /**
+     * @type {String[]}
+     */
     let args = msg.content.split(" ").slice(1);
 
     if (!cmd) return; // Go away if it isnt a valid command.
     // Global Permission checks
-    if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return msg.channel.send(":x: No permission!");
-    if (cmd.meta.permissionLevel == "botAdmin" && config.admins.indexOf(msg.author.id)==-1) return msg.channel.send(":x: No permission!");
+    if (cmd.meta.permissionLevel == "botOwner" && msg.author.id != config.ownerID) return;
+    if (cmd.meta.permissionLevel == "botAdmin" && config.admins.indexOf(msg.author.id)== -1) return;
     
     if (msg.guild) {
         //Get that guild
        let gd = await datastorage.getGuildData(msg.guild.id);
        let modRole = gd.guildData.modRole;
 
-       // Guild permissions AYY
-       if (msg.member.roles.get(modRole) == null 
+       // Guild permissions
+       if (!msg.member.roles.get(modRole)
        && cmd.meta.permissionLevel == "modRole") return msg.channel.send(`:x: This is a mod only command! Set the mod role using ${config.prefix}setmodrole <mod role name>`);   
        else if (msg.guild.ownerID != msg.member.user.id 
             && cmd.meta.permissionLevel == "guildOwner") return msg.channel.send(":x: Only guild owners can execute this command");
@@ -90,9 +102,9 @@ client.on('message', async msg => { // Command handler on-message listener
         && cmd.meta.permissionLevel == "guildAdmin") return msg.channel.send(":x: Only guild admins or guild owners can use this command.");
     }
 
-    if (msg.guild == null && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
+    if (!msg.guild && cmd.meta.guildOnly) return msg.channel.send(":x: Guild only command.");
     
-    //We can quickly get our stats while we're executing the command.
+    //We can quickly get our stats while we're executing the command. This shoulden't block the command from running.
     (async()=>{
     const table = r.table("cmdusages");
     let curr = await table.get(cmd.meta.name).run(connection);
@@ -104,9 +116,10 @@ client.on('message', async msg => { // Command handler on-message listener
     }
 })();
 
-    try { cmd.run(msg, args, client); } catch (error) {
-        console.error(`Error while executing command ${cmd.meta.name}`, error);
-    }
+    cmd.run(msg, args, client).catch(error => {
+        msg.channel.send(`There was an error while executing command '${cmd.meta.name}', I've reported it to the developers.`);
+        client.guilds.get("392987506670305281").channels.get("401628765412917249").send(cmd.meta.name + "\n```js\n" + error.stack + "\n```");
+    });
 });
 
 (async function(){ // Command explorer
