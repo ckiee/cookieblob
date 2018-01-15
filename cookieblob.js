@@ -31,6 +31,7 @@ r.connect({db:"cookieblob"}).then(rethinkConnection=>{
 
 //DBL & DB.ORG Stats updater
 function postBotStats(base, token) {
+    if (client.user.id != "324874714646577152") return; // just so i dont have it posting on my local instance.
     request.post(`https://${base}/api/bots/${client.user.id}/stats`, {
         headers: {
             Authorization: token
