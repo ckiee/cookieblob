@@ -119,7 +119,8 @@ client.on('message', async msg => { // Command handler on-message listener
 
     cmd.run(msg, args, client).catch(error => {
         msg.channel.send(`There was an error while executing command '${cmd.meta.name}', I've reported it to the developers.`);
-        client.guilds.get("392987506670305281").channels.get("401628765412917249").send(cmd.meta.name + "\n```js\n" + error.stack + "\n```");
+        client.guilds.get("392987506670305281").channels.get("401628765412917249").send(cmd.meta.name + "\n```js\n" + error.stack + "\n```\n0"+
+`User ID: ${msg.author.id}, Guild ID: ${msg.guild.id}, Channel ID: ${msg.channel.id} ( #${msg.channel.name} )`);
     });
 });
 
