@@ -6,8 +6,13 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        let discrim = args.length == 1 ? args[0] : msg.author.discriminator;
-        await msg.channel.send(client.users.filter(user => user.discriminator == discrim).map(user => user.tag).join("\n"));
+        const discrim = args.length == 1 ? parseInt(args[0]) : msg.author.discriminator;
+        const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag);
+        if (users.length == 0 || isNaN(discrim)) {
+            await msg.channel.send(`:x: ${users.length} results for #${discrim}.`);
+        } else {
+            await msg.channel.send('```\n'+users.join("\n")+'\n```');
+        }
     },
     meta: {
         name: "discrim",
