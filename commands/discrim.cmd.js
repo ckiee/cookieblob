@@ -9,7 +9,7 @@ module.exports = {
         const discrim = args.length == 1 ? parseInt(args[0]) : msg.author.discriminator;
         const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag);
         if (users.length == 0 || isNaN(discrim)) {
-            await msg.channel.send(`:x: ${users.length} results for #${discrim}.`);
+            await msg.channel.send(`:x: No results.`);
         } else {
             await msg.channel.send('```\n'+users.join("\n")+'\n```');
         }
