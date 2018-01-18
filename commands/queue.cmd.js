@@ -6,7 +6,7 @@ module.exports = {
      * @param {Array<String>} args
      * @param {Client} client
      */
-    run: (msg, args, client) => {
+    run: async (msg, args, client) => {
         let mg = music.getMusicGuild(msg.guild.id);
         if (mg == null) return msg.channel.send(":x: There is nothing to show!");
         if (!mg.playing) return msg.channel.send(":x: There is nothing to show!");
