@@ -9,7 +9,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
+        if (args.length < 1) return require("../util").usage(msg);
         switch (args[0]) {
             case "cmdload":
             if (args.length != 2) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds')); 
@@ -45,7 +45,7 @@ module.exports = {
 
 
             default:
-            msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
+            require("../util").usage(msg);
             break;
         }
     },
