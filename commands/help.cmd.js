@@ -27,12 +27,14 @@ module.exports = {
         async function makeEmbed() {
             let startFrom = currentPage*cpp;
             let pageCmds = commands.slice(startFrom, startFrom + cpp);
+            const viewthedocs = "***[View the documentation online](https://cookieblob.ronthecookie.me/docs)***";
             let embed = new MessageEmbed()
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),client.user.displayAvatarURL())
             .setColor(0xffc300)
             .setTimestamp(new Date())
-            .setDescription("***[View the documentation online](https://cookieblob.ronthecookie.me/docs)***\n"
-            +pageCmds.map(cmd => `**${cmd.meta.name}** - ${cmd.meta.description}\nUsage: ${require("../util").renderUsage(cmd.meta.name)}`).join("\n\n"));
+            .setDescription(viewthedocs+"\n"
+            +pageCmds.map(cmd => `**${cmd.meta.name}** - ${cmd.meta.description}\nUsage: ${require("../util").renderUsage(cmd.meta.name)}`).join("\n\n")
+        + "\n" + viewthedocs);
 //             pageCmds.forEach(cmd => {
 //                 embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
 // Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
