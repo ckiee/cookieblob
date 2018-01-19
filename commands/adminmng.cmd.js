@@ -39,7 +39,7 @@ module.exports = {
             console.log(data);
             const filename = `cblob-guild-stats-${require("randomstring").generate(5)}.json`;
             require("fs").writeFile(`/home/ron/personalcdn/data/${filename}`,
-        data);
+        JSON.stringify(data));
         await msg.channel.send(`:ok_hand: here's your data: https://i.ronthecookie.me/${filename}`)
             break;
 
