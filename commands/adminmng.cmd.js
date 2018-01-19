@@ -39,8 +39,11 @@ module.exports = {
             console.log(data);
             const filename = `cblob-guild-stats-${require("randomstring").generate(5)}.json`;
             require("fs").writeFile(`/home/ron/personalcdn/data/${filename}`,
-        JSON.stringify(data));
-        await msg.channel.send(`:ok_hand: here's your data: https://i.ronthecookie.me/${filename}`)
+        JSON.stringify(data), async err => {
+            if (err) return await msg.channel.send(":x: there was an error while trying to store your guild stats data: " + err);
+            await msg.channel.send(`:ok_hand: here's your data: https://i.ronthecookie.me/${filename}`);
+        });
+        
             break;
 
 
