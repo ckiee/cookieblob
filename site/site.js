@@ -14,11 +14,8 @@ app.use(express.static("static"));
 app.listen(8085, function() {
     console.log("Listening on port 8085");
 });
-io.on('connection', socket => {
-    console.log("[web socket.io] connected");
-});
 setInterval(() => {
-    io.emit("guild count", client.guilds.size);
+    io.emit("guild count", cookieblob.client.guilds.size);
 });
 module.exports = {
     app: app
