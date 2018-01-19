@@ -33,6 +33,7 @@
     "passport-oauth2-refresh": "^1.0.0",
     "qr-image": "^3.2.0",
     "random-animal": "^1.0.7",
+    "randomstring": "^1.1.5",
     "request": "^2.83.0",
     "rethinkdb": "^2.3.3",
     "spongemock": "0.0.7",

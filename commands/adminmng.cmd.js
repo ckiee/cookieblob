@@ -1,6 +1,7 @@
 const cookieblob = require("../cookieblob");
 const datastorage = require("../datastorage");
 const {Message, Client} = require("discord.js");
+const r = require("rethinkdb");
 module.exports = {
     /**
      * @param {Message} msg
@@ -10,7 +11,7 @@ module.exports = {
     run: async (msg, args, client) => {
         if (args.length < 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
         switch (args[0]) {
-            case "load":
+            case "cmdload":
             if (args.length != 2) return msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds')); 
             let cmdModule = require("./"+args[1]+".cmd.js");
             if (cmdModule.meta == null) throw Error(`Command module ${cmdModule} did not export 'meta'`);
@@ -20,7 +21,7 @@ module.exports = {
             msg.channel.send(`:ok_hand: loaded command ${cmdModule.meta.name}!`);
             break;
 
-            case "reload":
+            case "cmdreload":
             let mPath = `./${args[1]}.cmd.js`;
             delete require.cache[require.resolve(mPath)];  
             let cmdModuleR = require(mPath);
@@ -29,15 +30,28 @@ module.exports = {
             msg.channel.send(`:ok_hand: reloaded command ${cmdModuleR.meta.name}!`);
             break;
 
+            case "getguildstats":
+            const c = cookieblob.rethinkConnection;
+            /**
+             * @type {Object[]}
+             */
+            const data = await r.table("guildStats").getAll().run(c);
+            const filename = `cblob-guild-stats-${require("randomstring").generate(5)}`;
+            require("fs").writeFile(`/home/ron/personalcdn/data/${filename}`,
+        Buffer.from(JSON.stringify(data)));
+        await msg.channel.send(`:ok_hand: here's your data: https://i.ronthecookie.me/${filename}`)
+            break;
+
+
             default:
             msg.channel.send(require("../util").invalidUsageEmbed(msg, 'mngcmds'));
             break;
         }
     },
     meta: {
-        name: "mngcmds",
-        description: "Manage commands.",
-        usage: ["load/reload","load:name/reload:name"],
+        name: "adminmng",
+        description: "Manage cookieblob (for developers!)",
+        usage: ["cmdload/cmdreload/getguildstats","cmdload:name/cmdreload:name"],
         permissionLevel:"botAdmin",
         guildOnly:false
     }
