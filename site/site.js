@@ -1,8 +1,6 @@
 const express = require("express");
 const cookieblob = require("../cookieblob");
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http, {serveClient: true});
+let app = express();
 app.set('view engine', 'ejs');
 app.get("/", (req, res)=>{
     res.render("index.ejs", {guildAmount:cookieblob.client.guilds.size});
@@ -13,9 +11,6 @@ app.get("/docs", (req, res)=>{
 app.use(express.static("static"));
 app.listen(8085, function() {
     console.log("Listening on port 8085");
-});
-setInterval(() => {
-    io.emit("guild count", cookieblob.client.guilds.size);
 });
 module.exports = {
     app: app
