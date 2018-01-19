@@ -31,7 +31,8 @@ module.exports = {
             .setAuthor("Cookieblob command list - Page "+(currentPage+1),client.user.displayAvatarURL())
             .setColor(0xffc300)
             .setTimestamp(new Date())
-            .setDescription(pageCmds.map(cmd => `**${cmd.meta.name}** - ${cmd.meta.description}\nUsage: ${require("../util").renderUsage(cmd.meta.name)}`).join("\n\n"));
+            .setDescription("***[View the documentation online](https://cookieblob.ronthecookie.me/docs)***\n"
+            +pageCmds.map(cmd => `**${cmd.meta.name}** - ${cmd.meta.description}\nUsage: ${require("../util").renderUsage(cmd.meta.name)}`).join("\n\n"));
 //             pageCmds.forEach(cmd => {
 //                 embed.addField(cmd.meta.name,`Description: \`${cmd.meta.description}\` 
 // Usage: \`${require("../util").renderUsage(cmd.meta.name)}\``);    
