@@ -2,7 +2,7 @@ const express = require("express");
 const cookieblob = require("../cookieblob");
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {serveClient: true});
 app.set('view engine', 'ejs');
 app.get("/", (req, res)=>{
     res.render("index.ejs", {guildAmount:cookieblob.client.guilds.size});
