@@ -36,9 +36,10 @@ module.exports = {
              * @type {Object[]}
              */
             const data = await r.table("guildStats").getAll().run(c);
+            console.log(data);
             const filename = `cblob-guild-stats-${require("randomstring").generate(5)}`;
             require("fs").writeFile(`/home/ron/personalcdn/data/${filename}`,
-        Buffer.from(JSON.stringify(data)));
+        data);
         await msg.channel.send(`:ok_hand: here's your data: https://i.ronthecookie.me/${filename}`)
             break;
 
