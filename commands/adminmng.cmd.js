@@ -32,11 +32,9 @@ module.exports = {
 
             case "getguildstats":
             const c = cookieblob.rethinkConnection;
-            /**
-             * @type {Object[]}
-             */
-            const data = await (await r.table("guildStats").getAll().run(c)).toArray();
-            console.log(data);
+            const raw = await r.table("guildStats").getAll().run(c);
+            console.log(raw);
+            return;
             const filename = `cblob-guild-stats-${require("randomstring").generate(5)}.json`;
             require("fs").writeFile(`/home/ron/personalcdn/data/${filename}`,
         JSON.stringify(data), async err => {
