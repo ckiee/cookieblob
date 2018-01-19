@@ -65,9 +65,11 @@ client.on('ready',()=>{
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
+        r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
     });
     client.on('guildDelete', g => {
         guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
+        r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
     });
 });
 
