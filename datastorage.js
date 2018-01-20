@@ -66,9 +66,48 @@ async function setupDatabase() {
     await r.dbCreate("cookieblob").run(connection);
     await r.db("cookieblob").tableCreate("guildData").run(connection);
     await r.db("cookieblob").tableCreate("starboard").run(connection);
+    await r.db("cookieblob").tableCreate("guildStats").run(connection);
+    await r.db("cookieblob").tableCreate("cmdusages").run(connection);
+    await r.db("cookieblob").tableCreate("cookiePoints").run(connection);
+}
+
+/**
+ * @typedef {Object} CookiePointGuild
+ * @property {String} id The Guild's ID
+ * @property {Number} points The amount of points they have
+ * @property {Number} multiplier Guild point multiplier, defaults to 1 for none.
+ */
+/**
+ * @type {Map<String, CookiePointGuild>}
+ */
+ const cpProxies = new Map();
+
+/**
+ * @param {String} id
+ * @returns {Promise<CookiePointGuild>}
+ */
+async function getCookiePointGuild(id) {
+    if (cpProxies.has(id)) {
+        return cpProxies.get(id);
+    } else {
+        const rawData = await r.table("cookiePoints").get(id).run(connection);
+        if (!rawData) {
+            const defaultData = {id, points: 0, multiplier: 1};
+            r.table("cookiePoints").insert(defaultData).run(connection);
+            return defaultData;
+        }
+        cpProxies.set(new Proxy(rawData, {
+            set: (obj, property, value) => {
+                obj[property] = value; // normal behaviour
+                r.table("cookiePoints").get(id).update(obj).run(connection);
+            }
+        }));
+        await getCookiePointGuild(id);
+    }
 }
 module.exports = {
-    getGuildData: getGuildData,
-    setupDatabase: setupDatabase,
-    updateLocalConnection: updateLocalConnection
+    getGuildData,
+    setupDatabase,
+    updateLocalConnection,
+    getCookiePointGuild
 }
