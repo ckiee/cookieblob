@@ -1,5 +1,6 @@
 const cookieblob = require("../cookieblob");
 const datastorage = require("../datastorage");
+const reload = require("require-reload");
 const {Message, Client} = require("discord.js");
 const r = require("rethinkdb");
 module.exports = {
@@ -44,6 +45,10 @@ module.exports = {
         
             break;
 
+
+            case "rr":
+            await msg.channel.send(":ok_hand: Reloaded, result: "+reload(args.slice(1).join(" ")));
+            break;
 
             default:
             require("../util").usage(msg);

@@ -35,6 +35,7 @@
     "random-animal": "^1.0.7",
     "randomstring": "^1.1.5",
     "request": "^2.83.0",
+    "require-reload": "^0.2.2",
     "rethinkdb": "^2.3.3",
     "spongemock": "0.0.7",
     "to-zalgo": "^1.0.1",
