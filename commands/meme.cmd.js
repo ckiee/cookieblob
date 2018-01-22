@@ -9,7 +9,7 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         let m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
-        request("https://api.imgur.com/3/gallery/hot/viral/0.json", {
+        request.get("https://api.imgur.com/3/gallery/hot/viral/0.json", {
             headers: {
                 Authorization: `Client-ID ${cookieblob.config.imgurClientID}`
             },
