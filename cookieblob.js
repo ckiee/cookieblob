@@ -194,6 +194,7 @@ function getCommand(name) {
  * @property {String} clientSecret
  * @property {String} secretRand
  * @property {Array<String>} admins
+ * @property {String} imgurClientID
  */
 
 /**
