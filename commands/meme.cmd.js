@@ -17,13 +17,12 @@ module.exports = {
         }, (err, response, body)=>{
             if (err) throw err;
             if (body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: Cannot show NSFW memes in a non-nsfw channel.");
-            console.log(require("util").inspect(body.data, false, 0))
             m.edit(new MessageEmbed()
             .setAuthor(msg.author.tag, msg.author.avatarURL())
             .setTimestamp(new Date())
             .setFooter("Meme supplied by Imgur API")
-            .setTitle(body.data.title)
-            .setImage(body.data.images[0].link)
+            .setTitle(body.data[0].title)
+            .setImage(body.data[0].images[0].link)
         );
         });
     },
