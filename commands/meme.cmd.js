@@ -17,7 +17,7 @@ module.exports = {
         }, (err, response, body)=>{
             if (err) throw err;
             if (body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: Cannot show NSFW memes in a non-nsfw channel.");
-            console.log(require("util").inspect(body.data, false, 1))
+            console.log(require("util").inspect(body.data, false, 0))
             m.edit(new MessageEmbed()
             .setAuthor(msg.author.tag, msg.author.avatarURL())
             .setTimestamp(new Date())
