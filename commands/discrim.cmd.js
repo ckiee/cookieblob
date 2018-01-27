@@ -1,4 +1,4 @@
-const {Client, Message}  = require("discord.js");
+const {Client, Message, MessageEmbed} = require("discord.js");
 module.exports = {
                 /**
      * @param {Message} msg
@@ -7,12 +7,14 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         const discrim = args.length == 1 ? parseInt(args[0]) : msg.author.discriminator;
-        const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag);
-        if (users.length == 0 || isNaN(discrim)) {
-            await msg.channel.send(`:x: No results.`);
-        } else {
-            await msg.channel.send('```\n'+users.join("\n")+'\n```');
-        }
+        const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag).slice(0, 9);
+        let embed = new MessageEmbed()
+        .setTitle(`Users with #${discrim}`)
+        .setAuthor(msg.author.tag, msg.author.avatarURL())
+        .setFooter("Limited to 10 users.")
+        .setTimestamp(new Date())
+        .setDescription(users.join("\n"));
+        await msg.channel.send(embed);
     },
     meta: {
         name: "discrim",
