@@ -7,6 +7,8 @@ module.exports = {
      */
     run: async (msg, args, client) => {
         const discrim = args.length == 1 ? args[0] : msg.author.discriminator;
+        if (!(discrim.split("").every(v => !isNaN(parseInt(v))))) return await msg.channel.send(":x: A discriminator can only contain letters.");
+        if (discrim.length != 4) return await msg.channel.send(":x: A discriminator is always 4 digits.");
         const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag).slice(0, 9);
         let embed = new MessageEmbed()
         .setTitle(`Users with #${discrim}`)
