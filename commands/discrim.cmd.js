@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (msg, args, client) => {
-        const discrim = args.length == 1 ? parseInt(args[0]) : msg.author.discriminator;
+        const discrim = args.length == 1 ? args[0] : msg.author.discriminator;
         const users = client.users.filter(user => user.discriminator == discrim).map(user => user.tag).slice(0, 9);
         let embed = new MessageEmbed()
         .setTitle(`Users with #${discrim}`)
