@@ -46,8 +46,7 @@ function postStatsOnAllSites() {
     postBotStats("bots.discord.pw", config.botsdiscordpwToken);
     postBotStats("discordbots.org", config.discordbotsorgToken);
 }
-client.on('guildCreate', postStatsOnAllSites);
-client.on('guildRemove', postStatsOnAllSites);
+
 
 
 
@@ -58,18 +57,19 @@ client.on('ready',()=>{
     console.log(`Logged in as ${client.user.tag}`);
     const site = require("./site/site.js");
     const starboard = require("./starboard");
-    const ug = () => client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
+    const ug = () => postStatsOnAllSites(); client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     ug();
-    setInterval(ug, 1000*60*5);
-    postStatsOnAllSites();
+    
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
         r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
+        ug();
     });
     client.on('guildDelete', g => {
         guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
         r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
+        ug();
     });
 });
 
