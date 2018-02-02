@@ -107,7 +107,7 @@ async function play(msg) {
     if (!voiceChannel) voiceChannel = await msg.member.voiceChannel.join();
     msg.guild.me.setDeaf(true);
     let sq = mg.shiftQueue();
-    mg.setDispatcher(voiceChannel.playStream(ytdl(sq.youtube.link,{filter:"audioonly"}),{passes:4}));
+    mg.setDispatcher(voiceChannel.play(ytdl(sq.youtube.link,{filter:"audioonly"}),{passes:4}));
     mg.setPlayingTitle(sq.youtube.title);
     mg.getDispatcher().on('end',reason => {
         setTimeout(()=>{
