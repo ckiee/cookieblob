@@ -13,7 +13,7 @@ module.exports = {
             msg.channel.send(":x: You are not in a voice channel!");
             return;
         }
-        if (!vc.joinable) {
+        if (!vc.joinable && msg.guild.voiceConnection.channel.id != vc.id) {
             msg.channel.send(":x: Cookieblob does not have permission to join that voice channel!");
             return;
         }
