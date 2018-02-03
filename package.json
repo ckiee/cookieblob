@@ -2,11 +2,10 @@
   "name": "cookieblob",
   "version": "1.0.0",
   "description": "A multi-purpose discord bot.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "tsc && node dist/index.ts",
     "gendocs": "jsdoc src/ -r -d docs"
   },
   "repository": {

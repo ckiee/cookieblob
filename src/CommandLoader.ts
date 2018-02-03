@@ -18,3 +18,4 @@ function loadAllCmds(cookieblob: Cookieblob): Promise<Map<String, Command>> {
         });
     });
 }
+export default loadAllCmds
