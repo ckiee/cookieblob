@@ -18,7 +18,6 @@ module.exports = class Cookieblob extends Client {
         /**
         * @type {Map<String, Command>}
         */
-        this.commands = null;
         CommandLoader(this).then(cmds => this.commands = cmds);
     }
     /**

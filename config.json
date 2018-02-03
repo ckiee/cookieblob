@@ -1,4 +1,6 @@
 {
     "discordToken": "NDAyNDM3MTY5MDQzNjAzNDU2.DVc7zQ.8bxUbI85FTZrrH4oJDQozpsKIbs",
-    "defaultPrefix": "cbd!"
+    "defaultPrefix": "cbd!",
+    "ownerID":"142244934139904000",
+    "developerIDs":["142244934139904000"]
 }

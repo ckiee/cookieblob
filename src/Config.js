@@ -12,5 +12,13 @@ module.exports = /** @class */ class Config {
          * @type {String}
          */
         this.discordToken = config.discordToken;
+        /**
+         * @type {String}
+         */
+        this.ownerID = config.ownerID;
+        /**
+         * @type {String[]}
+         */
+        this.developerIDs = config.developerIDs;
     }
 }
