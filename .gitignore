@@ -1,3 +1,7 @@
+#cookieblob & Typescript
+config.json
+dist/
+
 # Logs
 logs
 *.log
