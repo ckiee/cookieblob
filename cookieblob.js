@@ -53,7 +53,11 @@ function postStatsOnAllSites() {
 let commands = {};
 
 (()=>{
-    const ug = () => postStatsOnAllSites(); client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
+    const ug = () => {
+        console.log("Updating guild status ", `${client.guilds.size} guilds`);
+        postStatsOnAllSites();
+        client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
+    }
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
