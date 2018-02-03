@@ -52,14 +52,8 @@ function postStatsOnAllSites() {
 
 let commands = {};
 
-
-client.on('ready',()=>{
-    console.log(`Logged in as ${client.user.tag}`);
-    const site = require("./site/site.js");
-    const starboard = require("./starboard");
+(()=>{
     const ug = () => postStatsOnAllSites(); client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
-    ug();
-    
     const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
@@ -71,8 +65,14 @@ client.on('ready',()=>{
         r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
         ug();
     });
-});
 
+client.on('ready',()=>{
+    console.log(`Logged in as ${client.user.tag}`);
+    const site = require("./site/site.js");
+    const starboard = require("./starboard");
+    ug();
+});
+})();
 
 
 client.on('message', async msg => { // Command handler on-message listener
