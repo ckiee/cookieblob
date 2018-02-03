@@ -1,3 +1,0 @@
-Cookieblob loader file, index.js loads a Cookieblob instance, every cookieblob instance gets a commands from a file.
-
-fix catfact, dadjoke (use snekfetch)
