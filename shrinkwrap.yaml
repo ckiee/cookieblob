@@ -1,0 +1,18 @@
+dependencies:
+  rethinkdbdash: 2.3.31
+packages:
+  /bluebird/3.5.1:
+    dev: false
+    resolution:
+      integrity: sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
+  /rethinkdbdash/2.3.31:
+    dependencies:
+      bluebird: 3.5.1
+    dev: false
+    resolution:
+      integrity: sha512-6nXrKFjdg2Ug0YpdmPWSvyD/2EisHnFNt4FWZ74dcXGK48ievSv+cNFTmVv+KjLi6I9CCf6w4CKZ6yCYTfMfdQ==
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 4
+shrinkwrapVersion: 3
+specifiers:
+  rethinkdbdash: ^2.3.31
