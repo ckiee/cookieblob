@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "tsc && node dist/index.ts",
+    "start": "tsc && node dist/index.js",
     "gendocs": "jsdoc src/ -r -d docs"
   },
   "repository": {
