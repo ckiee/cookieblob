@@ -1,4 +1,7 @@
 /** @module */
+
+const Permissions = require("./Permissions");
+
 module.exports = /** @class */ class Command {
     /**
      * @param {Object} command 
@@ -19,7 +22,7 @@ module.exports = /** @class */ class Command {
         /**
          * @type {String}
          */
-        this.permissionLevel = command.permissionLevel || command.meta.permissionLevel==0?"everyone":command.meta.permissionLevel;
+        this.permissionLevel = command.permissionLevel || command.meta.permissionLevel;
         /**
          * @type {Boolean}
          */
@@ -28,5 +31,9 @@ module.exports = /** @class */ class Command {
          * @type {AsyncFunction}
          */
         this.run = command.run;
+        if (!Permissions.isValidPermission(this.permissionLevel)) {
+            this.run = (cookieblob, msg, args) => {throw new Error("This command has a invalid permission and could not be safely executed.")};
+            console.error(`[command] ${this.name} has a invalid permission, users will be getting errors.`);
+        }
     }
 }

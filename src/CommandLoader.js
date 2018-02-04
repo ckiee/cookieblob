@@ -14,6 +14,7 @@ module.exports = (cookieblob) => {
             if (error) return reject(error);
             matches = matches.map(fn => {
                 try {
+                    if (cookieblob) cookieblob.emit("debug", `Loaded command ${fn}`)
                     return require(`${process.cwd()}/${fn}`);
                 } catch (error) {
                     if (cookieblob) cookieblob.emit("debug", `\n\nFailed to load '${process.cwd()}/${fn}', error: ${error.stack}\nThis is only a warning, the bot will still work.\n`);

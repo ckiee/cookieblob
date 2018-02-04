@@ -17,8 +17,13 @@ module.exports = async (cookieblob, msg) => {
         const cmd = cookieblob.commands.get(cmdLabel);
         if (!Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)) 
             return await msg.channel.send(`:x: You need the \`${cmd.permissionLevel.toString()}\` permission to use this command.`);
-        cmd.run.call(cookieblob, [args, msg]);
+        await cmd.run(cookieblob, args, msg);
     } catch (error) {
-        
+        await msg.channel.send(
+`There was an error while running that command: 
+\`\`\`js
+${error.stack}
+\`\`\``
+    );
     }
 }
