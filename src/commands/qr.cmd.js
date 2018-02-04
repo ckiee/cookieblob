@@ -1,21 +1,22 @@
 const {Client, Message, MessageAttachment}  = require("discord.js");
 const qr = require("qr-image");
+const Util = require("../Util");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
-        if (args.length < 1) return require("../util").usage(msg);
-        let c = args.join(" ");
-        msg.channel.send(new MessageAttachment(qr.image(c, {type:"png"})));
+    run: async (cookieblob, msg, args) => {
+        if (args.length < 1) return Util.sendInvalidUsage(cookieblob.commands.get("qr"), msg);
+        msg.channel.send(new MessageAttachment(qr.image(args.join(" "), {type:"png"})));
     },
-    meta: {
-        name: "qr",
-        description: "Make a QR Code.",
-        usage: ["text"],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "qr",
+    description: "Make a QR Code.",
+    usage: ["text"],
+    permissionLevel: Permissions.everyone,
+    guildOnly:false
+    
 }

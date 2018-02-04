@@ -1,18 +1,20 @@
-const {Client, Message}  = require("discord.js");
+const {Message} = require("discord.js");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
+    run: async (cookieblob, msg, args) => {
         await msg.channel.send(client.guilds.get("393781962545954817").emojis.random(1).toString());
     },
     meta: {
         name: "randomparrot",
         description: "Displays a random parrot animated emoji from http://cultofthepartyparrot.com",
         usage: [],
-        permissionLevel:0,
+        permissionLevel: Permissions.everyone,
         guildOnly:false
     }
 }

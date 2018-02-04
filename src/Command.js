@@ -36,4 +36,10 @@ module.exports = /** @class */ class Command {
             console.error(`[command] ${this.name} has a invalid permission, users will be getting errors.`);
         }
     }
+    /** 
+     * @returns {String} The formatted command usage.
+    */
+    formatCommand() {
+        return `${this.name} ${this.usage.map(usageEntry => `<${usageEntry}>`).join(" ")}`;
+    }
 }

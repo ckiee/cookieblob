@@ -1,9 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 const animals = require("random-animal");
-const util = require("../util");
+const Util = require("../Util");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-    run: async (msg, args, client) => {
-        if (args.length != 1) return msg.channel.send(util.invalidUsageEmbed(msg,"random"));
+    /**
+     * @param {Cookieblob} cookieblob
+     * @param {Message} msg
+     * @param {String[]} args
+     */
+    run: async (cookieblob, msg, args) => {
+        if (args.length != 1) return Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
         switch (args[0]) {
             case "cat":
             let cat = await animals.cat();
@@ -18,15 +25,13 @@ module.exports = {
             );
             break;
             default: 
-            msg.channel.send(util.invalidUsageEmbed(msg,"random"));
+            return Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
             break;
         }
     },
-    meta: {
-        name: "random",
-        description: "Get a random cat or dog.",
-        usage: ["cat/dog"],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "random",
+    description: "Get a random cat or dog.",
+    usage: ["cat/dog"],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }

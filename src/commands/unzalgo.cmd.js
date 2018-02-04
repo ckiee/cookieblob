@@ -1,6 +1,6 @@
 const { Message } = require("discord.js");
-const Cookieblob = require("../Cookieblob");
 const banish = require("to-zalgo/banish");
+const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
     /**
@@ -14,6 +14,6 @@ module.exports = {
     name: "unzalgo",
     description: "Convert zalgo text into normal text.",
     usage: [],
-    permissionLevel:Permissions.everyone,
+    permissionLevel: Permissions.everyone,
     guildOnly:false
 }
