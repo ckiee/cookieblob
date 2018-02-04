@@ -2,10 +2,11 @@
   "name": "cookieblob",
   "version": "1.0.0",
   "description": "A multi-purpose discord bot.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "tsc && node dist/index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "gendocs": "jsdoc src/ -r -d docs"
   },
   "repository": {
@@ -35,9 +36,7 @@
     "to-zalgo": "^1.0.1"
   },
   "devDependencies": {
-    "@types/glob": "^5.0.35",
-    "@types/node": "^9.4.0",
-    "@types/snekfetch": "^3.1.0",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.0.0",
     "nodemon": "^1.14.12"
   }
