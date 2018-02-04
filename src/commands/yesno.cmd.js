@@ -1,19 +1,18 @@
 const {Client, Message, MessageEmbed}  = require("discord.js");
-const request = require("request");
+const request = require("snekfetch");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
     run: async (msg, args, client) => {
         let m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
-        request.get("https://yesno.wtf/api/", {
-            json:true,
-        }, async (error, response, body) => {
-            await m.edit(new MessageEmbed().setAuthor(msg.author.tag, msg.author.displayAvatarURL()).setColor(0xadf442)
-            .setImage(body.image).setTitle(body.answer).setTimestamp(new Date()).setFooter("Supplied by https://yesno.wtf/"));
-        });
+        const res = await request.get("https://yesno.wtf/api").send();
+        await m.edit(new MessageEmbed().setAuthor(msg.author.tag, msg.author.avatarURL()).setColor(0xadf442)
+            .setImage(res.body.image).setTitle(res.body.answer).setTimestamp(new Date()).setFooter("Supplied by https://yesno.wtf/"));
     },
     meta: {
         name: "yesno",

@@ -10,23 +10,23 @@ module.exports = /** @class */ class Command {
         /**
          * @type {String}
          */
-        this.name = command.name || command.meta.name;
+        this.name = command.name;
         /**
          * @type {String}
          */
-        this.description = command.description || command.meta.description;
+        this.description = command.description;
         /**
          * @type {String[]}
          */
-        this.usage = command.usage || command.meta.usage;
+        this.usage = command.usage;
         /**
          * @type {String}
          */
-        this.permissionLevel = command.permissionLevel || command.meta.permissionLevel;
+        this.permissionLevel = command.permissionLevel;
         /**
          * @type {Boolean}
          */
-        this.guildOnly = command.guildOnly || command.meta.guildOnly;
+        this.guildOnly = command.guildOnly;
         /**
          * @type {AsyncFunction}
          */
