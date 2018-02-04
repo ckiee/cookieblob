@@ -1,20 +1,21 @@
-const {Client, Message} = require("discord.js");
+const {Message} = require("discord.js");
 const zalgo = require("to-zalgo");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
     run: async (msg, args, client) => {
-        let c = zalgo(args.join(" "));
-        msg.channel.send(`Zalgoified: *\`${c}\`*`);
+        await msg.channel.send(`Zalgoified: *\`${zalgo(args.join(" "))}\`*`);
     },
     meta: {
         name: "zalgo",
         description: "Convert normal text into zalgo text.",
         usage: [],
-        permissionLevel:0,
+        permissionLevel:Permissions.everyone,
         guildOnly:false
     }
 }

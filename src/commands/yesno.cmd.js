@@ -1,4 +1,4 @@
-const {Client, Message, MessageEmbed}  = require("discord.js");
+const {Message, MessageEmbed}  = require("discord.js");
 const request = require("snekfetch");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
@@ -18,7 +18,7 @@ module.exports = {
         name: "yesno",
         description: "Yes, or No?",
         usage: [],
-        permissionLevel:0,
+        permissionLevel:Permissions.everyone,
         guildOnly:false
     }
 }
