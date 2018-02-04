@@ -16,7 +16,7 @@ module.exports = (cookieblob) => {
                 try {
                     return require(`${process.cwd()}/${fn}`);
                 } catch (error) {
-                    if (cookieblob) cookieblob.emit("debug", `Failed to load '${process.cwd()}/${fn}', error: ${error.stack}`);
+                    if (cookieblob) cookieblob.emit("debug", `\n\nFailed to load '${process.cwd()}/${fn}', error: ${error.stack}\nThis is only a warning, the bot will still work.\n`);
                     return error;
                 }
             }).filter(v => !(v instanceof Error)).map(v => new Command(v)).forEach(v => map.set(v.name, v));
