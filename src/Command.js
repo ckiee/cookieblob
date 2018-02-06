@@ -33,7 +33,6 @@ module.exports = /** @class */ class Command {
         this.run = command.run;
         if (!Permissions.isValidPermission(this.permissionLevel)) {
             this.run = (cookieblob, msg, args) => {throw new Error("This command has a invalid permission and could not be safely executed.")};
-            console.error(`[command] ${this.name} has a invalid permission, users will be getting errors.`);
         }
     }
     /** 
