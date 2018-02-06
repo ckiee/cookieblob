@@ -8,13 +8,11 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        await msg.channel.send(client.guilds.get("393781962545954817").emojis.random(1).toString());
+        await msg.channel.send(cookieblob.guilds.get("393781962545954817").emojis.random(1).toString());
     },
-    meta: {
-        name: "randomparrot",
-        description: "Displays a random parrot animated emoji from http://cultofthepartyparrot.com",
-        usage: [],
-        permissionLevel: Permissions.everyone,
-        guildOnly:false
-    }
+    name: "randomparrot",
+    description: "Displays a random parrot animated emoji from http://cultofthepartyparrot.com",
+    usage: [],
+    permissionLevel: Permissions.everyone,
+    guildOnly:false
 }

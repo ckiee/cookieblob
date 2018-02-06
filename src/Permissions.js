@@ -23,7 +23,7 @@ module.exports.isValidPermission = permission => {
  * @returns {Boolean} has permission?
  */
 module.exports.checkGlobal = (cookieblob, user, permission) => {
-    if (permission == "everyone") return true;
+    if (permission == everyone) return true;
 
     if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return true;
     if (permission == botOwner && user.id == cookieblob.config.ownerID) return true;

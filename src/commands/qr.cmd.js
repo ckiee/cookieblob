@@ -1,4 +1,4 @@
-const {Client, Message, MessageAttachment}  = require("discord.js");
+const {Message, MessageAttachment}  = require("discord.js");
 const qr = require("qr-image");
 const Util = require("../Util");
 const Cookieblob = require("../Cookieblob");
@@ -18,5 +18,4 @@ module.exports = {
     usage: ["text"],
     permissionLevel: Permissions.everyone,
     guildOnly:false
-    
 }

@@ -1,7 +1,7 @@
 const request = require("snekfetch");
+const {MessageEmbed, Message} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
-const {MessageEmbed, Message} = require("discord.js");
 module.exports = {
     /**
      * @param {Cookieblob} cookieblob

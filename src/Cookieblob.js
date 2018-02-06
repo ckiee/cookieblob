@@ -22,6 +22,7 @@ module.exports = class Cookieblob extends Client {
         */
         CommandLoader(this).then(cmds => this.commands = cmds);
         this.on('message', msg => MessageHandler(this, msg));
+        
         this.on('ready', () => GuildEvents(this));
         this.on('guildCreate', () => GuildEvents(this));
         this.on('guildRemove', () => GuildEvents(this));

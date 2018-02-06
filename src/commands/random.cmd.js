@@ -25,7 +25,7 @@ module.exports = {
             );
             break;
             default: 
-            return Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
+            Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
             break;
         }
     },

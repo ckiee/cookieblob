@@ -1,36 +1,30 @@
-const {Client, Message, MessageEmbed}  = require("discord.js");
-const cookieblob = require("../cookieblob");
-const request = require("request");
+const {Message, MessageEmbed}  = require("discord.js");
+const request = require("snekfetch");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
-        let m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
-        request.get("https://api.imgur.com/3/gallery/hot/viral/0.json", {
-            headers: {
-                Authorization: `Client-ID ${cookieblob.config.imgurClientID}`
-            },
-            json: true
-        }, (err, response, body)=>{
-            if (err) throw err;
-            if (body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: Cannot show NSFW memes in a non-nsfw channel.");
-            m.edit(new MessageEmbed()
-            .setAuthor(msg.author.tag, msg.author.avatarURL())
-            .setTimestamp(new Date())
-            .setFooter("Meme supplied by Imgur API")
-            .setTitle(body.data[0].title)
-            .setImage(body.data[0].images[0].link)
+    run: async (cookieblob, msg, args) => {
+        const m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
+        const res = await request.get("https://api.imgur.com/3/gallery/hot/viral/0.json", 
+        {headers: {Authorization: `Client-ID`}})
+        .send();
+        if (res.body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: The top imgur meme is currently marked as NSFW.");
+        m.edit(new MessageEmbed()
+        .setAuthor(msg.author.tag, msg.author.avatarURL())
+        .setTimestamp(new Date())
+        .setFooter("Meme supplied by Imgur API")
+        .setTitle(res.body.data[0].title)
+        .setImage(res.body.data[0].images[0].link)
         );
-        });
     },
-    meta: {
-        name: "meme",
-        description: "Get a meme from Imgur.",
-        usage: [],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "meme",
+    description: "Get the top viral meme from Imgur.",
+    usage: [],
+    permissionLevel: Permissions.everyone,
+    guildOnly:false
 }

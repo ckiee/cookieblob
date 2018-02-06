@@ -1,12 +1,13 @@
-const cookieblob = require("../cookieblob");
-const {MessageEmbed, Message, Client} = require("discord.js");
+const {MessageEmbed, Message} = require("discord.js");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
     /**
-     * @argument {Message} msg
-     * @argument {Client} client
-     * @argument {Array<String>} args 
+     * @param {Cookieblob} cookieblob
+     * @param {Message} msg
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
+    run: async (cookieblob, msg, args) => {
         if (args.length < 1) args[0] = 1;
         if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
         const abandonTime = 40000;//ms
@@ -44,11 +45,9 @@ module.exports = {
         let emB = await makeEmbed();
         let m = await msg.channel.send(emB);
     },
-    meta: {
-        name: "help",
-        description: "Show the list of commands you are currently looking at!",
-        usage: ["page:number"],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "help",
+    description: "Show the list of commands you are currently looking at!",
+    usage: ["page:number"],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }

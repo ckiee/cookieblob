@@ -1,11 +1,17 @@
-const { MessageEmbed } = require("discord.js");
-const config = require("../cookieblob").config;
+const { MessageEmbed, Message } = require("discord.js");
 const github_emote = "<:github:384690138749468682>";
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-    run: async (msg, args, client) => {
-        msg.channel.send(new MessageEmbed()
+    /**
+     * @param {Cookieblob} cookieblob
+     * @param {Message} msg
+     * @param {String[]} args
+     */
+    run: async (cookieblob, msg, args) => {
+        await msg.channel.send(new MessageEmbed()
         .setColor(0xffc300)
-        .setAuthor("Cookieblob",client.user.displayAvatarURL())
+        .setAuthor("Cookieblob",cookieblob.user.avatarURL())
         .setTimestamp(new Date())
         .setFooter("This bot is owned by RONTheCookie#7386 & Jellz#9453.",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
         .addField("Let's help you get started!",`Type ${config.prefix}help to see a list of commands!
@@ -16,11 +22,9 @@ Good luck 😃`)
 `[${github_emote} Github](https://github.com/ronthecookie/cookieblob)`)
     );
     },
-    meta: {
-        name: "about",
-        description: "Some info about Cookieblob.",
-        usage: [],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "about",
+    description: "Some info about Cookieblob.",
+    usage: [],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }

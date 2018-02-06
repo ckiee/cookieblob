@@ -1,20 +1,20 @@
-const {Client, Message}  = require("discord.js");
+const {Message}  = require("discord.js");
 const { spongeMock } = require("spongemock");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-                /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array<String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
-        let mocked = spongeMock(args.join(" "));
+    run: async (cookieblob, msg, args) => {
+        const mocked = spongeMock(args.join(" "));
         msg.channel.send(`<:cbMock:403915279211692042> ${mocked}`);
     },
-    meta: {
-        name: "mock",
-        description: "yOU cAN uSe ThIs To MOcK pEoPlE",
-        usage: [],
-        permissionLevel:0,
-        guildOnly:false
-    }
+    name: "mock",
+    description: "yOU cAN uSe ThIs To MOcK pEoPlE",
+    usage: [],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }

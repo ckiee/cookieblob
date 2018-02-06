@@ -1,0 +1,3 @@
+datastorage required: NONE
+low priority: help
+need guild perms: kick, purge, catfact
