@@ -22,7 +22,7 @@ module.exports = class Cookieblob extends Client {
         */
         CommandLoader(this).then(cmds => this.commands = cmds);
         this.on('message', msg => MessageHandler(this, msg));
-        this.on('ready', Cookieblob => Presence(this));
+        this.on('ready', () => Presence(this));
     }
     /**
      * Are we in a production enviroment?
