@@ -2,6 +2,7 @@
 const { Client } = require("discord.js");
 const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
+const Presence = require("./Presence.js");
 const Config = require("./Config");
 /** @class */
 module.exports = class Cookieblob extends Client {
@@ -21,6 +22,7 @@ module.exports = class Cookieblob extends Client {
         */
         CommandLoader(this).then(cmds => this.commands = cmds);
         this.on('message', msg => MessageHandler(this, msg));
+        this.on('ready', Cookieblob => Presence(this));
     }
     /**
      * Are we in a production enviroment?
