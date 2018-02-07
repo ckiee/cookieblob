@@ -14,11 +14,9 @@ module.exports = {
         await m.edit(new MessageEmbed().setAuthor(msg.author.tag, msg.author.avatarURL()).setColor(0xadf442)
             .setImage(res.body.image).setTitle(res.body.answer).setTimestamp(new Date()).setFooter("Supplied by https://yesno.wtf/"));
     },
-    meta: {
-        name: "yesno",
-        description: "Yes, or No?",
-        usage: [],
-        permissionLevel:Permissions.everyone,
-        guildOnly:false
-    }
+    name: "yesno",
+    description: "Yes, or No?",
+    usage: [],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }

@@ -20,5 +20,9 @@ module.exports = /** @class */ class Config {
          * @type {String[]}
          */
         this.developerIDs = config.developerIDs;
+        /**
+         * @type {String}
+         */
+        this.imgurClientID = config.imgurClientID;
     }
 }

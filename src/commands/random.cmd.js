@@ -24,14 +24,17 @@ module.exports = {
             .setImage(dog)
             );
             break;
+            case "parrot":
+            await msg.channel.send(cookieblob.guilds.get("393781962545954817").emojis.random(1).toString());
+            break;
             default: 
             Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
             break;
         }
     },
     name: "random",
-    description: "Get a random cat or dog.",
-    usage: ["cat/dog"],
+    description: "Get a random cat, parrot or dog.",
+    usage: ["cat/dog/parrot"],
     permissionLevel:Permissions.everyone,
     guildOnly:false
 }

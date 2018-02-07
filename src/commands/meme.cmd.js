@@ -11,7 +11,7 @@ module.exports = {
     run: async (cookieblob, msg, args) => {
         const m = await msg.channel.send(new MessageEmbed().setDescription("<a:loadingrolling:393744853684584448>"));
         const res = await request.get("https://api.imgur.com/3/gallery/hot/viral/0.json", 
-        {headers: {Authorization: `Client-ID`}})
+        {headers: {Authorization: `Client-ID ${cookieblob.config.imgurClientID}`}})
         .send();
         if (res.body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: The top imgur meme is currently marked as NSFW.");
         m.edit(new MessageEmbed()

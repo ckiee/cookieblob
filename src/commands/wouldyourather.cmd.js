@@ -17,8 +17,8 @@ module.exports = {
         .setAuthor(msg.author.username, msg.author.avatarURL())
         .setTitle(res.body.title)
         .setURL(res.body.link)
-        .setDescription(`\`Choice A\`: *${j.choicea}*
-\`Choice B\`: *${j.choiceb}*`)
+        .setDescription(`\`Choice A\`: *${res.body.choicea}*
+\`Choice B\`: *${res.body.choiceb}*`)
         );
     },
     name: "wouldyourather",

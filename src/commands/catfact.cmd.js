@@ -9,8 +9,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        const req = await request.get("https://catfact.ninja/fact");
-        await msg.channel.send(`:ok_hand: Fact: *${JSON.parse(req.body).fact}*`);
+        const res = await request.get("https://catfact.ninja/fact").send();
+        await msg.channel.send(`:ok_hand: Fact: *${res.body.fact}*`);
     },
     name: "catfact",
     description: "Show a random cat fact!",

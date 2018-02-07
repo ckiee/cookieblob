@@ -12,7 +12,7 @@ module.exports = {
         msg.channel.send(new MessageEmbed()
         .setTitle(`Info about guild '${g.name}' (${g.id})`)
         .setTimestamp(new Date())
-        .setThumbnail(g.iconURL)
+        .setThumbnail(g.iconURL())
         .setColor(0x0ea5d3)
         .setDescription(
 `Member count \`${g.memberCount}\`
