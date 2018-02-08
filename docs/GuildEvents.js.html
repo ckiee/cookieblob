@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Command.js</title>
+    <title>JSDoc: Source: GuildEvents.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Command.js</h1>
+    <h1 class="page-title">Source: GuildEvents.js</h1>
 
     
 
@@ -27,48 +27,12 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module */
-
-const Permissions = require("./Permissions");
-
-module.exports = /** @class */ class Command {
-    /**
-     * @param {Object} command 
-     */
-    constructor(command) {
-        /**
-         * @type {String}
-         */
-        this.name = command.name;
-        /**
-         * @type {String}
-         */
-        this.description = command.description;
-        /**
-         * @type {String[]}
-         */
-        this.usage = command.usage;
-        /**
-         * @type {String}
-         */
-        this.permissionLevel = command.permissionLevel;
-        /**
-         * @type {Boolean}
-         */
-        this.guildOnly = command.guildOnly;
-        /**
-         * @type {AsyncFunction}
-         */
-        this.run = command.run;
-        if (!Permissions.isValidPermission(this.permissionLevel)) {
-            this.run = (cookieblob, msg, args) => {throw new Error("This command has a invalid permission and could not be safely executed.")};
-        }
-    }
-    /** 
-     * @returns {String} The formatted command usage.
-    */
-    formatCommand() {
-        return `${this.name} ${this.usage.map(usageEntry => `&lt;${usageEntry}>`).join(" ")}`;
-    }
+const Cookieblob = require("./Cookieblob");
+/**
+ * @param {Cookieblob} cookieblob 
+ */
+module.exports = async (cookieblob) => {
+    await cookieblob.user.setPresence({ activity: {name: `over ${cookieblob.guilds.size} guilds.`, type: "WATCHING" } });
 }</code></pre>
         </article>
     </section>

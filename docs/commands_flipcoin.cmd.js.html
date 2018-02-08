@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Command.js</title>
+    <title>JSDoc: Source: commands/flipcoin.cmd.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Command.js</h1>
+    <h1 class="page-title">Source: commands/flipcoin.cmd.js</h1>
 
     
 
@@ -26,49 +26,27 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module */
-
-const Permissions = require("./Permissions");
-
-module.exports = /** @class */ class Command {
+            <pre class="prettyprint source linenums"><code>const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
+module.exports = {
     /**
-     * @param {Object} command 
+     * @param {Cookieblob} cookieblob
+     * @param {Message} msg
+     * @param {String[]} args
      */
-    constructor(command) {
-        /**
-         * @type {String}
-         */
-        this.name = command.name;
-        /**
-         * @type {String}
-         */
-        this.description = command.description;
-        /**
-         * @type {String[]}
-         */
-        this.usage = command.usage;
-        /**
-         * @type {String}
-         */
-        this.permissionLevel = command.permissionLevel;
-        /**
-         * @type {Boolean}
-         */
-        this.guildOnly = command.guildOnly;
-        /**
-         * @type {AsyncFunction}
-         */
-        this.run = command.run;
-        if (!Permissions.isValidPermission(this.permissionLevel)) {
-            this.run = (cookieblob, msg, args) => {throw new Error("This command has a invalid permission and could not be safely executed.")};
-        }
-    }
-    /** 
-     * @returns {String} The formatted command usage.
-    */
-    formatCommand() {
-        return `${this.name} ${this.usage.map(usageEntry => `&lt;${usageEntry}>`).join(" ")}`;
-    }
+    run: async (cookieblob, msg, args) => {
+        let v;
+        let r = Math.random();
+        if (r > 0.5) {
+            v = "Heads";
+        } else v = "Tails";
+        await msg.channel.send(`The coin landed on *${v}*.`);
+    },
+    name: "flipcoin",
+    description: "Flip a coin!",
+    usage: [],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }</code></pre>
         </article>
     </section>

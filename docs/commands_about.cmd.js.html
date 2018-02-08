@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: commands/hug.cmd.js</title>
+    <title>JSDoc: Source: commands/about.cmd.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: commands/hug.cmd.js</h1>
+    <h1 class="page-title">Source: commands/about.cmd.js</h1>
 
     
 
@@ -26,8 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const {Message} = require("discord.js");
-const Util = require("../Util");
+            <pre class="prettyprint source linenums"><code>const { MessageEmbed, Message } = require("discord.js");
+const github_emote = "&lt;:github:384690138749468682>";
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -37,14 +37,24 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        if (!msg.mentions.members.first()) return Util.sendInvalidUsage(cookieblob.commands.get("hug"), msg);
-        msg.channel.send(`*${msg.author.tag} hugs ${msg.mentions.users.first().tag}!* ❤ ${msg.mentions.users.first().id==cookieblob.user.id ? "Yay!" : ""}`);
+        await msg.channel.send(new MessageEmbed()
+        .setColor(0xffc300)
+        .setAuthor("Cookieblob",cookieblob.user.avatarURL())
+        .setTimestamp(new Date())
+        .setFooter("This bot is owned by RONTheCookie#7386 &amp; Jellz#9453.",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
+        .addField("Let's help you get started!",`Type ${cookieblob.config.defaultPrefix}help to see a list of commands!
+Good luck 😃`)
+        .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&amp;scope=bot&amp;permissions=3173376)!")
+        .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true)
+        .addField("Learn more?",
+`[${github_emote} Github](https://github.com/ronthecookie/cookieblob)`)
+    );
     },
-    name: "hug",
-    description: "Hug a user! Lovely.",
-    usage: ["user mention"],
-    permissionLevel: Permissions.everyone,
-    guildOnly:true
+    name: "about",
+    description: "Some info about Cookieblob.",
+    usage: [],
+    permissionLevel:Permissions.everyone,
+    guildOnly:false
 }</code></pre>
         </article>
     </section>
