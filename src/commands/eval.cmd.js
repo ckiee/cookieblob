@@ -14,6 +14,7 @@ module.exports = {
             if (result.length > 1990) return msg.channel.send("Message is over the discord message contents limit.");
             msg.channel.send("```js\n"+result+"\n```");
         } catch (error) {
+            console.log(`Error while ${msg.author.tag} ran eval.\n${error.stack}`);
             msg.channel.send("Error!```"+error.stack+"```");
         }
     },
