@@ -58,13 +58,14 @@ let commands = {};
         postStatsOnAllSites();
         client.user.setPresence({activity:{name:`${client.guilds.size} guilds! | ${config.prefix}help`, type:"WATCHING"}});
     }
-    const guildNotifyChannel = client.channels.get("397981790142464000");
     client.on('guildCreate', g => {
+        const guildNotifyChannel = client.channels.get("397981790142464000");
         guildNotifyChannel.send(`🎉 joined guild \`${g.name}\`(${g.id})`);
         r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
         ug();
     });
     client.on('guildDelete', g => {
+        const guildNotifyChannel = client.channels.get("397981790142464000");
         guildNotifyChannel.send(`🎉 left guild \`${g.name}\`(${g.id})`);
         r.table("guildStats").insert({count: client.guilds.size, date: new Date().getTime()}).run(connection);
         ug();
