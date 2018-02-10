@@ -18,3 +18,5 @@ Death(() => {
     });
     CookieblobInstance.destroy().then(process.exit);
 });
+// Load up web
+require("./src/web/web");
