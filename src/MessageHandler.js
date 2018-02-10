@@ -1,5 +1,6 @@
 /** @module */
 const Cookieblob = require("./Cookieblob");
+const MusicGuild = require("./MusicGuild");
 const { Message } = require("discord.js");
 const Permissions = require("./Permissions");
 /**
@@ -16,7 +17,8 @@ module.exports = async (cookieblob, msg) => {
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
         if (!Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)) 
-            return await msg.channel.send(`:x: You need the \`${cmd.permissionLevel.toString()}\` permission to use this command.`);
+            return await msg.channel.send(`:x: You need the \`${cmd.permissionLevel.toString().slice(7, cmd.permissionLevel.toString().length - 1)/*removes the symbol( thing*/}\` permission to use this command.`);
+        if (msg.guild) cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id));
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
         await msg.channel.send(

@@ -2,7 +2,8 @@
 const { Client } = require("discord.js");
 const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
-const GuildEvents = require("./GuildEvents.js");
+const GuildEvents = require("./GuildEvents");
+const MusicGuild = require("./MusicGuild");
 const Config = require("./Config");
 /** @class */
 module.exports = class Cookieblob extends Client {
@@ -26,6 +27,10 @@ module.exports = class Cookieblob extends Client {
         this.on('ready', () => GuildEvents(this));
         this.on('guildCreate', () => GuildEvents(this));
         this.on('guildRemove', () => GuildEvents(this));
+        /**
+         * @type {Map<String, MusicGuild>}
+         */
+        this.musicGuilds = new Map();
     }
     /**
      * Are we in a production enviroment?

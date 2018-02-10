@@ -5,7 +5,7 @@ const { Message, MessageEmbed } = require("discord.js");
  * Sends a dynamic invalid usage message.
  * @param {Command} command 
  * @param {Message} msg 
- * @returns {Message} the sent message
+ * @returns {Promise<Message>} the sent message
  */
 module.exports.sendInvalidUsage = async (command, msg) => {
     return await msg.channel.send(

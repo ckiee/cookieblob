@@ -12,5 +12,9 @@ else if (!CookieblobInstance.isDevelopment() && !CookieblobInstance.isProduction
 // If we die (Process killed)
 Death(() => {
     console.log("\n\nCleaning up before shutting down...");
+    CookieblobInstance.musicGuilds.forEach(mg => {
+        if (mg.dispatcher) mg.dispatcher.end();
+        if (mg.voiceChannel) mg.voiceChannel.leave();
+    });
     CookieblobInstance.destroy().then(process.exit);
 });

@@ -24,5 +24,9 @@ module.exports = /** @class */ class Config {
          * @type {String}
          */
         this.imgurClientID = config.imgurClientID;
+        /**
+         * @type {String}
+         */
+        this.youtubeApiKey = config.youtubeApiKey;
     }
 }
