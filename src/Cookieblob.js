@@ -4,6 +4,7 @@ const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
 const GuildEvents = require("./GuildEvents");
 const MusicGuild = require("./MusicGuild");
+const MusicAlone = require("./MusicAlone");
 const Config = require("./Config");
 /** @class */
 module.exports = class Cookieblob extends Client {
@@ -22,6 +23,7 @@ module.exports = class Cookieblob extends Client {
         * @type {Map<String, Command>}
         */
         CommandLoader(this).then(cmds => this.commands = cmds);
+        this.on('voiceStateUpdate', (unusedvar, member) => MusicAlone(this, member));
         this.on('message', msg => MessageHandler(this, msg));
         
         this.on('ready', () => GuildEvents(this));

@@ -1,3 +1,5 @@
-datastorage required: NONE
+datastorage required: mngselfrole, selfrole, setmodrole
 low priority: help
-need guild perms: kick, purge, catfact
+need guild perms: kick, purge, stop (removes all songs in queue)
+
+I also abandoned starboard because no one uses it.

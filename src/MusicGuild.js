@@ -33,8 +33,10 @@ const search = require("youtube-search");
 module.exports = /** @class */ class MusicGuild {
     /**
      * @param {String} id 
+     * @param {Cookieblob} cookieblob
      */
-    constructor(id) {
+    constructor(id, cookieblob) {
+        this.cookieblob = cookieblob;
         this.id = id;
         /**
          * @type {QueueEntry[]}
@@ -56,21 +58,22 @@ module.exports = /** @class */ class MusicGuild {
          * @type {?StreamDispatcher}
          */
         this.dispatcher = null;
-        /**
-         * @type {Boolean}
-         */
         this.playing = false;
+        this.skippers = 0;
     }
     /**
      * @param {String} query 
      * @param {GuildMember} member
-     * @param {Cookieblob} cookieblob 
      * @returns {Promise<QueueEntry>}
      */
-    search(query, member, cookieblob) {
+    search(query, member) {
         return new Promise((resolve, reject) => {
-            search(query, {key: cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
+            search(query, {key: this.cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
                 if (err) reject(err);
+                if (results.length == 0) {
+                    resolve(null);
+                    return;
+                }
                 let r = results[0];
                 r.member = member;
                 r.addedAt = new Date();
@@ -88,11 +91,13 @@ module.exports = /** @class */ class MusicGuild {
         
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
+        this.currentlyPlaying = queueItem;
+        this.playing = true;
+        this.skippers = 0;
         this.dispatcher.on('end', () => {
             this.playing = false;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
         });
-        this.playing = true;
         await this.textChannel.send(new MessageEmbed()
             .setAuthor(queueItem.member.user.tag, queueItem.member.user.avatarURL())
             .setDescription(queueItem.description)
@@ -101,5 +106,6 @@ module.exports = /** @class */ class MusicGuild {
             .setTitle(queueItem.title)
             .setImage(queueItem.thumbnails.high.url)
         );
+        this.cookieblob.musicGuilds.set(this.id, this);
     }
 }

@@ -15,9 +15,9 @@ module.exports = {
         mg.voiceChannel = msg.member.voiceChannel;
         mg.textChannel = msg.channel;
         const qe = await mg.search(args.join(" "), msg.member, cookieblob);
+        mg = cookieblob.musicGuilds.get(msg.guild.id);
         if (!mg.playing) await mg.play();
         else await msg.channel.send(`:ok_hand: Added \`${qe.title}\` to the queue.`);
-        cookieblob.musicGuilds.set(msg.guild.id, mg);
     },
     name: "play",
     description: "Play a song from YouTube.",
