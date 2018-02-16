@@ -22,6 +22,6 @@ module.exports = {
     name: "eval",
     description: "Evaluate a command",
     usage: [],
-    permissionLevel:Permissions.botOwner,
+    permissionLevel:Permissions.botDeveloper,
     guildOnly:false
 }
