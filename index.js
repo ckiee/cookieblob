@@ -19,6 +19,7 @@ if (!process.argv.includes("cbwebonly")) {
         });
         CookieblobInstance.destroy().then(process.exit);
     });
+    require("./src/web/web");
 } else {
     console.log("*** Running in web only mode. ***");
     // Load up web
