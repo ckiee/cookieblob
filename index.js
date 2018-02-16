@@ -1,6 +1,6 @@
 // Loader file for Cookieblob
-const r = require('rethinkdbdash')(); // Connect to RethinkDB
 if (!process.argv.includes("cbwebonly")) {
+    const r = require('rethinkdbdash')(); // Connect to RethinkDB
     const Cookieblob = require("./src/Cookieblob");
     const Config = require("./src/Config");
     const ConfigInstance = new Config(require("./config"));
