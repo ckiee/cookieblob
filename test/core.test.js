@@ -2,6 +2,7 @@ const assert = require('assert');
 const CommandLoader = require("../src/CommandLoader");
 const Config = require("../src/Config");
 describe("cookieblob", () => {
+    // testing commits
     it("should load all of the commands in the commands directory", (done) => {
         CommandLoader().then((results) => {
             if (results.get("ping").name == "ping") done();
