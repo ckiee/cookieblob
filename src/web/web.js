@@ -49,7 +49,8 @@ module.exports = async cookieblob => {
     app.use(session({
         secret: await getSecretFile(),
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        cookie: process.env.NODE_ENV == "production" ? {secure: true, maxAge: 86400000*7 /* a week */} : null
     }));
     app.get("/oauth", passport.authenticate("discord", { scope: scopes }), (req, res) => {
         res.redirect("/");
