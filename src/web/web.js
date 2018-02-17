@@ -10,6 +10,7 @@ const randomstring = require("randomstring");
  */
 module.exports = async cookieblob => {
     const app = express();
+    app.disable("x-powered-by");
     const port = process.env.PORT || 3000;
     app.set("view engine", "ejs");
     app.listen(port, () => {
@@ -24,11 +25,79 @@ module.exports = async cookieblob => {
         res.redirect("https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376");
     });
 
+    const scopes = ["identify"];
+    app.use(passport.initialize());
+    app.use(passport.session());
+    
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+    });
+    passport.deserializeUser(function(obj, done) {
+        done(null, obj);
+    });
+    
+    passport.use(new DiscordStrategy({
+        clientID: cookieblob.user.id,
+        clientSecret: cookieblob.config.discordSecret,
+        callbackURL: cookieblob.config.callbackURL
+    }, (accessToken, refreshToken, profile, done) => {
+        process.nextTick(()=>{
+            return done(null, profile);
+        });
+    }));
+    app.use(session({
+        secret: await getSecretFile(),
+        resave: false,
+        saveUninitialized: false
+    }));
+    app.get("/oauth", passport.authenticate("discord", { scope: scopes }), (req, res) => {
+        res.redirect("/");
+    });
+    
+    app.get("/callback",
+        passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => res.redirect("/oauth/dashboard"));
+    
 
-    app.use("/oauth", require("./oauth"));
+    app.get("/logout", (req, res) => {
+        req.logout();
+        res.redirect("/");
+    });
+
+    app.get("/debug", (req, res) => {
+        if (req.isAuthenticated()) {
+            res.json(req.user);
+        } else {
+            // res.redirect("/oauth");
+            res.send("test test test.");
+        }
+    });
     app.use(express.static("static"));
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found."});
     });
     return app;
 };
+
+/** 
+ * Gets the secret from the file if it exists, if it does not exist it'll generate a new one.
+ * @returns {Promise<String>}
+ */
+function getSecretFile() {
+    return new Promise((resolve, reject) => {
+        const fn = "secret.cookieblob";
+        fs.exists(fn, exists => {
+            if (exists) {
+                fs.readFile(fn, (err, data) => {
+                    if (err) reject(err);
+                    resolve(data);
+                });
+            } else {
+                const secret = randomstring.generate(500); // pretty long secret lol
+                fs.writeFile(fn, secret, err => {
+                    if (err) reject(err);
+                    resolve(secret);
+                });
+            }
+        });
+    });
+}
