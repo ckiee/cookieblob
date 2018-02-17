@@ -30,4 +30,5 @@ module.exports = cookieblob => {
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found."});
     });
+    return app;
 };
