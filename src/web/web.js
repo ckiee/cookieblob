@@ -11,6 +11,7 @@ const randomstring = require("randomstring");
 module.exports = async cookieblob => {
     const app = express();
     app.disable("x-powered-by");
+    if (process.env.NODE_ENV == "production") app.set("view engine", "loopback");
     const port = process.env.PORT || 3000;
     app.set("view engine", "ejs");
     app.listen(port, () => {
