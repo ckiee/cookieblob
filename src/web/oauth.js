@@ -17,7 +17,8 @@ app.get("/debug", (req, res) => {
     if (req.isAuthenticated()) {
         res.json(req.user);
     } else {
-        res.redirect("/oauth");
+        // res.redirect("/oauth");
+        res.send("test test test.");
     }
 });
 app.use((req, res, next) => {
