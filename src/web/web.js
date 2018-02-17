@@ -16,31 +16,6 @@ module.exports = async cookieblob => {
         console.log(`[Web] Listening on port ${port}`);
     });
 
-    app.use(passport.initialize());
-    app.use(passport.session());
-    
-    passport.serializeUser(function(user, done) {
-        done(null, user);
-    });
-    passport.deserializeUser(function(obj, done) {
-        done(null, obj);
-    });
-
-    passport.use(new DiscordStrategy({
-        clientID: cookieblob.user.id,
-        clientSecret: cookieblob.config.discordSecret,
-        callbackURL: cookieblob.config.callbackURL
-    }, (accessToken, refreshToken, profile, done) => {
-        process.nextTick(()=>{
-            return done(null, profile);
-        });
-    }));
-    app.use(session({
-        secret: await getSecretFile(),
-        resave: false,
-        saveUninitialized: false
-    }));
-
     app.get("/", (req, res) => {
         res.render("index");
     });
@@ -57,27 +32,3 @@ module.exports = async cookieblob => {
     });
     return app;
 };
-
-/** 
- * Gets the secret from the file if it exists, if it does not exist it'll generate a new one.
- * @returns {Promise<String>}
- */
-function getSecretFile() {
-    return new Promise((resolve, reject) => {
-        const fn = "secret.cookieblob";
-        fs.exists(fn, exists => {
-            if (exists) {
-                fs.readFile(fn, (err, data) => {
-                    if (err) reject(err);
-                    resolve(data);
-                });
-            } else {
-                const secret = randomstring.generate(500); // pretty long secret lol
-                fs.writeFile(fn, secret, err => {
-                    if (err) reject(err);
-                    resolve(secret);
-                });
-            }
-        });
-    });
-}
