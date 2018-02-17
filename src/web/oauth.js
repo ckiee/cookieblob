@@ -22,5 +22,5 @@ app.get("/debug", (req, res) => {
 });
 app.use((req, res, next) => {
     if (req.isAuthenticated()) return next();
-    res.redirect("/oauthguard");
+    res.redirect("/oauth");
 });
