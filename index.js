@@ -19,4 +19,4 @@ Death(() => {
         if (mg.dispatcher) mg.dispatcher.end();
         if (mg.voiceChannel) mg.voiceChannel.leave();
     });
-    require("./src/web/web");
+});

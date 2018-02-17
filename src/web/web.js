@@ -1,6 +1,4 @@
 const express = require("express");
-const passport = require("passport");
-const DiscordStrategy = require('passport-discord').Strategy;
 const Cookieblob = require("../Cookieblob");
 const session = require("express-session");
 const fs = require("fs");
@@ -26,53 +24,6 @@ module.exports = async cookieblob => {
         res.redirect("https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376");
     });
 
-    const scopes = ["identify"];
-    app.use(passport.initialize());
-    app.use(passport.session());
-    
-    passport.serializeUser(function(user, done) {
-        done(null, user);
-    });
-    passport.deserializeUser(function(obj, done) {
-        done(null, obj);
-    });
-    
-    passport.use(new DiscordStrategy({
-        clientID: cookieblob.user.id,
-        clientSecret: cookieblob.config.discordSecret,
-        callbackURL: cookieblob.config.callbackURL
-    }, (accessToken, refreshToken, profile, done) => {
-        process.nextTick(()=>{
-            return done(null, profile);
-        });
-    }));
-    app.use(session({
-        secret: await getSecretFile(),
-        resave: false,
-        saveUninitialized: false,
-        cookie: process.env.NODE_ENV == "production" ? {secure: true, maxAge: 86400000*7 /* a week */} : null
-    }));
-    app.get("/oauth", passport.authenticate("discord", { scope: scopes }), (req, res) => {
-        res.redirect("/");
-    });
-    
-    app.get("/callback",
-        passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => res.redirect("/oauth/dashboard"));
-    
-
-    app.get("/logout", (req, res) => {
-        req.logout();
-        res.redirect("/");
-    });
-
-    app.get("/debug", (req, res) => {
-        if (req.isAuthenticated()) {
-            res.json(req.user);
-        } else {
-            // res.redirect("/oauth");
-            res.send("test test test.");
-        }
-    });
     app.use(express.static("static"));
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found."});
