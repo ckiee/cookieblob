@@ -28,5 +28,13 @@ module.exports = /** @class */ class Config {
          * @type {String}
          */
         this.youtubeApiKey = config.youtubeApiKey;
+        /**
+         * @type {String}
+         */
+        this.discordSecret = config.discordSecret;
+        /**
+         * @type {String}
+         */
+        this.callbackURL = config.callbackURL;
     }
 }

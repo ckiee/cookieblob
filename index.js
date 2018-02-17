@@ -1,9 +1,9 @@
 // Loader file for Cookieblob
+const Config = require("./src/Config");
+const ConfigInstance = new Config(require("./config"));
 if (!process.argv.includes("cbwebonly")) {
     const r = require('rethinkdbdash')(); // Connect to RethinkDB
     const Cookieblob = require("./src/Cookieblob");
-    const Config = require("./src/Config");
-    const ConfigInstance = new Config(require("./config"));
     const CookieblobInstance = module.exports = new Cookieblob(r, ConfigInstance);
     const Death = require("death");
     CookieblobInstance.login(ConfigInstance.discordToken);
