@@ -12,7 +12,11 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 app.get("/debug", (req, res) => {
-    if (req.isAuthenticated()) 
+    if (req.isAuthenticated()) {
+        res.json(req.user);
+    } else {
+        res.redirect("/oauth");
+    }
 });
 app.use((req, res, next) => {
     if (req.isAuthenticated()) return next();
