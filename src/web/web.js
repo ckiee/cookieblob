@@ -50,23 +50,9 @@ module.exports = async cookieblob => {
         res.redirect("https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376");
     });
 
-    app.get("/login", passport.authenticate("discord", {scope: scopes}));
-    
-    app.get("/logout", (req, res) => {
-        req.logout();
-        res.redirect("/");
-    });
-    app.get("/callback", passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => res.redirect("/dashboard"));
-    app.get("/dashboard", (req, res) => {
-        if (req.isAuthenticated()) {
-            res.json({hello:"world", user: req.user});
-        } else {
-            res.redirect("/");
-        }
-    });
 
+    app.use("/oauth", require("./oauth"));
     app.use(express.static("static"));
-
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found."});
     });
