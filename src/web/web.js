@@ -58,7 +58,11 @@ module.exports = async cookieblob => {
     });
     app.get("/callback", passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => res.redirect("/dashboard"));
     app.get("/dashboard", (req, res) => {
-        res.json(req.user);
+        if (req.isAuthenticated()) {
+            res.json({hello:"world", user: req.user});
+        } else {
+            res.redirect("/");
+        }
     });
 
     app.use(express.static("static"));
