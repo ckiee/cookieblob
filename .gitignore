@@ -1,6 +1,6 @@
 #cookieblob
 config.json
-
+secret.cookieblob
 # Logs
 logs
 *.log
