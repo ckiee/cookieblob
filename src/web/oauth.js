@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const scopes = ["identify"];
 const app = module.exports = new express.Router();
 app.get("/", passport.authenticate("discord", { scope: scopes }), (req, res) => {
     res.redirect("/");

@@ -25,7 +25,6 @@ module.exports = async cookieblob => {
     passport.deserializeUser(function(obj, done) {
         done(null, obj);
     });
-    const scopes = ["identify"];
 
     passport.use(new DiscordStrategy({
         clientID: cookieblob.user.id,
