@@ -2,6 +2,7 @@ const express = require("express");
 const Cookieblob = require("../Cookieblob");
 const session = require("express-session");
 const fs = require("fs");
+const Util = require("../Util");
 const randomstring = require("randomstring");
 /**
  * @param {Cookieblob} cookieblob 
@@ -24,9 +25,13 @@ module.exports = async cookieblob => {
         res.redirect("https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376");
     });
 
+    app.get("/docs", (req, res) => {
+        res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util});
+    });
+
     app.use(express.static("static"));
     app.use((req, res) => {
-        res.render("error", {error:"404 Page not found."});
+        res.render("error", {error:"404 Page not found.", title: "Error"});
     });
     return {app, httpServer};
 };

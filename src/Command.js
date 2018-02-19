@@ -41,4 +41,10 @@ module.exports = /** @class */ class Command {
     formatCommand() {
         return `${this.name} ${this.usage.map(usageEntry => `<${usageEntry}>`).join(" ")}`;
     }
+    /** 
+     * @returns {String} The formatted permission level.
+    */
+    formatPermissionLevel() {
+        return this.permissionLevel.toString().slice(7, this.permissionLevel.toString().length - 1);
+    }
 }

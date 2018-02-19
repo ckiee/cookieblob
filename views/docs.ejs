@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <%- include("parts/head"); %>
+    </head>
+    <body>
+        <%- include("parts/header"); %>
+        <main>
+            <div class="row">
+                <div class="container">
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Usage</th>
+                                <th>Description</th>
+                                <th>Permission Level</th>
+                                <th>Guild Only</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%- commands.map(cmd => `<tr><th>${cmd.formatCommand()}</th> <th>${cmd.description}</th><th>${cmd.formatPermissionLevel()}</th><th>${cmd.guildOnly ? "Yes" : "No"}</th></tr>`).join("") %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <%- include("parts/footer"); %>
+    </body>
+</html>

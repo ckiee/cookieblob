@@ -17,7 +17,7 @@ module.exports = async (cookieblob, msg) => {
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
         if (!Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)) 
-            return await msg.channel.send(`:x: You need the \`${cmd.permissionLevel.toString().slice(7, cmd.permissionLevel.toString().length - 1)/*removes the symbol( thing*/}\` permission to use this command.`);
+            return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
         if (msg.guild && !cookieblob.musicGuilds.has(msg.guild.id)) cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
