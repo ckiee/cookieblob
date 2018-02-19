@@ -9,14 +9,26 @@ CookieblobInstance.login(ConfigInstance.discordToken);
 if (CookieblobInstance.isDevelopment()) CookieblobInstance.on('debug', console.log);
 else if (!CookieblobInstance.isDevelopment() && !CookieblobInstance.isProduction()) 
     console.log("\n\n*** No enviroment detected, you should set the NODE_ENV variable to 'production' or 'development'. ***\n\n");
-CookieblobInstance.on("ready", () => {
-    require("./src/web/web")(CookieblobInstance);
+let web;
+CookieblobInstance.on("ready", async () => {
+    web = await require("./src/web/web")(CookieblobInstance);
 });
 // If we die (Process killed)
-Death(() => {
+Death(signal => {
     console.log("\n\nCleaning up before shutting down...");
     CookieblobInstance.musicGuilds.forEach(mg => {
-        if (mg.dispatcher) mg.dispatcher.end();
+        if (mg.dispatcher) {
+            mg.dispatcher.removeAllListeners("end");
+            mg.dispatcher.end();
+            delete mg.dispatcher;
+        }
         if (mg.voiceChannel) mg.voiceChannel.leave();
+        delete mg;
     });
+    if (web && web.listening) {
+        console.log("Stopping web server...");
+        web.httpServer.close();
+    }
+
+    process.exit(signal);
 });

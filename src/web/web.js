@@ -8,13 +8,13 @@ const randomstring = require("randomstring");
  */
 module.exports = async cookieblob => {
     const app = express();
+    const httpServer =  require("http").createServer(app);
     app.disable("x-powered-by");
     if (process.env.NODE_ENV == "production") app.set("view engine", "loopback");
     const port = process.env.PORT || 3000;
     app.set("view engine", "ejs");
-    app.listen(port, () => {
-        console.log(`[Web] Listening on port ${port}`);
-    });
+    httpServer.listen(port);
+    console.log(`[web] will listen on port ${port}`);
 
     app.get("/", (req, res) => {
         res.render("index");
@@ -28,7 +28,7 @@ module.exports = async cookieblob => {
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found."});
     });
-    return app;
+    return {app, httpServer};
 };
 
 /** 
