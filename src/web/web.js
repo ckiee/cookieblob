@@ -22,7 +22,7 @@ module.exports = async cookieblob => {
     });
     
     app.get("/invite", (req, res) => {
-        res.redirect("https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376");
+        res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${cookieblob.user.id}&scope=bot&permissions=3173376`);
     });
 
     app.get("/docs", (req, res) => {
