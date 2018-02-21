@@ -19,8 +19,7 @@ module.exports = async (cookieblob, msg) => {
         if ((await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result ) 
             return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
         if (msg.guild) {
-            if (!cookieblob.musicGuilds.has(msg.guild.id))
-                cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
+            // Guild permission checks
             if (Permissions.getPermissionType(cmd.permissionLevel) == "guild") {
                 const gpr = await Permissions.checkGuild(cookieblob, msg.member, cmd.permissionLevel);
                 if (!gpr.result) {
@@ -30,6 +29,14 @@ module.exports = async (cookieblob, msg) => {
                         return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to run this command.`);
                 }
             }
+            // Make a music guild instance if it doesn't already exist
+            if (!cookieblob.musicGuilds.has(msg.guild.id))
+            cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
+            
+            // Check to see if a database entry exists for this guild.
+            const { r } = cookieblob; // db
+            const origData = await r.table("guildData").get(msg.guild.id).run();
+            if (!origData) await r.table("guildData").insert({id: msg.guild.id, modRole: null}).run();
         }
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
