@@ -11,7 +11,9 @@ module.exports = {
      */
     run: async (cookieblob, msg, args) => {
         if (args.length < 1) return Util.sendInvalidUsage(cookieblob.commands.get("qr"), msg);
-        msg.channel.send(new MessageAttachment(qr.image(args.join(" "), {type:"png"})));
+        const req = args.join(" ");
+        if (req.length > 300) return await msg.channel.send("Your request must be up to 300 characters long.");
+        return await msg.channel.send(new MessageAttachment(qr.image(req, {type:"png"})));
     },
     name: "qr",
     description: "Make a QR Code.",
