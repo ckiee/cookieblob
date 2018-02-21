@@ -1,5 +1,6 @@
 apps:
   - script: index.js
+    name: cookieblob_staging
     watch: true
     env:
       NODE_ENV: production
