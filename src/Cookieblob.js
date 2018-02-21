@@ -15,6 +15,7 @@ module.exports = class Cookieblob extends Client {
     constructor(r, config) {
         super({disableEveryone: true, disabledEvents: ["TYPING_START"]});
         this.config = config;
+        this.r = r;
         if (this.isDevelopment()) {
             this.emit("debug", "In development, showing debug logs.");
             this.on("ready", () => this.emit("debug", `Logged in as ${this.user.tag}.`));

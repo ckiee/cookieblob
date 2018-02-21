@@ -16,9 +16,21 @@ module.exports = async (cookieblob, msg) => {
         const args = contentNoPrefix.split(" ").slice(1);
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
-        if (!Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)) 
+        if ((await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result ) 
             return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
-        if (msg.guild && !cookieblob.musicGuilds.has(msg.guild.id)) cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
+        if (msg.guild) {
+            if (!cookieblob.musicGuilds.has(msg.guild.id))
+                cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
+            if (Permissions.getPermissionType(cmd.permissionLevel) == "guild") {
+                const gpr = await Permissions.checkGuild(cookieblob, msg.member, cmd.permissionLevel);
+                if (!gpr.result) {
+                    if (gpr.comment == "guildNoModrole")
+                        return await msg.channel.send(`:x: Please set a mod role using \`${cookieblob.commands.get("setmodrole").formatCommand()}\`.`);
+                    else
+                        return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to run this command.`);
+                }
+            }
+        }
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
         await msg.channel.send(
