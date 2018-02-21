@@ -1,6 +1,6 @@
 /** @module */
 const Command = require("./Command");
-const { Message, MessageEmbed } = require("discord.js");
+const { Message, MessageEmbed, Guild } = require("discord.js");
 /**
  * Sends a dynamic invalid usage message.
  * @param {Command} command 
@@ -15,4 +15,11 @@ module.exports.sendInvalidUsage = async (command, msg) => {
         .setFooter("You tried to use a command in a invalid way.")
         .setDescription(`Eh, I don't understand what you meant, try running the command again with this format: \`${command.formatCommand()} `)
     );
+}
+/**
+ * @param {Guild} guild
+ * @returns {Object}
+ */
+module.exports.getDefaultGuildData = guild => {
+    return {id: guild.id, selfRoles: [], modRole: null};
 }

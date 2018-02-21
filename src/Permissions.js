@@ -51,7 +51,7 @@ module.exports.checkGlobal = async (cookieblob, user, permission) => {
  * @param {Symbol} permission
  * @returns {Promise<PermissionCheckResult>} 
  */
-module.exports.checkGuild = (cookieblob, member, permission) => {
+module.exports.checkGuild = async (cookieblob, member, permission) => {
     if (permission == guildAdmin) return member.hasPermission("ADMINISTRATOR");
     else if (permission == guildMod) {
         const { r } = cookieblob; // get db

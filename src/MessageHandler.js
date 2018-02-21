@@ -3,6 +3,7 @@ const Cookieblob = require("./Cookieblob");
 const MusicGuild = require("./MusicGuild");
 const { Message } = require("discord.js");
 const Permissions = require("./Permissions");
+const Util = require("./Util");
 /**
  * @param {Cookieblob} cookieblob 
  * @param {Message} msg
@@ -36,7 +37,16 @@ module.exports = async (cookieblob, msg) => {
             // Check to see if a database entry exists for this guild.
             const { r } = cookieblob; // db
             const origData = await r.table("guildData").get(msg.guild.id).run();
-            if (!origData) await r.table("guildData").insert({id: msg.guild.id, modRole: null}).run();
+            const dgd = Util.getDefaultGuildData(msg.guild);
+            if (!origData) await r.table("guildData").insert(dgd).run();
+            else {
+                // Remove properties original data already has and add new ones to the db if they don't exist.
+                Object.keys(dgd).forEach(k => { 
+                    if (origData[k]) delete dgd[k];
+                });
+                if (Object.keys(dgd).length == 0) return; // No need to update db if it's identical
+                await r.table("guildData").get(msg.guild.id).update(Object.assign({}, origData, dgd)/*merge objs*/).run();
+            }
         }
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
