@@ -4,3 +4,4 @@ apps:
     env:
       NODE_ENV: production
       PORT: 2708
+      db: cookieblob_staging

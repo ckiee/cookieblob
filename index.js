@@ -1,7 +1,7 @@
 // Loader file for Cookieblob
 const Config = require("./src/Config");
 const ConfigInstance = new Config(require("./config"));
-const r = require('rethinkdbdash')(); // Connect to RethinkDB
+const r = require('rethinkdbdash')({db: process.env.db || "cookieblob"}); // Connect to RethinkDB
 const Cookieblob = require("./src/Cookieblob");
 const CookieblobInstance = module.exports = new Cookieblob(r, ConfigInstance);
 const Death = require("death");
