@@ -10,7 +10,7 @@ if (CookieblobInstance.isDevelopment()) CookieblobInstance.on('debug', console.l
 else if (!CookieblobInstance.isDevelopment() && !CookieblobInstance.isProduction()) 
     console.log("\n\n*** No enviroment detected, you should set the NODE_ENV variable to 'production' or 'development'. ***\n\n");
 let web;
-CookieblobInstance.on("ready", async () => {
+CookieblobInstance.once("ready", async () => {
     web = await require("./src/web/web")(CookieblobInstance);
 });
 // If we die (Process killed)

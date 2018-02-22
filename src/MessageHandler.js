@@ -18,24 +18,22 @@ module.exports = async (cookieblob, msg) => {
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
         if (  !(await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result 
-            && Permissions.getPermissionType(cmd.permissionLevel) == "global")
-            return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
-        
+            && Permissions.getPermissionType(cmd.permissionLevel) == "global") return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
+            
         // Guild-only checks.
         if (msg.guild) {
             // Guild permission checks
             if (Permissions.getPermissionType(cmd.permissionLevel) == "guild") {
                 const gpr = await Permissions.checkGuild(cookieblob, msg.member, cmd.permissionLevel);
                 if (!gpr.result) {
-                    if (cmd.permissionLevel == Permissions.guildMod)
+                    if (cmd.permissionLevel == Permissions.guildMod && gpr.comment == "guildNoModrole")
                         return await msg.channel.send(`:x: Please set a mod role using \`${cookieblob.commands.get("setmodrole").formatCommand()}\`.`);
                     else 
                         return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to run this command.`);
                 }
             }
             // Make a music guild instance if it doesn't already exist
-            if (!cookieblob.musicGuilds.has(msg.guild.id))
-            cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
+            if (!cookieblob.musicGuilds.has(msg.guild.id)) cookieblob.musicGuilds.set(msg.guild.id, new MusicGuild(msg.guild.id, cookieblob));
             
             // Check to see if a database entry exists for this guild.
             const { r } = cookieblob; // db
@@ -47,8 +45,9 @@ module.exports = async (cookieblob, msg) => {
                 Object.keys(dgd).forEach(k => { 
                     if (origData[k]) delete dgd[k];
                 });
-                if (Object.keys(dgd).length == 0) return; // No need to update db if it's identical
-                await r.table("guildData").get(msg.guild.id).update(Object.assign({}, origData, dgd)/*merge objs*/).run();
+                if (Object.keys(dgd).length != 0) {// No need to update db if it's identical
+                    await r.table("guildData").get(msg.guild.id).update(Object.assign({}, origData, dgd)/*merge objs*/).run();
+                } 
             }
         }
 
