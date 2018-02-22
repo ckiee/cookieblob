@@ -17,7 +17,7 @@ module.exports = async (cookieblob, msg) => {
         const args = contentNoPrefix.split(" ").slice(1);
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
-        if ((await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result ) 
+        if (!(await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result ) 
             return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
         if (msg.guild) {
             // Guild permission checks
