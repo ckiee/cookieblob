@@ -17,16 +17,19 @@ module.exports = async (cookieblob, msg) => {
         const args = contentNoPrefix.split(" ").slice(1);
         if (!cookieblob.commands.has(cmdLabel)) return;  
         const cmd = cookieblob.commands.get(cmdLabel);
-        if (!(await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result ) 
+        if (  !(await Permissions.checkGlobal(cookieblob, msg.author, cmd.permissionLevel)).result 
+            && Permissions.getPermissionType(cmd.permissionLevel) == "global")
             return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to use this command.`);
+        
+        // Guild-only checks.
         if (msg.guild) {
             // Guild permission checks
             if (Permissions.getPermissionType(cmd.permissionLevel) == "guild") {
                 const gpr = await Permissions.checkGuild(cookieblob, msg.member, cmd.permissionLevel);
                 if (!gpr.result) {
-                    if (gpr.comment == "guildNoModrole")
+                    if (cmd.permissionLevel == Permissions.guildMod)
                         return await msg.channel.send(`:x: Please set a mod role using \`${cookieblob.commands.get("setmodrole").formatCommand()}\`.`);
-                    else
+                    else 
                         return await msg.channel.send(`:x: You need the \`${cmd.formatPermissionLevel()}\` permission to run this command.`);
                 }
             }
@@ -48,6 +51,8 @@ module.exports = async (cookieblob, msg) => {
                 await r.table("guildData").get(msg.guild.id).update(Object.assign({}, origData, dgd)/*merge objs*/).run();
             }
         }
+
+        // Finally run the command!
         await cmd.run(cookieblob, msg, args);
     } catch (error) {
         await msg.channel.send(

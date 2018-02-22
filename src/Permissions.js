@@ -38,7 +38,7 @@ module.exports.isValidPermission = permission => {
  * @returns {Promise<PermissionCheckResult>} has permission?
  */
 module.exports.checkGlobal = async (cookieblob, user, permission) => {
-    if (permission == everyone) return true;
+    if (permission == everyone) return {result: true};
 
     if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return {result: true};
     if (permission == botOwner && user.id == cookieblob.config.ownerID) return {result: true};
@@ -52,7 +52,7 @@ module.exports.checkGlobal = async (cookieblob, user, permission) => {
  * @returns {Promise<PermissionCheckResult>} 
  */
 module.exports.checkGuild = async (cookieblob, member, permission) => {
-    if (permission == guildAdmin) return member.hasPermission("ADMINISTRATOR");
+    if (permission == guildAdmin) return {result: member.hasPermission("ADMINISTRATOR")};
     else if (permission == guildMod) {
         const { r } = cookieblob; // get db
         let gd = await r.table("guildData").get(member.guild.id).run();
