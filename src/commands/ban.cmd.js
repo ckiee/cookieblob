@@ -1,5 +1,6 @@
 const {Message} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
+const Util = require("../Util");
 const Permissions = require("../Permissions");
 module.exports = {
     /**
@@ -8,14 +9,14 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        if (!msg.guild.me.hasPermission("BAN_MEMBERS")) return msg.channel.send(":x: Cookieblob does not have the `Ban Members` permission.");
-        if (args.length < 2) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "ban"));
+        if (args.length < 2) return await Util.sendInvalidUsage(cookieblob.commands.get("ban"), msg);
         let user = msg.mentions.members.first();
-        if (user == null) user = msg.guild.members.get(args[0]);
-        if (user == null) return msg.channel.send(":x: Could not find any member by that id / mention");
-        let reason = args.slice(1).join(" ");
-        user.ban(`${msg.author.tag} - '${reason}'`);
-        msg.channel.send(`:ok_hand: Banned ${user.user.tag} for '${reason}'.`);
+        if (!user) user = msg.guild.members.get(args[0]);
+        if (!user) return await msg.channel.send(":x: Could not find any member by that id / mention");
+        if (!user.bannable) return await msg.channel.send(":x: I cannot kick this user, this user is either the server owner or someone with a higher role then me."); 
+        const reason = args.slice(1).join(" ");
+        await user.ban(`${msg.author.tag} - '${reason}'`);
+        await msg.channel.send(`:ok_hand: Banned ${user.user.tag} for '${reason}'.`);
     },
     name: "ban",
     description: "Ban a user.",
