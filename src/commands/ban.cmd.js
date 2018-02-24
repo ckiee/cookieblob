@@ -20,6 +20,6 @@ module.exports = {
     name: "ban",
     description: "Ban a user.",
     usage: ["member id/member mention", "reason"],
-    permissionLevel:"modRole",
+    permissionLevel: Permissions.guildMod,
     guildOnly:true
 }

@@ -20,6 +20,6 @@ module.exports = {
     name: "kick",
     description: "Kick a user.",
     usage: ["member id/member mention", "reason"],
-    permissionLevel:"modRole",
+    permissionLevel: Permissions.guildMod,
     guildOnly:true
 }
