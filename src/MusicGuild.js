@@ -94,7 +94,7 @@ module.exports = /** @class */ class MusicGuild {
         this.currentlyPlaying = queueItem;
         this.playing = true;
         this.skippers = 0;
-        this.dispatcher.on('end', () => {
+        this.dispatcher.once('end', () => {
             this.playing = false;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
         });
