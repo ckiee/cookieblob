@@ -97,6 +97,7 @@ module.exports = /** @class */ class MusicGuild {
         this.dispatcher.once('end', () => {
             this.playing = false;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
+            else this.voiceChannel.leave();
         });
         await this.textChannel.send(new MessageEmbed()
             .setAuthor(queueItem.member.user.tag, queueItem.member.user.avatarURL())
