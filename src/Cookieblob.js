@@ -37,13 +37,15 @@ module.exports = class Cookieblob extends Client {
         this.musicGuilds = new Map();
 
         if (this.config.enableBotStatPost) {
-            this.poster = new dbots.Poster({
-                apiKeys: this.config.listKeys,
-                clientID: this.user.id
+            this.once("ready", () => {
+                this.poster = new dbots.Poster({
+                    apiKeys: this.config.listKeys,
+                    clientID: this.user.id
+                });
+                this.postInterval = setInterval(() => {
+                    this.poster.postManual(this.guilds.size);
+                }, 1800000);
             });
-            this.postInterval = setInterval(() => {
-                this.poster.postManual(this.guilds.size);
-            }, 1800000);
         }
     }
     /**
