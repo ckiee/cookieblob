@@ -36,5 +36,9 @@ module.exports = /** @class */ class Config {
          * @type {String}
          */
         this.callbackURL = config.callbackURL;
+        /** @type {Boolean} */
+        this.enableBotStatPost = config.enableBotStatPost;
+        /** @type {Object} */
+        this.listKeys = config.listKeys;
     }
 }

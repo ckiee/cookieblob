@@ -3,6 +3,7 @@ const { Client } = require("discord.js");
 const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
 const GuildEvents = require("./GuildEvents");
+const dbots = require("dbots");
 const MusicGuild = require("./MusicGuild");
 const MusicAlone = require("./MusicAlone");
 const Config = require("./Config");
@@ -34,6 +35,15 @@ module.exports = class Cookieblob extends Client {
          * @type {Map<String, MusicGuild>}
          */
         this.musicGuilds = new Map();
+
+        if (this.config.enableBotStatPost) {
+            this.poster = new dbots.Poster({
+                client: this,
+                apiKeys: this.config.listKeys,
+                clientLibrary: "discord.js"
+            });
+            this.poster.startInterval();
+        }
     }
     /**
      * Are we in a production enviroment?
