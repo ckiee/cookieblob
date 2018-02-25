@@ -38,11 +38,11 @@ module.exports = class Cookieblob extends Client {
 
         if (this.config.enableBotStatPost) {
             this.poster = new dbots.Poster({
-                client: this,
                 apiKeys: this.config.listKeys,
-                clientLibrary: "discord.js"
             });
-            this.poster.startInterval();
+            this.postInterval = setInterval(() => {
+                this.poster.postManual(this.guilds.size);
+            }, 1800000);
         }
     }
     /**
