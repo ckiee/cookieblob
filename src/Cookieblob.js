@@ -39,6 +39,7 @@ module.exports = class Cookieblob extends Client {
         if (this.config.enableBotStatPost) {
             this.poster = new dbots.Poster({
                 apiKeys: this.config.listKeys,
+                clientID: this.user.id
             });
             this.postInterval = setInterval(() => {
                 this.poster.postManual(this.guilds.size);
