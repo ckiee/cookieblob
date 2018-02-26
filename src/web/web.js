@@ -28,7 +28,7 @@ module.exports = async cookieblob => {
     app.get("/docs", (req, res) => {
         res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util});
     });
-
+    app.use("/api", await require("./api")(cookieblob));
     app.use(express.static("static"));
     app.use((req, res) => {
         res.render("error", {error:"404 Page not found.", title: "Error"});
