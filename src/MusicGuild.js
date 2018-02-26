@@ -84,12 +84,17 @@ module.exports = /** @class */ class MusicGuild {
     }
 
     async play() {
-        const queueItem = this.queue.shift();
         let voiceConnection = this.voiceChannel.guild.voiceConnection;
         if (!this.voiceChannel.joinable 
             && !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
         
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
+        if (!voiceConnection) {
+            // we're in some weird state, we dont wanna be in this state.
+            this.voiceChannel.leave();
+            return this.play();
+        }
+        const queueItem = this.queue.shift();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
         this.currentlyPlaying = queueItem;
         this.playing = true;
