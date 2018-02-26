@@ -87,7 +87,7 @@ module.exports = /** @class */ class MusicGuild {
         const queueItem = this.queue.shift();
         let voiceConnection = this.voiceChannel.guild.voiceConnection;
         if (!this.voiceChannel.joinable 
-            && this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
+            && !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
         
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
