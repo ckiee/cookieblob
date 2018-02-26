@@ -50,9 +50,18 @@ module.exports = async (cookieblob, msg) => {
                 } 
             }
         }
-
         // Finally run the command!
         await cmd.run(cookieblob, msg, args);
+
+        (async () => {
+            const { r } = cookieblob;
+            const cmdStats = await r.table("cmdusages").get(cmd.name).run();
+            if (!cmdStats) await r.table("cmdusages").insert({id: cmd.name, count: 1}).run();
+            else {
+                cmdStats.count++;
+                await r.table("cmdusages").get(cmd.name).update(cmdStats).run();
+            }
+        })();
     } catch (error) {
         await msg.channel.send(
 `There was an error while running that command: 
