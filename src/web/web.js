@@ -28,6 +28,9 @@ module.exports = async cookieblob => {
     app.get("/docs", (req, res) => {
         res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util});
     });
+    app.get("/stats", (req, res) => {
+        res.render("stats", {title: "Stats"});
+    });
     app.use("/api", await require("./api")(cookieblob));
     app.use(express.static("static"));
     app.use((req, res) => {
