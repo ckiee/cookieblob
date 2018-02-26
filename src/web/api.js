@@ -15,7 +15,7 @@ module.exports = async cookieblob => {
         res.json({success: true, data: await r.table("cmdusages").run()});
     });
     app.get("/bigdata/guildStats", async (req, res) => {
-        res.json({success: true, data: await r.table("guildStats").pluck("count", "date").sortBy("date").run()}); 
+        res.json({success: true, data: await r.table("guildStats").pluck("count", "date").orderBy("date").run()}); 
     });
     return app;
 }
