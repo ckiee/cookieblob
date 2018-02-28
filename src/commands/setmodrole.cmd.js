@@ -9,7 +9,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        if (args.length != 1) return await Util.sendInvalidUsage(cookieblob.commands.get("setmodrole"), msg);
+        if (args.length < 1) return await Util.sendInvalidUsage(cookieblob.commands.get("setmodrole"), msg);
         const role = msg.guild.roles.find("name", args.join(" "));
         if (!role) return await msg.channel.send(":x: I couldn't find that role.");
         const { r } = cookieblob; // db
