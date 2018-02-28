@@ -18,7 +18,7 @@ module.exports = {
     },
     name: "setmodrole",
     description: "Sets the guild's mod role.",
-    usage: ["mod role"],
+    usage: ["mod role name"],
     permissionLevel: Permissions.guildAdmin,
     guildOnly: true
 }
