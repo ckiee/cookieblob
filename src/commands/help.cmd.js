@@ -12,7 +12,7 @@ module.exports = {
         if (args[0] < 1) return msg.channel.send(":x: Pages start from `1`!");
         const abandonTime = 40000;//ms
         const cpp = 10; // commands per page
-        const commands = Object.keys(cookieblob.commands).map(cookieblob.getCommand).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
+        const commands = Object.keys(cookieblob.commands).map(cookieblob.commands.get).filter(cm => cm.meta.permissionLevel != "botAdmin").filter(cx => cx.meta.permissionLevel != "botOwner");
         let currentPage = args[0] - 1;
         if (isNaN(currentPage)) {
             require("../util").usage(msg);
