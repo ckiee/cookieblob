@@ -29,6 +29,7 @@
     "death": "^1.1.0",
     "discord.js": "github:hydrabolt/discord.js",
     "ejs": "^2.5.7",
+    "escape-html": "^1.0.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "glob": "^7.1.2",

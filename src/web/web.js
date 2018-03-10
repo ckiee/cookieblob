@@ -26,7 +26,7 @@ module.exports = async cookieblob => {
     });
 
     app.get("/docs", (req, res) => {
-        res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util});
+        res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util, escapeHTML: require("escape-html")});
     });
     app.get("/stats", (req, res) => {
         res.render("stats", {title: "Stats"});
