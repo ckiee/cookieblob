@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%- commands.map(cmd => `<tr><th>${cmd.formatCommand()}</th> <th>${cmd.description}</th><th>${cmd.formatPermissionLevel()}</th><th>${cmd.guildOnly ? "Yes" : "No"}</th></tr>`).join("") %>
+                            <%- commands.map(cmd => `<tr><th>${escapeHTML(cmd.formatCommand())}</th> <th>${cmd.description}</th><th>${cmd.formatPermissionLevel()}</th><th>${cmd.guildOnly ? "Yes" : "No"}</th></tr>`).join("") %>
                         </tbody>
                     </table>
                 </div>
