@@ -26,65 +26,70 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const cookieblob = require("../cookieblob");
-const datastorage = require("../datastorage");
-const {Message, Client} = require("discord.js");
+            <pre class="prettyprint source linenums"><code>const Util = require("../Util");
+const {MessageEmbed, Message, Role, GuildMember} = require("discord.js");
+const Cookieblob = require("../Cookieblob");
+const Permissions = require("../Permissions");
 module.exports = {
-        /**
+    /**
+     * @param {Cookieblob} cookieblob
      * @param {Message} msg
-     * @param {Array&lt;String>} args
-     * @param {Client} client
+     * @param {String[]} args
      */
-    run: async (msg, args, client) => {
-        const INVALIDROLE = ":x: That role doesn't exist!";
-        if (args.length &lt; 1) return msg.channel.send(require("../util").invalidUsageEmbed(msg, "selfrole"));
-        let gd = await datastorage.getGuildData(msg.guild.id);
-        let isNone = gd.guildData.selfRoles == null;
-        if (!isNone) isNone = gd.guildData.selfRoles.length == 0;
-        if (isNone) {
-            msg.channel.send(":x: This guild doesn't have any self-roles");
-            return;
+    run: async (cookieblob, msg, args) => {
+        if (args.length &lt; 1) return await Util.sendInvalidUsage(cookieblob.commands.get("selfrole"), msg);
+        const { r } = cookieblob;
+        const role = msg.guild.roles.find("name", args.slice(1).join(" "));
+        const gd = await r.table("guildData").get(msg.guild.id).run();
+        /**
+         * @param {String} id
+         * @returns {Boolean} 
+         */
+        function hasSelfrole(id) {
+            let res = false;
+            gd.selfRoles.forEach(v => {
+                if (v.id == id) res = true;
+            });
+            return res;
         }
-        let role = msg.guild.roles.find("name",args.slice(1).join(" "));
-        if (role == null &amp;&amp; msg.guild.roles.get(args[1]) != null) role = msg.guild.roles.get(args[1]);
-        let sxl = gd.guildData.selfRoles;
-        switch (args[0]) {
-
-            case "list":
-            msg.channel.send(`Showing all self-roles in Guild \`${msg.guild.name}\`:\n${sxl.map(v => `* ${msg.guild.roles.get(v.id)
-                ?msg.guild.roles.get(v.id).name:v.id}${client.users.get(v.author)?` (Added by: ${client.users.get(v.author).tag})`:''}`).join("\n")}`)
-            break;
-            
-            case "give":
-                if (role == null) return msg.channel.send(INVALIDROLE);
-                let r = sxl.filter(v => v.id == role.id)[0];
-                if (r == null) return msg.channel.send(":x: That role is not marked as a self-role.");
-                if (!msg.guild.me.hasPermission("MANAGE_ROLES")) return msg.channel.send(":x: Cookieblob needs the `Manage Roles` permission for this command to work");
-                msg.member.addRole(role, `Self-role by ${client.users.get(r.author)?client.users.get(r.author).tag:r.author}`);
-                msg.channel.send(`:ok_hand: Added self-role \`${role.name}\`.`);
-                break;
-
-            case "remove":
-                if (role == null) return msg.channel.send(INVALIDROLE);
-                let rX = sxl.filter(v => v.id == role.id)[0];
-                if (rX == null) return msg.channel.send(":x: That role is not marked as a self-role.");
-                if (!msg.guild.me.hasPermission("MANAGE_ROLES")) return msg.channel.send(":x: Cookieblob needs the `Manage Roles` permission for this command to work");
-                if (msg.member.roles.get(role.id) == null) return msg.channel.send(":x: You don't have that role!");
-                msg.member.removeRole(role, `Self-role by ${client.users.get(rX.author)?client.users.get(rX.author).tag:rX.author}`);
-            break;
-
-            default:
-            msg.channel.send(require("../util").invalidUsageEmbed(msg, "selfrole"));
-            break;
+        async function doActionChecks() {
+            if (args.length &lt; 2) return await Util.sendInvalidUsage(cookieblob.commands.get("selfrole"), msg);
+            if (!role) return await msg.channel.send(":x: I couldn't find that role!");
+            if (!hasSelfrole(role.id)) return await msg.channel.send(":x: That role is not a self-role.");
+            if (!msg.guild.me.hasPermission("MANAGE_ROLES") 
+            || msg.member.roles.highest.position > msg.guild.me.roles.highest.position)
+                return await msg.channel.send(":x: I don't have permission to give you a role.");
         }
+        if (args[0] == "list") {
+            function getRName(sr) {
+                return msg.guild.roles.get(sr.id) ? msg.guild.roles.get(sr.id).name : "?????";
+            }
+            function getAName(sr) {
+                return cookieblob.users.get(sr.author) ? cookieblob.users.get(sr.author).tag : "?????";
+            }
+            const resultsArr = gd.selfRoles.map(sr => `**${getRName(sr)}** added by **${getAName(sr)}**`);
+            await msg.channel.send(new MessageEmbed()
+                .setAuthor(msg.author.tag, msg.author.avatarURL())
+                .setTimestamp(new Date())
+                .setTitle("List of Selfroles")
+                .setDescription(resultsArr.length != 0 ? resultsArr.join(", ") : "I couldn't find any self-roles.")
+            );
+        } else if (args[0] == "give") {
+            if (await doActionChecks()) return; // it returns a message if check didnt pass, otherwise returns nothing.
+            await msg.member.roles.add(role.id);
+            await msg.channel.send(":ok_hand:");
+        } else if (args[0] == "remove") {
+            if (await doActionChecks()) return; // it returns a message if check didnt pass, otherwise returns nothing.
+            if (!msg.member.roles.has(role.id)) return await msg.channel.send(":x: You don't have this role.");
+            await msg.member.roles.remove(role.id);
+            await msg.channel.send(":ok_hand:");
+        } else await Util.sendInvalidUsage(cookieblob.commands.get("selfrole"), msg);
     },
-    meta: {
-        name: "selfrole",
-        description: "Give yourself a role.",
-        usage: ["list/give/remove", "give:role/remove:role"],
-        permissionLevel:0,
-        guildOnly:true
-    }
+    name: "selfrole",
+    description: "Give yourself a role.",
+    usage: ["list/give/remove", "role"],
+    permissionLevel: Permissions.everyone,
+    guildOnly: true
 }</code></pre>
         </article>
     </section>
@@ -95,13 +100,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-CommandLoader.html">CommandLoader</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-MessageHandler.html">MessageHandler</a></li><li><a href="module-Permissions.html">Permissions</a></li></ul><h3>Classes</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-CommandLoader.html">CommandLoader</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-GuildEvents.html">GuildEvents</a></li><li><a href="module-MessageHandler.html">MessageHandler</a></li><li><a href="module-MusicAlone.html">MusicAlone</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li><li><a href="module-Permissions.html">Permissions</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li></ul><h3>Global</h3><ul><li><a href="global.html#filter">filter</a></li><li><a href="global.html#getSecretFile">getSecretFile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Feb 04 2018 16:54:37 GMT+0200 (IST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 13 2018 20:53:26 GMT+0200 (IST)
 </footer>
 
 <script> prettyPrint(); </script>

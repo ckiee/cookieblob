@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: commands/meme.cmd.js</title>
+    <title>JSDoc: Source: commands/optout.cmd.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: commands/meme.cmd.js</h1>
+    <h1 class="page-title">Source: commands/optout.cmd.js</h1>
 
     
 
@@ -26,8 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const {Message, MessageEmbed}  = require("discord.js");
-const request = require("snekfetch");
+            <pre class="prettyprint source linenums"><code>const {Message}  = require("discord.js");
+const Util = require("../Util");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -37,23 +37,28 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        const m = await msg.channel.send(new MessageEmbed().setDescription("&lt;a:loadingrolling:393744853684584448>"));
-        const res = await request.get("https://api.imgur.com/3/gallery/hot/viral/0.json", 
-        {headers: {Authorization: `Client-ID ${cookieblob.config.imgurClientID}`}})
-        .send();
-        if (res.body.data.nsfw &amp;&amp; !msg.channel.nsfw) return m.edit(":x: The top imgur meme is currently marked as NSFW.");
-        m.edit(new MessageEmbed()
-        .setAuthor(msg.author.tag, msg.author.avatarURL())
-        .setTimestamp(new Date())
-        .setFooter("Meme supplied by Imgur API")
-        .setTitle(res.body.data[0].title)
-        .setImage(res.body.data[0].images[0].link)
-        );
+        if (args.length !== 1) return Util.sendInvalidUsage(cookieblob.commands.get("optout"), msg);
+        const { r } = cookieblob;
+        const optingFor = args[0].toLowerCase();
+        if (optingFor === "musicdata") {
+            const notice = await r.table("notices").get(`${msg.author.id}_musicdata`).run();
+            if (!notice || notice.optout) {
+                // opt in
+                await r.table("notices").insert({id: `${msg.author.id}_musicdata`, optout: false}, {conflict: "update"}).run();
+                await msg.channel.send(":ok_hand: Cookieblob will now collect data about the songs you play.");
+            } else {
+                // opt out
+                await r.table("notices").get(`${msg.author.id}_musicdata`).update({optout: true}).run();
+                await msg.channel.send(":ok_hand: Cookieblob will no longer collect data about the songs you play.");
+            }
+        } else {
+            Util.sendInvalidUsage(cookieblob.commands.get("optout"), msg);
+        }
     },
-    name: "meme",
-    description: "Get the top viral meme from Imgur.",
-    usage: [],
-    permissionLevel: Permissions.everyone,
+    name: "optout",
+    description: "Opt out of cookieblob features.",
+    usage: ["musicdata"],
+    permissionLevel:Permissions.everyone,
     guildOnly:false
 }</code></pre>
         </article>

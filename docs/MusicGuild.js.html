@@ -61,8 +61,10 @@ const search = require("youtube-search");
 module.exports = /** @class */ class MusicGuild {
     /**
      * @param {String} id 
+     * @param {Cookieblob} cookieblob
      */
-    constructor(id) {
+    constructor(id, cookieblob) {
+        this.cookieblob = cookieblob;
         this.id = id;
         /**
          * @type {QueueEntry[]}
@@ -84,21 +86,22 @@ module.exports = /** @class */ class MusicGuild {
          * @type {?StreamDispatcher}
          */
         this.dispatcher = null;
-        /**
-         * @type {Boolean}
-         */
         this.playing = false;
+        this.skippers = 0;
     }
     /**
      * @param {String} query 
      * @param {GuildMember} member
-     * @param {Cookieblob} cookieblob 
      * @returns {Promise&lt;QueueEntry>}
      */
-    search(query, member, cookieblob) {
+    search(query, member) {
         return new Promise((resolve, reject) => {
-            search(query, {key: cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
+            search(query, {key: this.cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
                 if (err) reject(err);
+                if (results.length == 0) {
+                    resolve(null);
+                    return;
+                }
                 let r = results[0];
                 r.member = member;
                 r.addedAt = new Date();
@@ -109,18 +112,26 @@ module.exports = /** @class */ class MusicGuild {
     }
 
     async play() {
-        const queueItem = this.queue.shift();
         let voiceConnection = this.voiceChannel.guild.voiceConnection;
         if (!this.voiceChannel.joinable 
-            &amp;&amp; this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
+            &amp;&amp; !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
         
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
+        if (!voiceConnection) {
+            // we're in some weird state, we dont wanna be in this state.
+            this.voiceChannel.leave();
+            return this.play();
+        }
+        const queueItem = this.queue.shift();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
-        this.dispatcher.on('end', () => {
+        this.currentlyPlaying = queueItem;
+        this.playing = true;
+        this.skippers = 0;
+        this.dispatcher.once('end', () => {
             this.playing = false;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
+            else this.voiceChannel.leave();
         });
-        this.playing = true;
         await this.textChannel.send(new MessageEmbed()
             .setAuthor(queueItem.member.user.tag, queueItem.member.user.avatarURL())
             .setDescription(queueItem.description)
@@ -129,6 +140,7 @@ module.exports = /** @class */ class MusicGuild {
             .setTitle(queueItem.title)
             .setImage(queueItem.thumbnails.high.url)
         );
+        this.cookieblob.musicGuilds.set(this.id, this);
     }
 }</code></pre>
         </article>
@@ -140,13 +152,13 @@ module.exports = /** @class */ class MusicGuild {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-CommandLoader.html">CommandLoader</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-GuildEvents.html">GuildEvents</a></li><li><a href="module-MessageHandler.html">MessageHandler</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li><li><a href="module-Permissions.html">Permissions</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-CommandLoader.html">CommandLoader</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-GuildEvents.html">GuildEvents</a></li><li><a href="module-MessageHandler.html">MessageHandler</a></li><li><a href="module-MusicAlone.html">MusicAlone</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li><li><a href="module-Permissions.html">Permissions</a></li><li><a href="module-Util.html">Util</a></li></ul><h3>Classes</h3><ul><li><a href="module-Command.html">Command</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Cookieblob.html">Cookieblob</a></li><li><a href="module-MusicGuild.html">MusicGuild</a></li></ul><h3>Global</h3><ul><li><a href="global.html#filter">filter</a></li><li><a href="global.html#getSecretFile">getSecretFile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 10 2018 15:20:33 GMT+0200 (IST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 13 2018 20:53:26 GMT+0200 (IST)
 </footer>
 
 <script> prettyPrint(); </script>
