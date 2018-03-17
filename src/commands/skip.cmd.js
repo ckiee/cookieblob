@@ -12,6 +12,12 @@ module.exports = {
         if (!mg.playing) return await msg.channel.send(":x: You don't seem to be playing any songs.");
         if (msg.member.voiceChannelID != mg.voiceChannel.id) return await msg.channel.send("You aren't in the music voice channel.");
         const vcMembers = mg.voiceChannel.members.size - 1;
+        
+        if (mg.votes.includes(msg.member)) {
+            return await msg.channel.send(':x: You have already voted to skip this song.');
+        }
+        mg.votes.add(msg.member);
+        
         mg.skippers++;
         if ( (mg.skippers/vcMembers) >= 0.8) {
             if (mg.queue.length == 0) {
