@@ -5,6 +5,7 @@ const MessageHandler = require("./MessageHandler");
 const GuildEvents = require("./GuildEvents");
 const dbots = require("dbots");
 const MusicGuild = require("./MusicGuild");
+const MusicRadio = require("./MusicRadio");
 const VoiceStateUpdate = require("./VoiceStateUpdate");
 const Config = require("./Config");
 /** @class */
@@ -35,6 +36,8 @@ module.exports = class Cookieblob extends Client {
          * @type {Map<String, MusicGuild>}
          */
         this.musicGuilds = new Map();
+        
+        this.radio = new MusicRadio(this);
 
         if (this.config.enableBotStatPost) {
             this.once("ready", () => {
