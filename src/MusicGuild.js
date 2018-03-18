@@ -43,22 +43,21 @@ module.exports = /** @class */ class MusicGuild {
          */
         this.queue = [];
         /**
-         * @type {?QueueEntry}
+         * @type {?{(QueueEntry)|"radio"}
          */
-        this.currentlyPlaying = null;
+        this.currentlyPlaying = undefined;
         /**
          * @type {?TextChannel}
          */
-        this.textChannel = null;
+        this.textChannel = undefined;
         /**
          * @type {?VoiceChannel}
          */
-        this.voiceChannel = null;
+        this.voiceChannel = undefined;
         /**
          * @type {?StreamDispatcher}
          */
-        this.dispatcher = null;
-        this.playing = false;
+        this.dispatcher = undefined;
         this.skippers = 0;
     }
     /**
@@ -71,7 +70,7 @@ module.exports = /** @class */ class MusicGuild {
             search(query, {key: this.cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
                 if (err) reject(err);
                 if (results.length == 0) {
-                    resolve(null);
+                    resolve(undefined);
                     return;
                 }
                 let r = results[0];
@@ -97,10 +96,9 @@ module.exports = /** @class */ class MusicGuild {
         const queueItem = this.queue.shift();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
         this.currentlyPlaying = queueItem;
-        this.playing = true;
-        this.skippers = 0;
-        this.dispatcher.once('end', () => {
-            this.playing = false;
+        this.skippers = new Set();
+        this.dispatcher.once("end", () => {
+            this.currentlyPlaying = undefined;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
             else this.voiceChannel.leave();
         });
@@ -112,6 +110,25 @@ module.exports = /** @class */ class MusicGuild {
             .setTitle(queueItem.title)
             .setImage(queueItem.thumbnails.high.url)
         );
+        this.cookieblob.musicGuilds.set(this.id, this);
+    }
+    /**
+     * Stops whatever is currently playing.
+     * @param {Boolean} deleteState Reset the queue and skippers count.
+     * @returns {Promise<void>}
+     */
+    async stop(deleteState = true) {
+        if (this.dispatcher) {
+            this.dispatcher.removeAllListeners("end");
+            this.dispatcher.end();
+        }
+        if (this.voiceChannel) this.voiceChannel.leave();
+
+        this.currentlyPlaying = undefined;  
+        if (deleteState) {
+            this.queue = [];
+            this.skippers = new Set();
+        }
         this.cookieblob.musicGuilds.set(this.id, this);
     }
 }

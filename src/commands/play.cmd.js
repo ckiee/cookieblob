@@ -37,7 +37,7 @@ module.exports = {
             }
         }
         mg = cookieblob.musicGuilds.get(msg.guild.id);
-        if (!mg.playing) await mg.play();
+        if (!mg.currentlyPlaying) await mg.play();
         else await msg.channel.send(`:ok_hand: Added \`${qe.title}\` to the queue.`);
     },
     name: "play",

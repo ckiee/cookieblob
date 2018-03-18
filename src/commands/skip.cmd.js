@@ -9,11 +9,17 @@ module.exports = {
      */
     run: async (cookieblob, msg, args) => {
         let mg = cookieblob.musicGuilds.get(msg.guild.id);
-        if (!mg.playing) return await msg.channel.send(":x: You don't seem to be playing any songs.");
-        if (msg.member.voiceChannelID != mg.voiceChannel.id) return await msg.channel.send("You aren't in the music voice channel.");
+        if (!mg.currentlyPlaying) return await msg.channel.send(":x: You don't seem to be playing any songs.");
+        if (msg.member.voiceChannelID != mg.voiceChannel.id) return await msg.channel.send(":x: You aren't in the music voice channel.");
         const vcMembers = mg.voiceChannel.members.size - 1;
-        mg.skippers++;
-        if ( (mg.skippers/vcMembers) >= 0.8) {
+        if (mg.skippers.has(msg.author.id)) {
+            mg.skippers.delete(msg.author.id);
+            await msg.channel.send(":ok_hand: Undid your vote.");
+            return;
+        } else {
+            mg.skippers.add(msg.author.id);
+        }
+        if ( (mg.skippers.size/vcMembers) >= 0.8) {
             if (mg.queue.length == 0) {
                 mg.dispatcher.end();
                 mg.voiceChannel.leave();
@@ -22,7 +28,7 @@ module.exports = {
             }
             await msg.channel.send(":ok_hand: Skipped!");
         } else {
-            await msg.channel.send(`:ok_hand: Voted to skip! You need ${Math.round(vcMembers - mg.skippers*0.8)} more people to skip.`);
+            await msg.channel.send(`:ok_hand: Voted to skip! You need ${Math.round(vcMembers - mg.skippers.size*0.8)} more people to skip.`);
         }
         cookieblob.musicGuilds.set(msg.guild.id, mg);
     }, 
