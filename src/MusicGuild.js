@@ -58,7 +58,7 @@ module.exports = /** @class */ class MusicGuild {
          * @type {?StreamDispatcher}
          */
         this.dispatcher = undefined;
-        this.skippers = 0;
+        this.skippers = new Set();
     }
     /**
      * @param {String} query 
@@ -82,12 +82,16 @@ module.exports = /** @class */ class MusicGuild {
         });
     }
 
-    async play() {
+    async setupVoice() {
         let voiceConnection = this.voiceChannel.guild.voiceConnection;
         if (!this.voiceChannel.joinable 
             && !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
         
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
+        return voiceConnection;
+    }
+    async play() {
+        let voiceConnection = await this.setupVoice();
         if (!voiceConnection) {
             // we're in some weird state, we dont wanna be in this state.
             this.voiceChannel.leave();
@@ -97,7 +101,7 @@ module.exports = /** @class */ class MusicGuild {
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
         this.currentlyPlaying = queueItem;
         this.skippers = new Set();
-        this.dispatcher.once("end", () => {
+        this.dispatcher.once("finish", () => {
             this.currentlyPlaying = undefined;
             if (this.queue.length > 0) this.play().catch(err => { throw err });
             else this.voiceChannel.leave();
@@ -119,7 +123,7 @@ module.exports = /** @class */ class MusicGuild {
      */
     async stop(deleteState = true) {
         if (this.dispatcher) {
-            this.dispatcher.removeAllListeners("end");
+            this.dispatcher.removeAllListeners("finish");
             this.dispatcher.end();
         }
         if (this.voiceChannel) this.voiceChannel.leave();
