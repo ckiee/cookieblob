@@ -20,9 +20,8 @@ module.exports = {
             mg.skippers.add(msg.author.id);
         }
         if ( (mg.skippers.size/vcMembers) >= 0.8) {
-            if (mg.queue.length == 0) {
-                mg.dispatcher.end();
-                mg.voiceChannel.leave();
+            if (mg.currentlyPlaying === "radio" || mg.queue.length == 0) {
+                mg.stop();
             } else {
                 mg.dispatcher.end();
             }
