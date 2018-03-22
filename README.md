@@ -14,6 +14,6 @@ Cookieblob is a open-source [discord](https://discordapp.com) bot.
 * Generate the documentation: `npm run gendocs`
 
 ### Running the website alone
-* Note: This feature has been removed in commit the following commit: 52da595917f2ecf0fee91ff3065f08957b0f14b9
+* Note: This feature has been removed in the following commit: 52da595917f2ecf0fee91ff3065f08957b0f14b9
 * Do `Setting up the project for Development`
 * Run the bot in web only mode: `npm start cbwebonly`
