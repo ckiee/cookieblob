@@ -23,6 +23,7 @@ module.exports = {
             return this.play();
         }
         voiceConnection.play(await cookieblob.radio());
+        await msg.channel.send(":ok_hand:");
     },
     name: "playradio",
     description: "Play songs from the Cookieblob Radio",
