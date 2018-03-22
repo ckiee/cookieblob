@@ -10,7 +10,7 @@ const randomstring = require("randomstring");
 module.exports = async cookieblob => {
     const app = express();
     const httpServer =  require("http").createServer(app);
-    app.disable("x-powered-by");
+    app.use(require("helmet")());
     if (process.env.NODE_ENV == "production") app.set("view engine", "loopback");
     const port = process.env.PORT || 3000;
     app.set("view engine", "ejs");
