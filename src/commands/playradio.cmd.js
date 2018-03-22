@@ -10,7 +10,7 @@ module.exports = {
      */
     run: async (cookieblob, msg, args) => {
         const mg = cookieblob.musicGuilds.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return await msg.channel.send(":musical_note: Please join a voice channel to play a song.");
+        if (!msg.member.voiceChannel) return await msg.channel.send(":x: Please join a voice channel to listen to the radio.");
         if (mg.currentlyPlaying) return await msg.channel.send(":x: I'm already playing something, please stop it using `stop` or `skip`.");
         mg.skippers = new Set();
         mg.currentlyPlaying = "radio";
