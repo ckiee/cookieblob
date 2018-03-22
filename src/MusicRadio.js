@@ -18,6 +18,13 @@ module.exports = async (cookieblob) => {
         const songID = (await r.table("musicRadio").limit(maxPos).pluck("id").run())[pos].id;
         dispatcher = bc.play(ytdl(songID, {filter: "audioonly"}));
         dispatcher.once("end", async () => {
+            if (bc.dispatchers.length === 0) {
+                // no one listening, can close.
+                cookieblob._radio = undefined;
+                dispatcher = undefined;
+                bc = undefined; 
+                return;
+            }
             await playSong();
         });
         pos++;

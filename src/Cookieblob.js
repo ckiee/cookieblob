@@ -36,8 +36,8 @@ module.exports = class Cookieblob extends Client {
          * @type {Map<String, MusicGuild>}
          */
         this.musicGuilds = new Map();
-        
-        this.radio = new MusicRadio(this);
+
+        this._radio = undefined; 
 
         if (this.config.enableBotStatPost) {
             this.once("ready", () => {
@@ -64,5 +64,11 @@ module.exports = class Cookieblob extends Client {
      */
     isDevelopment() {
         return process.env.NODE_ENV == "development";
+    }
+
+    async radio() {
+        if (this._radio) return this._radio;
+        this._radio = await MusicRadio(this);
+        return this._radio;
     }
 }
