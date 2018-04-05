@@ -11,7 +11,7 @@ module.exports = {
         let mg = cookieblob.musicGuilds.get(msg.guild.id);
         if (!mg.currentlyPlaying) return await msg.channel.send(":x: You don't seem to be playing any songs.");
         if (msg.member.voiceChannelID != mg.voiceChannel.id) return await msg.channel.send(":x: You aren't in the music voice channel.");
-        const vcMembers = mg.voiceChannel.members.size - 1;
+        const vcMembers = mg.voiceChannel.members.filter(m => !m.user.bot).size - 1;
         if (mg.skippers.has(msg.author.id)) {
             mg.skippers.delete(msg.author.id);
             await msg.channel.send(":ok_hand: Undid your vote.");
