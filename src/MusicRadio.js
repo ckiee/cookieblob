@@ -15,7 +15,7 @@ module.exports = async (cookieblob) => {
      */
     let dispatcher;
     async function playSong() {
-        const songID = (await r.table("musicRadio").limit(maxPos).pluck("id").run())[pos].id;
+        const songID = (await r.table("musicRadio").orderBy(r.desc("views")).limit(maxPos).pluck("id").run())[pos].id;
         dispatcher = bc.play(ytdl(songID, {filter: "audioonly"}));
         dispatcher.once("end", async () => {
             if (bc.dispatchers.length === 0) {
