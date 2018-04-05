@@ -6,6 +6,7 @@ const Cookieblob = require("./src/Cookieblob");
 const CookieblobInstance = module.exports = new Cookieblob(r, ConfigInstance);
 const Death = require("death");
 CookieblobInstance.login(ConfigInstance.discordToken);
+CookieblobInstance.on("error", console.error);
 if (CookieblobInstance.isDevelopment()) CookieblobInstance.on('debug', console.log);
 else if (!CookieblobInstance.isDevelopment() && !CookieblobInstance.isProduction()) 
     console.log("\n\n*** No enviroment detected, you should set the NODE_ENV variable to 'production' or 'development'. ***\n\n");
