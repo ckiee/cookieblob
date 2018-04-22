@@ -2,6 +2,7 @@
 const { Client } = require("discord.js");
 const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
+const Discordboats = require("dboats-api");
 const GuildEvents = require("./GuildEvents");
 const dbots = require("dbots");
 const MusicGuild = require("./MusicGuild");
@@ -45,8 +46,10 @@ module.exports = class Cookieblob extends Client {
                     apiKeys: this.config.listKeys,
                     clientID: this.user.id
                 });
+                this.dboats = new Discordboats({token: this.config.listKeys.discordboats});
                 this.postInterval = setInterval(() => {
                     this.poster.postManual(this.guilds.size);
+                    this.dboats.postGuilds(this.guilds.size);
                 }, 1800000);
             });
         }

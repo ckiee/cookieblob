@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/RONTheCookie/cookieblob#readme",
   "dependencies": {
+    "dboats-api": "^1.0.1",
     "dbots": "0.0.4",
     "death": "^1.1.0",
     "discord.js": "github:hydrabolt/discord.js",
