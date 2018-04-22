@@ -469,6 +469,12 @@ dasherize@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dasherize/-/dasherize-2.0.0.tgz#6d809c9cd0cf7bb8952d80fc84fa13d47ddb1308"
 
+dboats-api@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dboats-api/-/dboats-api-1.0.1.tgz#3fee70d0f0f89fb342080e659fad8dcd5fc7734d"
+  dependencies:
+    snekfetch "^3.6.4"
+
 dbots@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/dbots/-/dbots-0.0.4.tgz#a8853996c07606bdc6df66c382ff0494ed277fb7"
