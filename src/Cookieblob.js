@@ -42,11 +42,12 @@ module.exports = class Cookieblob extends Client {
 
         if (this.config.enableBotStatPost) {
             this.once("ready", () => {
+                this.dboats = new Discordboats({token: this.config.listKeys.discordboats});
+                delete this.config.listKeys.discordboats; // dbots poster does not like it
                 this.poster = new dbots.Poster({
                     apiKeys: this.config.listKeys,
                     clientID: this.user.id
                 });
-                this.dboats = new Discordboats({token: this.config.listKeys.discordboats});
                 this.postInterval = setInterval(() => {
                     this.poster.postManual(this.guilds.size);
                     this.dboats.postGuilds(this.guilds.size);
