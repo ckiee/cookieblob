@@ -1,5 +1,5 @@
 # cookieblob
-[![Discord Bots](https://discordbots.org/api/widget/324874714646577152.png)](https://discordbots.org/bot/324874714646577152)
+[![Discord Boats](https://discordboats.club/bot/324874714646577152/widget.png)](https://discordboats.club/bot/324874714646577152)
 
 Cookieblob is a open-source [discord](https://discordapp.com) bot.
 
