@@ -13,8 +13,8 @@ module.exports = {
         .setColor(0xffc300)
         .setAuthor("Cookieblob",cookieblob.user.avatarURL())
         .setTimestamp(new Date())
-        .setFooter("This bot is owned by RONTheCookie#7386 & Jellz#9453.",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
-        .addField("Let's help you get started!",`Type ${cookieblob.config.defaultPrefix}help to see a list of commands!
+        .setFooter("This bot is owned by RONTheCookie#1337",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
+        .addField("Let's help you get started!",`[Go to the documentation to view all of the commands.](https://cookieblob.ronthecookie.me/docs)
 Good luck 😃`)
         .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
         .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true)
