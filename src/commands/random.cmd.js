@@ -13,7 +13,8 @@ module.exports = {
         if (args.length != 1) return Util.sendInvalidUsage(cookieblob.commands.get("random"), msg);
         switch (args[0]) {
             case "cat":
-            const cat = (await snek.get("https://aws.random.cat/meow").send()).body.file;
+            const cat = (await snek.get("https://thecatapi.com/api/images/get", {redirect: false}))
+                .headers.original_image;
             msg.channel.send(new MessageEmbed().setImage(cat));
             break;
             case "dog":
