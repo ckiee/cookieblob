@@ -14,7 +14,7 @@ module.exports = {
         switch (args[0]) {
             case "cat":
             const cat = (await snek.get("https://thecatapi.com/api/images/get", {redirect: false}))
-                .res.headers.original_image;
+                .headers.original_image;
             msg.channel.send(new MessageEmbed().setImage(cat));
             break;
             case "dog":
