@@ -19,7 +19,7 @@ module.exports = {
         .setTimestamp(new Date())
         .setFooter("Meme supplied by Imgur API")
         .setTitle(res.body.data[0].title)
-        .setImage(res.body.data[0].link)
+        .setImage(res.body.data[0].link || res.body.data[0].images[0].link)
         );
     },
     name: "meme",
