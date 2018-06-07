@@ -14,6 +14,7 @@ module.exports = {
         {headers: {Authorization: `Client-ID ${cookieblob.config.imgurClientID}`}})
         .send();
         if (res.body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: The top imgur meme is currently marked as NSFW.");
+        msg.channel.send("debug ",JSON.stringify(res.body));
         m.edit(new MessageEmbed()
         .setAuthor(msg.author.tag, msg.author.avatarURL())
         .setTimestamp(new Date())
