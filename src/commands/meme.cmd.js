@@ -14,13 +14,12 @@ module.exports = {
         {headers: {Authorization: `Client-ID ${cookieblob.config.imgurClientID}`}})
         .send();
         if (res.body.data.nsfw && !msg.channel.nsfw) return m.edit(":x: The top imgur meme is currently marked as NSFW.");
-        console.log("meme cmd debug", res.body);
         m.edit(new MessageEmbed()
         .setAuthor(msg.author.tag, msg.author.avatarURL())
         .setTimestamp(new Date())
         .setFooter("Meme supplied by Imgur API")
         .setTitle(res.body.data[0].title)
-        .setImage(res.body.data[0].images[0].link)
+        .setImage(res.body.data[0].link)
         );
     },
     name: "meme",
