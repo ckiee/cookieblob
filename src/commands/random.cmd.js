@@ -19,7 +19,7 @@ module.exports = {
             break;
             case "dog":
             async function getDog() {
-                const dog = (await snek.get("https://random.dog/woof").send()).text;
+                const dog = (await snek.get("https://random.dog/woof").send()).body.toString();
                 if (dog.endsWith(".mp4")) return await getDog();
                 return "https://random.dog/"+dog;
             }
