@@ -11,8 +11,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        const res = await request.get(`https://catfact.ninja/fact`).send();
-        await msg.channel.send(`:ok_hand: Fact: *${res.body.fact}*`);
+        msg.channel.send(":warning: This usage of the command will be removed in the future, use `cb!random catfact` instead.");
+        cookieblob.commands.get("random").run(cookieblob, msg, ["catfact"]);
     },
     name: `catfact`,
     description: `Show a random cat fact!`,
