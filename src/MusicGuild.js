@@ -1,8 +1,14 @@
 /** @module */
-const Cookieblob = require("./Cookieblob");
-const { TextChannel, VoiceChannel, StreamDispatcher, MessageEmbed, GuildMember } = require("discord.js");
-const ytdl = require("ytdl-core");
-const search = require("youtube-search");
+const Cookieblob = require(`./Cookieblob`);
+const {
+    TextChannel,
+    VoiceChannel,
+    StreamDispatcher,
+    MessageEmbed,
+    GuildMember
+} = require(`discord.js`);
+const ytdl = require(`ytdl-core`);
+const search = require(`youtube-search`);
 
 /**
  * @typedef {Object} QueueEntry
@@ -43,7 +49,7 @@ module.exports = /** @class */ class MusicGuild {
          */
         this.queue = [];
         /**
-         * @type {?{(QueueEntry)|"radio"}
+         * @type {?{(QueueEntry)|`radio`}
          */
         this.currentlyPlaying = undefined;
         /**
@@ -67,7 +73,11 @@ module.exports = /** @class */ class MusicGuild {
      */
     search(query, member) {
         return new Promise((resolve, reject) => {
-            search(query, {key: this.cookieblob.config.youtubeApiKey, type: "video", maxResults: 1}, (err, results) => {
+            search(query, {
+                key: this.cookieblob.config.youtubeApiKey,
+                type: `video`,
+                maxResults: 1
+            }, (err, results) => {
                 if (err) reject(err);
                 if (results.length == 0) {
                     resolve(undefined);
@@ -84,33 +94,37 @@ module.exports = /** @class */ class MusicGuild {
 
     async setupVoice() {
         let voiceConnection = this.voiceChannel.guild.voiceConnection;
-        if (!this.voiceChannel.joinable 
-            && !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
-        
+        if (!this.voiceChannel.joinable &&
+            !this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) return await this.textChannel.send(`I could not join that voice channel!`);
+
         if (!this.voiceChannel.members.has(this.voiceChannel.guild.me.id)) voiceConnection = await this.voiceChannel.join();
         return voiceConnection;
     }
     async play() {
         let voiceConnection = await this.setupVoice();
         if (!voiceConnection) {
-            // we're in some weird state, we dont wanna be in this state.
+            // we`re in some weird state, we dont wanna be in this state.
             this.voiceChannel.leave();
             return this.play();
         }
         const queueItem = this.queue.shift();
-        this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {filter: "audioonly"}));
+        this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {
+            filter: `audioonly`
+        }));
         this.currentlyPlaying = queueItem;
         this.skippers = new Set();
-        this.dispatcher.once("finish", () => {
+        this.dispatcher.once(`finish`, () => {
             this.currentlyPlaying = undefined;
-            if (this.queue.length > 0) this.play().catch(err => { throw err });
+            if (this.queue.length > 0) this.play().catch(err => {
+                throw err
+            });
             else this.voiceChannel.leave();
         });
         await this.textChannel.send(new MessageEmbed()
             .setAuthor(queueItem.member.user.tag, queueItem.member.user.avatarURL())
             .setDescription(queueItem.description)
             .setTimestamp(queueItem.addedAt)
-            .setFooter("Cookieblob Music")
+            .setFooter(`Cookieblob Music`)
             .setTitle(queueItem.title)
             .setImage(queueItem.thumbnails.high.url)
         );
@@ -123,12 +137,12 @@ module.exports = /** @class */ class MusicGuild {
      */
     async stop(deleteState = true) {
         if (this.dispatcher) {
-            this.dispatcher.removeAllListeners("finish");
+            this.dispatcher.removeAllListeners(`finish`);
             this.dispatcher.end();
         }
         if (this.voiceChannel) this.voiceChannel.leave();
 
-        this.currentlyPlaying = undefined;  
+        this.currentlyPlaying = undefined;
         if (deleteState) {
             this.queue = [];
             this.skippers = new Set();

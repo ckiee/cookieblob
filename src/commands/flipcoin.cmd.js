@@ -1,5 +1,5 @@
-const Cookieblob = require("../Cookieblob");
-const Permissions = require("../Permissions");
+const Cookieblob = require(`../Cookieblob`);
+const Permissions = require(`../Permissions`);
 module.exports = {
     /**
      * @param {Cookieblob} cookieblob
@@ -10,13 +10,13 @@ module.exports = {
         let v;
         let r = Math.random();
         if (r > 0.5) {
-            v = "Heads";
-        } else v = "Tails";
+            v = `Heads`;
+        } else v = `Tails`;
         await msg.channel.send(`The coin landed on *${v}*.`);
     },
-    name: "flipcoin",
-    description: "Flip a coin!",
+    name: `flipcoin`,
+    description: `Flip a coin!`,
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

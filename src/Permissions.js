@@ -1,7 +1,10 @@
 /** @module */
-const { User, GuildMember } = require("discord.js");
-const Cookieblob = require("./Cookieblob");
- 
+const {
+    User,
+    GuildMember
+} = require(`discord.js`);
+const Cookieblob = require(`./Cookieblob`);
+
 /**
  * @typedef {Object} PermissionCheckResult
  * @property {Boolean} result
@@ -9,11 +12,11 @@ const Cookieblob = require("./Cookieblob");
  */
 
 
-const botOwner = module.exports.botOwner = Symbol("botOwner");
-const botDeveloper = module.exports.botDeveloper = Symbol("botDeveloper");
-const everyone = module.exports.everyone = Symbol("everyone");
-const guildMod = module.exports.guildMod = Symbol("guildMod");
-const guildAdmin = module.exports.guildAdmin = Symbol("guildAdmin");
+const botOwner = module.exports.botOwner = Symbol(`botOwner`);
+const botDeveloper = module.exports.botDeveloper = Symbol(`botDeveloper`);
+const everyone = module.exports.everyone = Symbol(`everyone`);
+const guildMod = module.exports.guildMod = Symbol(`guildMod`);
+const guildAdmin = module.exports.guildAdmin = Symbol(`guildAdmin`);
 
 
 /**
@@ -22,11 +25,11 @@ const guildAdmin = module.exports.guildAdmin = Symbol("guildAdmin");
  * @returns {Boolean}
  */
 module.exports.isValidPermission = permission => {
-    return permission == botOwner 
-    || permission == botDeveloper 
-    || permission == everyone 
-    || permission == guildAdmin 
-    || permission == guildMod;
+    return permission == botOwner ||
+        permission == botDeveloper ||
+        permission == everyone ||
+        permission == guildAdmin ||
+        permission == guildMod;
 }
 
 
@@ -38,11 +41,19 @@ module.exports.isValidPermission = permission => {
  * @returns {Promise<PermissionCheckResult>} has permission?
  */
 module.exports.checkGlobal = async (cookieblob, user, permission) => {
-    if (permission == everyone) return {result: true};
+    if (permission == everyone) return {
+        result: true
+    };
 
-    if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return {result: true};
-    if (permission == botOwner && user.id == cookieblob.config.ownerID) return {result: true};
-    return {result: false};
+    if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return {
+        result: true
+    };
+    if (permission == botOwner && user.id == cookieblob.config.ownerID) return {
+        result: true
+    };
+    return {
+        result: false
+    };
 };
 /**
  * Check if a discord member has per-guild permission to do something
@@ -52,23 +63,32 @@ module.exports.checkGlobal = async (cookieblob, user, permission) => {
  * @returns {Promise<PermissionCheckResult>} 
  */
 module.exports.checkGuild = async (cookieblob, member, permission) => {
-    if (permission == guildAdmin) return {result: member.hasPermission("ADMINISTRATOR")};
+    if (permission == guildAdmin) return {
+        result: member.hasPermission(`ADMINISTRATOR`)
+    };
     else if (permission == guildMod) {
-        const { r } = cookieblob; // get db
-        let gd = await r.table("guildData").get(member.guild.id).run();
-        if (!gd || !gd.modRole) return {result: false, comment: "guildNoModrole"};
-        return {result: member.roles.has(gd.modRole)};
+        const {
+            r
+        } = cookieblob; // get db
+        let gd = await r.table(`guildData`).get(member.guild.id).run();
+        if (!gd || !gd.modRole) return {
+            result: false,
+            comment: `guildNoModrole`
+        };
+        return {
+            result: member.roles.has(gd.modRole)
+        };
     }
 }
 
 /**
  * Is this a guild or global permission?
  * @param {Symbol} permission 
- * @returns {("global"|"guild")}
+ * @returns {(`global`|`guild`)}
  */
 module.exports.getPermissionType = permission => {
     const guild = [guildAdmin, guildMod];
     const global = [everyone, botOwner, botDeveloper];
-    if (guild.includes(permission)) return "guild";
-    else if (global.includes(permission)) return "global";
+    if (guild.includes(permission)) return `guild`;
+    else if (global.includes(permission)) return `global`;
 }
