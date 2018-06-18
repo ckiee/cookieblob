@@ -1,7 +1,10 @@
 /** @module */
-const { User, GuildMember } = require("discord.js");
+const {
+    User,
+    GuildMember
+} = require("discord.js");
 const Cookieblob = require("./Cookieblob");
- 
+
 /**
  * @typedef {Object} PermissionCheckResult
  * @property {Boolean} result
@@ -22,11 +25,11 @@ const guildAdmin = module.exports.guildAdmin = Symbol("guildAdmin");
  * @returns {Boolean}
  */
 module.exports.isValidPermission = permission => {
-    return permission == botOwner 
-    || permission == botDeveloper 
-    || permission == everyone 
-    || permission == guildAdmin 
-    || permission == guildMod;
+    return permission == botOwner ||
+        permission == botDeveloper ||
+        permission == everyone ||
+        permission == guildAdmin ||
+        permission == guildMod;
 }
 
 
@@ -38,11 +41,19 @@ module.exports.isValidPermission = permission => {
  * @returns {Promise<PermissionCheckResult>} has permission?
  */
 module.exports.checkGlobal = async (cookieblob, user, permission) => {
-    if (permission == everyone) return {result: true};
+    if (permission == everyone) return {
+        result: true
+    };
 
-    if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return {result: true};
-    if (permission == botOwner && user.id == cookieblob.config.ownerID) return {result: true};
-    return {result: false};
+    if (permission == botDeveloper && cookieblob.config.developerIDs.includes(user.id)) return {
+        result: true
+    };
+    if (permission == botOwner && user.id == cookieblob.config.ownerID) return {
+        result: true
+    };
+    return {
+        result: false
+    };
 };
 /**
  * Check if a discord member has per-guild permission to do something
@@ -52,12 +63,21 @@ module.exports.checkGlobal = async (cookieblob, user, permission) => {
  * @returns {Promise<PermissionCheckResult>} 
  */
 module.exports.checkGuild = async (cookieblob, member, permission) => {
-    if (permission == guildAdmin) return {result: member.hasPermission("ADMINISTRATOR")};
+    if (permission == guildAdmin) return {
+        result: member.hasPermission("ADMINISTRATOR")
+    };
     else if (permission == guildMod) {
-        const { r } = cookieblob; // get db
+        const {
+            r
+        } = cookieblob; // get db
         let gd = await r.table("guildData").get(member.guild.id).run();
-        if (!gd || !gd.modRole) return {result: false, comment: "guildNoModrole"};
-        return {result: member.roles.has(gd.modRole)};
+        if (!gd || !gd.modRole) return {
+            result: false,
+            comment: "guildNoModrole"
+        };
+        return {
+            result: member.roles.has(gd.modRole)
+        };
     }
 }
 

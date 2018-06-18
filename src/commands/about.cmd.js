@@ -1,4 +1,7 @@
-const { MessageEmbed, Message } = require("discord.js");
+const {
+    MessageEmbed,
+    Message
+} = require("discord.js");
 const github_emote = "<:github:384690138749468682>";
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
@@ -10,21 +13,21 @@ module.exports = {
      */
     run: async (cookieblob, msg, args) => {
         await msg.channel.send(new MessageEmbed()
-        .setColor(0xffc300)
-        .setAuthor("Cookieblob",cookieblob.user.avatarURL())
-        .setTimestamp(new Date())
-        .setFooter("This bot is owned by RONTheCookie#1337",'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
-        .addField("Let's help you get started!",`[Go to the documentation to view all of the commands.](https://cookieblob.ronthecookie.me/docs)
+            .setColor(0xffc300)
+            .setAuthor("Cookieblob", cookieblob.user.avatarURL())
+            .setTimestamp(new Date())
+            .setFooter("This bot is owned by RONTheCookie#1337", 'https://cdn.discordapp.com/icons/344028874906009612/8d52c38d099e96ea0898b15566d13134.webp')
+            .addField("Let's help you get started!", `[Go to the documentation to view all of the commands.](https://cookieblob.ronthecookie.me/docs)
 Good luck 😃`)
-        .addField("Want to invite me?","Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
-        .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true)
-        .addField("Learn more?",
-`[${github_emote} Github](https://github.com/ronthecookie/cookieblob)`)
-    );
+            .addField("Want to invite me?", "Click [here](https://discordapp.com/oauth2/authorize?client_id=324874714646577152&scope=bot&permissions=3173376)!")
+            .addField("Need some help? Wanna chill?", "[Join the official Cookieblob support server!](https://discord.gg/ubPbX98)", true)
+            .addField("Learn more?",
+                `[${github_emote} Github](https://github.com/ronthecookie/cookieblob)`)
+        );
     },
     name: "about",
     description: "Some info about Cookieblob.",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

@@ -1,5 +1,7 @@
 /** @module */
-const { Client } = require("discord.js");
+const {
+    Client
+} = require("discord.js");
 const CommandLoader = require("./CommandLoader");
 const MessageHandler = require("./MessageHandler");
 const Discordboats = require("dboats-api");
@@ -16,7 +18,10 @@ module.exports = class Cookieblob extends Client {
      * @param {Config} config 
      */
     constructor(r, config) {
-        super({disableEveryone: true, disabledEvents: ["TYPING_START"]});
+        super({
+            disableEveryone: true,
+            disabledEvents: ["TYPING_START"]
+        });
         this.config = config;
         this.r = r;
         if (this.isDevelopment()) {
@@ -24,12 +29,12 @@ module.exports = class Cookieblob extends Client {
             this.on("ready", () => this.emit("debug", `Logged in as ${this.user.tag}.`));
         }
         /**
-        * @type {Map<String, Command>}
-        */
+         * @type {Map<String, Command>}
+         */
         CommandLoader(this).then(cmds => this.commands = cmds);
         this.on('voiceStateUpdate', (unusedvar, member) => VoiceStateUpdate(this, member));
         this.on('message', msg => MessageHandler(this, msg));
-        
+
         this.on('ready', () => GuildEvents(this));
         this.on('guildCreate', () => GuildEvents(this));
         this.on('guildRemove', () => GuildEvents(this));
@@ -38,11 +43,13 @@ module.exports = class Cookieblob extends Client {
          */
         this.musicGuilds = new Map();
 
-        this._radio = undefined; 
+        this._radio = undefined;
 
         if (this.config.enableBotStatPost) {
             this.once("ready", () => {
-                this.dboats = new Discordboats({token: this.config.listKeys.discordboats});
+                this.dboats = new Discordboats({
+                    token: this.config.listKeys.discordboats
+                });
                 delete this.config.listKeys.discordboats; // dbots poster does not like it
                 this.poster = new dbots.Poster({
                     apiKeys: this.config.listKeys,

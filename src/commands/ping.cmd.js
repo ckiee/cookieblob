@@ -1,4 +1,6 @@
-const {Message}  = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -14,6 +16,6 @@ module.exports = {
     name: "ping",
     description: "🏓",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

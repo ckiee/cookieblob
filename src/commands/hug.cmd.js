@@ -1,4 +1,6 @@
-const {Message} = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Util = require("../Util");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
@@ -16,5 +18,5 @@ module.exports = {
     description: "Hug a user! Lovely.",
     usage: ["user mention"],
     permissionLevel: Permissions.everyone,
-    guildOnly:true
+    guildOnly: true
 }

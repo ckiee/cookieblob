@@ -1,4 +1,6 @@
-const {Message} = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
         } else {
             mg.skippers.add(msg.author.id);
         }
-        if ( (mg.skippers.size/vcMembers) >= 0.8) {
+        if ((mg.skippers.size / vcMembers) >= 0.8) {
             if (mg.currentlyPlaying === "radio" || mg.queue.length == 0) {
                 mg.stop();
             } else {
@@ -30,10 +32,10 @@ module.exports = {
             await msg.channel.send(`:ok_hand: Voted to skip! You need ${Math.round(vcMembers - mg.skippers.size*0.8)} more people to skip.`);
         }
         cookieblob.musicGuilds.set(msg.guild.id, mg);
-    }, 
+    },
     name: "skip",
     description: "Vote to skip a song.",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:true
+    permissionLevel: Permissions.everyone,
+    guildOnly: true
 }

@@ -1,6 +1,10 @@
 /** @module */
 const Command = require("./Command");
-const { Message, MessageEmbed, Guild } = require("discord.js");
+const {
+    Message,
+    MessageEmbed,
+    Guild
+} = require("discord.js");
 /**
  * Sends a dynamic invalid usage message.
  * @param {Command} command 
@@ -21,5 +25,9 @@ module.exports.sendInvalidUsage = async (command, msg) => {
  * @returns {Object}
  */
 module.exports.getDefaultGuildData = guild => {
-    return {id: guild.id, selfRoles: [], modRole: null};
+    return {
+        id: guild.id,
+        selfRoles: [],
+        modRole: null
+    };
 }

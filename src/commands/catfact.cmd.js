@@ -1,4 +1,6 @@
-const { Message } = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const request = require("snekfetch");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
@@ -15,6 +17,6 @@ module.exports = {
     name: "catfact",
     description: "Show a random cat fact!",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

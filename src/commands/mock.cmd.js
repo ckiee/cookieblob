@@ -1,5 +1,9 @@
-const {Message}  = require("discord.js");
-const { spongeMock } = require("spongemock");
+const {
+    Message
+} = require("discord.js");
+const {
+    spongeMock
+} = require("spongemock");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -15,6 +19,6 @@ module.exports = {
     name: "mock",
     description: "yOU cAN uSe ThIs To MOcK pEoPlE",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

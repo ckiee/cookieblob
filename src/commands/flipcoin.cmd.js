@@ -17,6 +17,6 @@ module.exports = {
     name: "flipcoin",
     description: "Flip a coin!",
     usage: [],
-    permissionLevel:Permissions.everyone,
-    guildOnly:false
+    permissionLevel: Permissions.everyone,
+    guildOnly: false
 }

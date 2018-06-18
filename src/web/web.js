@@ -9,7 +9,7 @@ const randomstring = require("randomstring");
  */
 module.exports = async cookieblob => {
     const app = express();
-    const httpServer =  require("http").createServer(app);
+    const httpServer = require("http").createServer(app);
     app.use(require("helmet")());
     if (process.env.NODE_ENV == "production") app.set("view engine", "loopback");
     const port = process.env.PORT || 3000;
@@ -20,23 +20,36 @@ module.exports = async cookieblob => {
     app.get("/", (req, res) => {
         res.render("index");
     });
-    
+
     app.get("/invite", (req, res) => {
         res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${cookieblob.user.id}&scope=bot&permissions=3173376`);
     });
 
     app.get("/docs", (req, res) => {
-        res.render("docs", {title: "Docs", commands: Array.from(cookieblob.commands.values()), Util, escapeHTML: require("escape-html")});
+        res.render("docs", {
+            title: "Docs",
+            commands: Array.from(cookieblob.commands.values()),
+            Util,
+            escapeHTML: require("escape-html")
+        });
     });
     app.get("/stats", (req, res) => {
-        res.render("stats", {title: "Stats"});
+        res.render("stats", {
+            title: "Stats"
+        });
     });
     app.use("/api", await require("./api")(cookieblob));
     app.use(express.static("static"));
     app.use((req, res) => {
-        res.render("error", {error:"404 Page not found.", title: "Error"});
+        res.render("error", {
+            error: "404 Page not found.",
+            title: "Error"
+        });
     });
-    return {app, httpServer};
+    return {
+        app,
+        httpServer
+    };
 };
 
 /** 

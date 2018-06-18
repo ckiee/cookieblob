@@ -1,6 +1,8 @@
-const { Message } = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
-const Util = require("../Util"); 
+const Util = require("../Util");
 const Permissions = require("../Permissions");
 module.exports = {
     /**

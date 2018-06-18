@@ -1,4 +1,6 @@
-const { Message } = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Command = require("../Command");
 const Permissions = require("../Permissions");
@@ -17,7 +19,7 @@ module.exports = {
             let cmd = new Command(require(cmdFn));
             cookieblob.commands.set(cmd.name, cmd);
             await msg.channel.send(`:ok_hand: (Re)loaded command \`${cmd.name}\`.`);
-        } catch(error) {
+        } catch (error) {
             if (error.message.includes("Cannot find module")) return await msg.channel.send(":x: I coulden't find that command name!");
             throw error;
         }
@@ -26,5 +28,5 @@ module.exports = {
     description: "(Re)loads a command",
     usage: [],
     permissionLevel: Permissions.botOwner,
-    guildOnly:false
+    guildOnly: false
 }

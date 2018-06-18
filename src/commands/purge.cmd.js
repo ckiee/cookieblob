@@ -1,4 +1,6 @@
-const {Message}  = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 const Util = require("../Util");
@@ -15,7 +17,7 @@ module.exports = {
         if (!count || count > 100 || count < 2) return await Util.sendInvalidUsage(cookieblob.commands.get("purge"), msg);
         const deleted = await msg.channel.bulkDelete(count);
         const m = await msg.channel.send(`:ok_hand: Removed ${deleted.size} messages.`)
-        cookieblob.setTimeout(() => m.delete(), 1000*20);
+        cookieblob.setTimeout(() => m.delete(), 1000 * 20);
     },
     name: "purge",
     description: "Purge messages.",

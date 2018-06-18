@@ -23,15 +23,15 @@ module.exports = {
             if (result instanceof Promise) result = await result;
             if (typeof result != "string") result = require("util").inspect(result);
             if (result.length > 1990) return await msg.channel.send("Message is over the discord message contents limit.");
-            await msg.channel.send("```js\n"+filter(cookieblob, result)+"\n```");
+            await msg.channel.send("```js\n" + filter(cookieblob, result) + "\n```");
         } catch (error) {
             console.log(`Error while ${msg.author.tag} ran eval.\n${error.stack}`);
-            await msg.channel.send("Error!```"+filter(cookieblob, error.stack)+"```");
+            await msg.channel.send("Error!```" + filter(cookieblob, error.stack) + "```");
         }
     },
     name: "eval",
     description: "Evaluate a command",
     usage: [],
-    permissionLevel:Permissions.botDeveloper,
-    guildOnly:false
+    permissionLevel: Permissions.botDeveloper,
+    guildOnly: false
 }

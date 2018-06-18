@@ -1,6 +1,8 @@
-const { Message } = require("discord.js");
+const {
+    Message
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
-const Util = require("../Util"); 
+const Util = require("../Util");
 const Permissions = require("../Permissions");
 module.exports = {
     /**
@@ -9,17 +11,22 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        const { r } = cookieblob;
+        const {
+            r
+        } = cookieblob;
         const userDataNotice = await r.table("notices").get(`${msg.author.id}_musicdata`).run();
         let mg = cookieblob.musicGuilds.get(msg.guild.id);
         if (args.length < 1) return await Util.sendInvalidUsage(cookieblob.commands.get("play"), msg);
         if (!msg.member.voiceChannel) return await msg.channel.send(":musical_note: Please join a voice channel to play a song.");
         if (mg.currentlyPlaying == "radio") return await msg.channel.send(":x: The radio is currently playing, please stop it using `stop` or `skip`.");
         if (!userDataNotice) {
-            await msg.channel.send("Hey! I want to collect some data about the songs you play."+
-        "\nNext time you play a song I will collect data about the song, this will be used for the new Music Radio feature."+
-        `\nNote: You may opt out using \`optout musicdata\`.`);
-            await r.table("notices").insert({id: `${msg.author.id}_musicdata`, optout: false}).run();
+            await msg.channel.send("Hey! I want to collect some data about the songs you play." +
+                "\nNext time you play a song I will collect data about the song, this will be used for the new Music Radio feature." +
+                `\nNote: You may opt out using \`optout musicdata\`.`);
+            await r.table("notices").insert({
+                id: `${msg.author.id}_musicdata`,
+                optout: false
+            }).run();
         }
         mg.voiceChannel = msg.member.voiceChannel;
         mg.textChannel = msg.channel;

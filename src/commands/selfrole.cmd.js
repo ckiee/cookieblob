@@ -1,5 +1,10 @@
 const Util = require("../Util");
-const {MessageEmbed, Message, Role, GuildMember} = require("discord.js");
+const {
+    MessageEmbed,
+    Message,
+    Role,
+    GuildMember
+} = require("discord.js");
 const Cookieblob = require("../Cookieblob");
 const Permissions = require("../Permissions");
 module.exports = {
@@ -10,7 +15,9 @@ module.exports = {
      */
     run: async (cookieblob, msg, args) => {
         if (args.length < 1) return await Util.sendInvalidUsage(cookieblob.commands.get("selfrole"), msg);
-        const { r } = cookieblob;
+        const {
+            r
+        } = cookieblob;
         const role = msg.guild.roles.find("name", args.slice(1).join(" "));
         const gd = await r.table("guildData").get(msg.guild.id).run();
         /**
@@ -28,14 +35,15 @@ module.exports = {
             if (args.length < 2) return await Util.sendInvalidUsage(cookieblob.commands.get("selfrole"), msg);
             if (!role) return await msg.channel.send(":x: I couldn't find that role!");
             if (!hasSelfrole(role.id)) return await msg.channel.send(":x: That role is not a self-role.");
-            if (!msg.guild.me.hasPermission("MANAGE_ROLES") 
-            || msg.member.roles.highest.position > msg.guild.me.roles.highest.position)
+            if (!msg.guild.me.hasPermission("MANAGE_ROLES") ||
+                msg.member.roles.highest.position > msg.guild.me.roles.highest.position)
                 return await msg.channel.send(":x: I don't have permission to give you a role.");
         }
         if (args[0] == "list") {
             function getRName(sr) {
                 return msg.guild.roles.get(sr.id) ? msg.guild.roles.get(sr.id).name : "?????";
             }
+
             function getAName(sr) {
                 return cookieblob.users.get(sr.author) ? cookieblob.users.get(sr.author).tag : "?????";
             }
