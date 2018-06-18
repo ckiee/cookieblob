@@ -37,11 +37,11 @@ module.exports = {
                 Util.sendInvalidUsage(cookieblob.commands.get(`random`), msg);
                 break;
             case "catfact":
-            const catfactres = await request.get(`https://catfact.ninja/fact`).send();
+            const catfactres = await snek.get(`https://catfact.ninja/fact`).send();
             await msg.channel.send(`:ok_hand: Fact: *${catfactres.body.fact}*`);
             break;
             case "dogfact":
-            const dogfactres = await request.get(`https://dog-api.kinduff.com/api/facts`).send();
+            const dogfactres = await snek.get(`https://dog-api.kinduff.com/api/facts`).send();
             await msg.channel.send(`:ok_hand: Fact: *${dogfactres.body.facts[0]}*`);
             break;
         }
