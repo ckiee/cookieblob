@@ -48,7 +48,7 @@ module.exports = {
     },
     name: `random`,
     description: `Get a random cat, parrot or dog.`,
-    usage: [`cat/dog/parrot`],
+    usage: [`cat/dog/parrot/catfact/dogfact`],
     permissionLevel: Permissions.everyone,
     guildOnly: false
 }
