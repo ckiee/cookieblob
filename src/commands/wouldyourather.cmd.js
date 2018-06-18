@@ -1,10 +1,10 @@
-const request = require("snekfetch");
+const request = require(`snekfetch`);
 const {
     MessageEmbed,
     Message
-} = require("discord.js");
-const Cookieblob = require("../Cookieblob");
-const Permissions = require("../Permissions");
+} = require(`discord.js`);
+const Cookieblob = require(`../Cookieblob`);
+const Permissions = require(`../Permissions`);
 module.exports = {
     /**
      * @param {Cookieblob} cookieblob
@@ -12,9 +12,9 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
-        let res = await request.get("http://www.rrrather.com/botapi").send();
+        let res = await request.get(`http://www.rrrather.com/botapi`).send();
         if (res.body.nsfw && !msg.channel.nsfw)
-            return cookieblob.commands.get("wouldyourather").run(cookieblob, msg, args);
+            return cookieblob.commands.get(`wouldyourather`).run(cookieblob, msg, args);
         msg.channel.send(new MessageEmbed()
             .setColor(0xe2900b)
             .setAuthor(msg.author.username, msg.author.avatarURL())
@@ -24,8 +24,8 @@ module.exports = {
 \`Choice B\`: *${res.body.choiceb}*`)
         );
     },
-    name: "wouldyourather",
-    description: "What would you rather? Choice A or Choice B.",
+    name: `wouldyourather`,
+    description: `What would you rather? Choice A or Choice B.`,
     usage: [],
     permissionLevel: Permissions.everyone,
     guildOnly: false

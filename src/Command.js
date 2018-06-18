@@ -1,6 +1,6 @@
 /** @module */
 
-const Permissions = require("./Permissions");
+const Permissions = require(`./Permissions`);
 
 module.exports = /** @class */ class Command {
     /**
@@ -33,7 +33,7 @@ module.exports = /** @class */ class Command {
         this.run = command.run;
         if (!Permissions.isValidPermission(this.permissionLevel)) {
             this.run = (cookieblob, msg, args) => {
-                throw new Error("This command has a invalid permission and could not be safely executed.")
+                throw new Error(`This command has a invalid permission and could not be safely executed.`)
             };
         }
     }
@@ -41,7 +41,7 @@ module.exports = /** @class */ class Command {
      * @returns {String} The formatted command usage.
      */
     formatCommand() {
-        return `${this.name} ${this.usage.map(usageEntry => `<${usageEntry}>`).join(" ")}`;
+        return `${this.name} ${this.usage.map(usageEntry => `<${usageEntry}>`).join(` `)}`;
     }
     /** 
      * @returns {String} The formatted permission level.

@@ -1,5 +1,5 @@
-const express = require("express");
-const Cookieblob = require("../Cookieblob");
+const express = require(`express`);
+const Cookieblob = require(`../Cookieblob`);
 /**
  * 
  * @param {Cookieblob} cookieblob 
@@ -10,21 +10,21 @@ module.exports = async cookieblob => {
     const {
         r
     } = cookieblob; //db
-    app.get("/", (req, res) => {
+    app.get(`/`, (req, res) => {
         res.json({
-            success: "You found the API!"
+            success: `You found the API!`
         });
     });
-    app.get("/bigdata/cmdUsages", async (req, res) => {
+    app.get(`/bigdata/cmdUsages`, async (req, res) => {
         res.json({
             success: true,
-            data: await r.table("cmdusages").run()
+            data: await r.table(`cmdusages`).run()
         });
     });
-    app.get("/bigdata/guildStats", async (req, res) => {
+    app.get(`/bigdata/guildStats`, async (req, res) => {
         res.json({
             success: true,
-            data: await r.table("guildStats").pluck("count", "date").orderBy("date").run()
+            data: await r.table(`guildStats`).pluck(`count`, `date`).orderBy(`date`).run()
         });
     });
     return app;

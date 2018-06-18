@@ -2,8 +2,8 @@
 const {
     User,
     GuildMember
-} = require("discord.js");
-const Cookieblob = require("./Cookieblob");
+} = require(`discord.js`);
+const Cookieblob = require(`./Cookieblob`);
 
 /**
  * @typedef {Object} PermissionCheckResult
@@ -12,11 +12,11 @@ const Cookieblob = require("./Cookieblob");
  */
 
 
-const botOwner = module.exports.botOwner = Symbol("botOwner");
-const botDeveloper = module.exports.botDeveloper = Symbol("botDeveloper");
-const everyone = module.exports.everyone = Symbol("everyone");
-const guildMod = module.exports.guildMod = Symbol("guildMod");
-const guildAdmin = module.exports.guildAdmin = Symbol("guildAdmin");
+const botOwner = module.exports.botOwner = Symbol(`botOwner`);
+const botDeveloper = module.exports.botDeveloper = Symbol(`botDeveloper`);
+const everyone = module.exports.everyone = Symbol(`everyone`);
+const guildMod = module.exports.guildMod = Symbol(`guildMod`);
+const guildAdmin = module.exports.guildAdmin = Symbol(`guildAdmin`);
 
 
 /**
@@ -64,16 +64,16 @@ module.exports.checkGlobal = async (cookieblob, user, permission) => {
  */
 module.exports.checkGuild = async (cookieblob, member, permission) => {
     if (permission == guildAdmin) return {
-        result: member.hasPermission("ADMINISTRATOR")
+        result: member.hasPermission(`ADMINISTRATOR`)
     };
     else if (permission == guildMod) {
         const {
             r
         } = cookieblob; // get db
-        let gd = await r.table("guildData").get(member.guild.id).run();
+        let gd = await r.table(`guildData`).get(member.guild.id).run();
         if (!gd || !gd.modRole) return {
             result: false,
-            comment: "guildNoModrole"
+            comment: `guildNoModrole`
         };
         return {
             result: member.roles.has(gd.modRole)
@@ -84,11 +84,11 @@ module.exports.checkGuild = async (cookieblob, member, permission) => {
 /**
  * Is this a guild or global permission?
  * @param {Symbol} permission 
- * @returns {("global"|"guild")}
+ * @returns {(`global`|`guild`)}
  */
 module.exports.getPermissionType = permission => {
     const guild = [guildAdmin, guildMod];
     const global = [everyone, botOwner, botDeveloper];
-    if (guild.includes(permission)) return "guild";
-    else if (global.includes(permission)) return "global";
+    if (guild.includes(permission)) return `guild`;
+    else if (global.includes(permission)) return `global`;
 }

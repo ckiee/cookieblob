@@ -1,9 +1,9 @@
 const {
     Message,
     MessageEmbed
-} = require("discord.js");
-const Cookieblob = require("../Cookieblob");
-const Permissions = require("../Permissions");
+} = require(`discord.js`);
+const Cookieblob = require(`../Cookieblob`);
+const Permissions = require(`../Permissions`);
 module.exports = {
     /**
      * @param {Cookieblob} cookieblob
@@ -23,20 +23,20 @@ module.exports = {
 
 Guild Leader \`${g.owner.user.tag} (${g.ownerID})\`
 
-Roles \`(${g.roles.size}) ${g.roles.map(v => v.name).join(", ")}\`
+Roles \`(${g.roles.size}) ${g.roles.map(v => v.name).join(`, `)}\`
 
-Afk Channel \`${g.afkChannel?g.afkChannel.name:"none"}\`
+Afk Channel \`${g.afkChannel?g.afkChannel.name:`none`}\`
 
-Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(", ")}\`
+Channels \`(${g.channels.size}) ${g.channels.map(v => v.name).join(`, `)}\`
 
 Region \`${g.region}\`
 
-Special Features \`${g.features.length==0?"none":g.features.map(v => v.toLowerCase()).join(", ")}\``
+Special Features \`${g.features.length==0?`none`:g.features.map(v => v.toLowerCase()).join(`, `)}\``
             )
         );
     },
-    name: "guildinfo",
-    description: "Shows some info about the guild you're typing this in.",
+    name: `guildinfo`,
+    description: `Shows some info about the guild you're typing this in.`,
     usage: [],
     permissionLevel: Permissions.everyone,
     guildOnly: true

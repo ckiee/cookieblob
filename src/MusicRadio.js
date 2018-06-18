@@ -1,10 +1,10 @@
 /** @module */
-const Cookieblob = require("./Cookieblob");
-const ytdl = require("ytdl-core");
+const Cookieblob = require(`./Cookieblob`);
+const ytdl = require(`ytdl-core`);
 const {
     VoiceBroadcast,
     BroadcastDispatcher
-} = require("discord.js");
+} = require(`discord.js`);
 /**
  * @param {Cookieblob} cookieblob 
  */
@@ -20,11 +20,11 @@ module.exports = async (cookieblob) => {
      */
     let dispatcher;
     async function playSong() {
-        const songID = (await r.table("musicRadio").orderBy(r.desc("views")).limit(maxPos).pluck("id").run())[pos].id;
+        const songID = (await r.table(`musicRadio`).orderBy(r.desc(`views`)).limit(maxPos).pluck(`id`).run())[pos].id;
         dispatcher = bc.play(ytdl(songID, {
-            filter: "audioonly"
+            filter: `audioonly`
         }));
-        dispatcher.once("end", async () => {
+        dispatcher.once(`end`, async () => {
             if (bc.dispatchers.length === 0) {
                 // no one listening, can close.
                 cookieblob._radio = undefined;

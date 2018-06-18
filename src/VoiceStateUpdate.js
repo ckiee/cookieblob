@@ -1,8 +1,8 @@
 /** @module */
-const Cookieblob = require("./Cookieblob");
+const Cookieblob = require(`./Cookieblob`);
 const {
     GuildMember
-} = require("discord.js");
+} = require(`discord.js`);
 /**
  * @param {Cookieblob} cookieblob 
  * @param {GuildMember} member

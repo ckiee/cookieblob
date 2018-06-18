@@ -1,16 +1,16 @@
 /** @module */
 const {
     Client
-} = require("discord.js");
-const CommandLoader = require("./CommandLoader");
-const MessageHandler = require("./MessageHandler");
-const Discordboats = require("dboats-api");
-const GuildEvents = require("./GuildEvents");
-const dbots = require("dbots");
-const MusicGuild = require("./MusicGuild");
-const MusicRadio = require("./MusicRadio");
-const VoiceStateUpdate = require("./VoiceStateUpdate");
-const Config = require("./Config");
+} = require(`discord.js`);
+const CommandLoader = require(`./CommandLoader`);
+const MessageHandler = require(`./MessageHandler`);
+const Discordboats = require(`dboats-api`);
+const GuildEvents = require(`./GuildEvents`);
+const dbots = require(`dbots`);
+const MusicGuild = require(`./MusicGuild`);
+const MusicRadio = require(`./MusicRadio`);
+const VoiceStateUpdate = require(`./VoiceStateUpdate`);
+const Config = require(`./Config`);
 /** @class */
 module.exports = class Cookieblob extends Client {
     /**
@@ -20,24 +20,24 @@ module.exports = class Cookieblob extends Client {
     constructor(r, config) {
         super({
             disableEveryone: true,
-            disabledEvents: ["TYPING_START"]
+            disabledEvents: [`TYPING_START`]
         });
         this.config = config;
         this.r = r;
         if (this.isDevelopment()) {
-            this.emit("debug", "In development, showing debug logs.");
-            this.on("ready", () => this.emit("debug", `Logged in as ${this.user.tag}.`));
+            this.emit(`debug`, `In development, showing debug logs.`);
+            this.on(`ready`, () => this.emit(`debug`, `Logged in as ${this.user.tag}.`));
         }
         /**
          * @type {Map<String, Command>}
          */
         CommandLoader(this).then(cmds => this.commands = cmds);
-        this.on('voiceStateUpdate', (unusedvar, member) => VoiceStateUpdate(this, member));
-        this.on('message', msg => MessageHandler(this, msg));
+        this.on(`voiceStateUpdate`, (unusedvar, member) => VoiceStateUpdate(this, member));
+        this.on(`message`, msg => MessageHandler(this, msg));
 
-        this.on('ready', () => GuildEvents(this));
-        this.on('guildCreate', () => GuildEvents(this));
-        this.on('guildRemove', () => GuildEvents(this));
+        this.on(`ready`, () => GuildEvents(this));
+        this.on(`guildCreate`, () => GuildEvents(this));
+        this.on(`guildRemove`, () => GuildEvents(this));
         /**
          * @type {Map<String, MusicGuild>}
          */
@@ -46,7 +46,7 @@ module.exports = class Cookieblob extends Client {
         this._radio = undefined;
 
         if (this.config.enableBotStatPost) {
-            this.once("ready", () => {
+            this.once(`ready`, () => {
                 this.dboats = new Discordboats({
                     token: this.config.listKeys.discordboats
                 });
@@ -67,14 +67,14 @@ module.exports = class Cookieblob extends Client {
      * @returns {Boolean}
      */
     isProduction() {
-        return process.env.NODE_ENV == "production";
+        return process.env.NODE_ENV == `production`;
     }
     /**
      * Are we in a development enviroment?
      * @returns {Boolean}
      */
     isDevelopment() {
-        return process.env.NODE_ENV == "development";
+        return process.env.NODE_ENV == `development`;
     }
 
     async radio() {

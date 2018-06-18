@@ -1,14 +1,14 @@
 /** @module */
-const Cookieblob = require("./Cookieblob");
+const Cookieblob = require(`./Cookieblob`);
 const {
     TextChannel,
     VoiceChannel,
     StreamDispatcher,
     MessageEmbed,
     GuildMember
-} = require("discord.js");
-const ytdl = require("ytdl-core");
-const search = require("youtube-search");
+} = require(`discord.js`);
+const ytdl = require(`ytdl-core`);
+const search = require(`youtube-search`);
 
 /**
  * @typedef {Object} QueueEntry
@@ -49,7 +49,7 @@ module.exports = /** @class */ class MusicGuild {
          */
         this.queue = [];
         /**
-         * @type {?{(QueueEntry)|"radio"}
+         * @type {?{(QueueEntry)|`radio`}
          */
         this.currentlyPlaying = undefined;
         /**
@@ -75,7 +75,7 @@ module.exports = /** @class */ class MusicGuild {
         return new Promise((resolve, reject) => {
             search(query, {
                 key: this.cookieblob.config.youtubeApiKey,
-                type: "video",
+                type: `video`,
                 maxResults: 1
             }, (err, results) => {
                 if (err) reject(err);
@@ -103,17 +103,17 @@ module.exports = /** @class */ class MusicGuild {
     async play() {
         let voiceConnection = await this.setupVoice();
         if (!voiceConnection) {
-            // we're in some weird state, we dont wanna be in this state.
+            // we`re in some weird state, we dont wanna be in this state.
             this.voiceChannel.leave();
             return this.play();
         }
         const queueItem = this.queue.shift();
         this.dispatcher = voiceConnection.play(ytdl(queueItem.link, {
-            filter: "audioonly"
+            filter: `audioonly`
         }));
         this.currentlyPlaying = queueItem;
         this.skippers = new Set();
-        this.dispatcher.once("finish", () => {
+        this.dispatcher.once(`finish`, () => {
             this.currentlyPlaying = undefined;
             if (this.queue.length > 0) this.play().catch(err => {
                 throw err
@@ -124,7 +124,7 @@ module.exports = /** @class */ class MusicGuild {
             .setAuthor(queueItem.member.user.tag, queueItem.member.user.avatarURL())
             .setDescription(queueItem.description)
             .setTimestamp(queueItem.addedAt)
-            .setFooter("Cookieblob Music")
+            .setFooter(`Cookieblob Music`)
             .setTitle(queueItem.title)
             .setImage(queueItem.thumbnails.high.url)
         );
@@ -137,7 +137,7 @@ module.exports = /** @class */ class MusicGuild {
      */
     async stop(deleteState = true) {
         if (this.dispatcher) {
-            this.dispatcher.removeAllListeners("finish");
+            this.dispatcher.removeAllListeners(`finish`);
             this.dispatcher.end();
         }
         if (this.voiceChannel) this.voiceChannel.leave();
