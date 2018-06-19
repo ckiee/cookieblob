@@ -10,7 +10,7 @@ body {
 main {
     flex: 1 0 auto;
     background: #23272A;
-    color: white;
+    color: white !important;
 }
 .page-footer, .nav-wrapper, nav {
     background: #2C2F33 !important;
