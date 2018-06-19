@@ -16,9 +16,10 @@ module.exports = async cookieblob => {
     app.set(`view engine`, `ejs`);
     httpServer.listen(port);
     console.log(`[web] will listen on port ${port}`);
+    const lastCommit = await Util.getLastCommit();
 
     app.get(`/`, (req, res) => {
-        res.render(`index`);
+        res.render(`index`, {lastCommit});
     });
 
     app.get(`/invite`, (req, res) => {
@@ -30,12 +31,14 @@ module.exports = async cookieblob => {
             title: `Docs`,
             commands: Array.from(cookieblob.commands.values()),
             Util,
+            lastCommit,
             escapeHTML: require(`escape-html`)
         });
     });
     app.get(`/stats`, (req, res) => {
         res.render(`stats`, {
-            title: `Stats`
+            title: `Stats`,
+            lastCommit
         });
     });
     app.use(`/api`, await require(`./api`)(cookieblob));
@@ -43,7 +46,8 @@ module.exports = async cookieblob => {
     app.use((req, res) => {
         res.render(`error`, {
             error: `404 Page not found.`,
-            title: `Error`
+            title: `Error`,
+            lastCommit
         });
     });
     return {

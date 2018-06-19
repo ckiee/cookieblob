@@ -7,11 +7,11 @@ const {
     Guild
 } = require(`discord.js`);
 /**
- * Sends a dynamic invalid usage message.
- * @param {Command} command 
- * @param {Message} msg 
- * @returns {Promise<Message>} the sent message
- */
+* Sends a dynamic invalid usage message.
+* @param {Command} command 
+* @param {Message} msg 
+* @returns {Promise<Message>} the sent message
+*/
 module.exports.sendInvalidUsage = async (command, msg) => {
     return await msg.channel.send(
         new MessageEmbed()
@@ -22,9 +22,9 @@ module.exports.sendInvalidUsage = async (command, msg) => {
     );
 }
 /**
- * @param {Guild} guild
- * @returns {Object}
- */
+* @param {Guild} guild
+* @returns {Object}
+*/
 module.exports.getDefaultGuildData = guild => {
     return {
         id: guild.id,
@@ -33,11 +33,16 @@ module.exports.getDefaultGuildData = guild => {
     };
 }
 
+/**
+ * @returns {Promise<String>} Last commit hash
+ */
 module.exports.getLastCommit = () => {
-    const cmd = `git log -n 1 --pretty=format:"%H"`;
-    child_proc.exec(cmd, (err, stdout, stderr) => {
-        if (err || stderr) console.log("Error while getting last commit:", err, stderr);
-        console.log("got last commit:", stdout);
+    return new Promise((resolve, reject) => {
+        const cmd = `git log -n 1 --pretty=format:"%H"`;
+        child_proc.exec(cmd, (err, stdout, stderr) => {
+            if (err) reject(err);
+            if (stderr) reject("External git err " + err);
+            resolve(stdout);
+        });
     });
 }
-module.exports.getLastCommit();
