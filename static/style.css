@@ -16,7 +16,7 @@ main {
     background: #2C2F33 !important;
 }
 
-a .sidenav {
+.sidenav li>a {
     color: white !important;
 }
 
