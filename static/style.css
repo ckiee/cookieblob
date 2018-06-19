@@ -18,6 +18,8 @@ main {
 
 .sidenav li>a {
     color: white !important;
+    font-size: 1.5em !important;
+    font-weight: normal !important;
 }
 
 .typewrite > .wrap { border-right: 0.08em solid #fff}
