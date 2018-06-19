@@ -5,11 +5,12 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background: #23272A;
 }
 
 main {
     flex: 1 0 auto;
+    background: #23272A;
+    color: white;
 }
 .page-footer, .nav-wrapper, nav {
     background: #2C2F33 !important;
