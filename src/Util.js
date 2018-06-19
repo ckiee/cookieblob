@@ -1,5 +1,6 @@
 /** @module */
 const Command = require(`./Command`);
+const child_proc = require("child_process");
 const {
     Message,
     MessageEmbed,
@@ -31,3 +32,12 @@ module.exports.getDefaultGuildData = guild => {
         modRole: null
     };
 }
+
+module.exports.getLastCommit = () => {
+    const cmd = `git log -n 1 --pretty=format:"%H"`;
+    child_proc.exec(cmd, (err, stdout, stderr) => {
+        if (err || stderr) console.log("Error while getting last commit:", err, stderr);
+        console.log("got last commit:", stdout);
+    });
+}
+module.exports.getLastCommit();
