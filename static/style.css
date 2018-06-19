@@ -16,6 +16,10 @@ main {
     background: #2C2F33 !important;
 }
 
+li ul.sidenav {
+    color: white !important;
+}
+
 .typewrite > .wrap { border-right: 0.08em solid #fff}
 
 #index-typewri {color: #7289DA;}
