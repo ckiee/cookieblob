@@ -12,7 +12,7 @@ main {
     background: #23272A;
     color: white !important;
 }
-.page-footer, .nav-wrapper, nav {
+.page-footer, .nav-wrapper, nav, ul.sidenav {
     background: #2C2F33 !important;
 }
 
