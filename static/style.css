@@ -26,5 +26,7 @@ main {
 
 table {
     color: white;
-    font-weight: normal;
+}
+th {
+    font-weight: normal !important;
 }
