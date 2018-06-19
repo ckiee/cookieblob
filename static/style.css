@@ -19,3 +19,7 @@ main {
 .typewrite > .wrap { border-right: 0.08em solid #fff}
 
 #index-typewri {color: #7289DA;}
+
+.btn-large, .btn, button {
+    background: #7289DA !important;
+}
