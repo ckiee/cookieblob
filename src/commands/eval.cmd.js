@@ -26,7 +26,7 @@ module.exports = {
             await msg.channel.send("```js\n" + filter(cookieblob, result) + "\n```");
         } catch (error) {
             console.log(`Error while ${msg.author.tag} ran eval.\n${error.stack}`);
-            await msg.channel.send(`Error!```` + filter(cookieblob, error.stack) + `````);
+            await msg.channel.send("Error!```" + filter(cookieblob, error.stack) + "```");
         }
     },
     name: `eval`,
