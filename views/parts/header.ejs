@@ -1,6 +1,7 @@
 <nav>
   <div class="nav-wrapper">
     <a href="/" class="brand-logo">Cookieblob</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="/docs">Documentation</a></li> 
       <li><a href="/stats">Stats</a></li> 
@@ -11,5 +12,14 @@
     </ul>
   </div>
 </nav>
-
-<h2 class="header center orange-text">Cookieblob<%- typeof title == "string" ? ` - ${title}` : `` %></h2>
+<ul class="sidenav white-text" id="mobile-demo">
+  <li><a href="/docs">Documentation</a></li> 
+  <li><a href="/stats">Stats</a></li> 
+</ul>
+<!-- <h2 class="header center orange-text">Cookieblob<%- typeof title == "string" ? ` - ${title}` : `` %></h2> -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {});
+  }); 
+</script>
