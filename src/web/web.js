@@ -43,13 +43,12 @@ module.exports = async cookieblob => {
     });
     app.use(`/api`, await require(`./api`)(cookieblob));
     app.use(express.static(`static`));
-    // app.use((req, res) => {
-    //     res.render(`error`, {
-    //         error: `404 Page not found.`,
-    //         title: `Error`,
-    //         lastCommit
-    //     });
-    // });
+    app.use((req, res) => {
+        res.render(`404`, {
+            title: `Error`,
+            lastCommit
+        });
+    });
     app.use((err, req, res, next) => {
         res.status(500);
         console.error("Web req err", err);
