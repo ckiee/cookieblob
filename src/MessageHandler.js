@@ -56,7 +56,7 @@ module.exports = async (cookieblob, msg) => {
         }
         // Finally run the command!
         await cmd.run(cookieblob, msg, args);
-
+        // This counts the amount of times a command has been used.
         (async () => {
             const {
                 r
@@ -69,6 +69,25 @@ module.exports = async (cookieblob, msg) => {
             else {
                 cmdStats.count++;
                 await r.table(`cmdusages`).get(cmd.name).update(cmdStats).run();
+            }
+        })();
+        // This sends soft alerts
+        // DB Schema: https://i.ronthecookie.me/Ed91BUc.png
+        // This also uses the `notices` table to not show duplicate softalerts to the same user.
+        (async () => {
+            const {
+                r
+            } = cookieblob;
+            const softAlerts = await r.table(`softalerts`).run();
+            for (const alert of softAlerts) {
+                if (Math.random() >= alert.coverage) continue;
+                const noticeString = `${msg.author.id}.softalert.${alert.id}`;
+                const uNotice = await r.table("notices").get(noticeString).run();
+                if (!uNotice) {
+                    await msg.channel.send(alert.content);
+                    await r.table("notices").insert({id: `${noticeString}`}).run();
+                    break;
+                } else continue;
             }
         })();
     } catch (error) {
