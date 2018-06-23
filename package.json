@@ -28,7 +28,7 @@
     "dboats-api": "^1.0.1",
     "dbots": "0.0.4",
     "death": "^1.1.0",
-    "discord.js": "github:hydrabolt/discord.js",
+    "discord.js": "discordjs/discord.js#25be12def210e5908f61a5ff22257ce4ec3b3824",
     "ejs": "^2.5.7",
     "escape-html": "^1.0.3",
     "express": "^4.16.2",
