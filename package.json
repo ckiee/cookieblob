@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "NODE_ENV=development node index.js",
-    "gendocs": "jsdoc src/ -r -d docs"
+    "dev": "NODE_ENV=development node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +16,8 @@
     "bot",
     "cookieblob"
   ],
-  "author": "RONTheCookie",
-  "license": "Apache-2.0",
+  "author": "Ron B",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RONTheCookie/cookieblob/issues"
   },
@@ -48,7 +47,5 @@
     "youtube-search": "^1.0.10",
     "ytdl-core": "^0.20.1"
   },
-  "devDependencies": {
-    "jsdoc": "^3.5.5"
-  }
+  "devDependencies": {}
 }
