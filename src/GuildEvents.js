@@ -6,7 +6,7 @@ const Cookieblob = require(`./Cookieblob`);
 module.exports = async (cookieblob) => {
     await cookieblob.user.setPresence({
         activity: {
-            name: `over ${cookieblob.guilds.size} guilds | cb!help`,
+            name: `over ${cookieblob.guilds.size} guilds | ${cookieblob.config.defaultPrefix}help`,
             type: `WATCHING`
         }
     });
