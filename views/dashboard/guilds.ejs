@@ -1,0 +1,17 @@
+<html>
+<head>
+    <%- include("../parts/head"); %>
+</head>
+<body>
+    <%- include("../parts/header"); %>
+    <main>
+        <div class="container">
+            <div class="row center">
+                <h1>Choose a guild</h1>
+                <%- user.guilds.map(guild => `<a href="/dashboard/guild/${guild.id}"><img class="circle" width="128" height="128" src="${guild.iconURL}"></a>`).join("") %>
+            </div>
+        </div>
+    </main>
+    <%- include("../parts/footer"); %>
+</body>
+</html>

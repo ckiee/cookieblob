@@ -1,7 +1,7 @@
 #cookieblob
 process.yml
 config.json
-secret.cookieblob
+cb.secret
 # Logs
 logs
 *.log

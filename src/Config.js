@@ -35,7 +35,7 @@ module.exports = /** @class */ class Config {
         /**
          * @type {String}
          */
-        this.callbackURL = config.callbackURL;
+        this.hostURL = config.hostURL;
         /** @type {Boolean} */
         this.enableBotStatPost = config.enableBotStatPost;
         /** @type {Object} */

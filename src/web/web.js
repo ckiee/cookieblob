@@ -11,7 +11,7 @@ module.exports = async cookieblob => {
     const app = express();
     const httpServer = require(`http`).createServer(app);
     app.use(require(`helmet`)());
-    if (process.env.NODE_ENV == `production`) app.set(`view engine`, `loopback`);
+    if (cookieblob.isProduction()) app.set(`trust proxy`, `loopback`);
     const port = process.env.PORT || 3000;
     app.set(`view engine`, `ejs`);
     httpServer.listen(port);
@@ -42,6 +42,7 @@ module.exports = async cookieblob => {
         });
     });
     app.use(`/api`, await require(`./api`)(cookieblob));
+    app.use("/dashboard", await require("./dashboard")(cookieblob));
     app.use(express.static(`static`));
     app.use((req, res) => {
         res.render(`404`, {
