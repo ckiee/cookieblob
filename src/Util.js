@@ -1,8 +1,6 @@
 /** @module */
 const Command = require(`./Command`);
 const child_proc = require("child_process");
-const fs = require("mz/fs");
-const randomstring = require("randomstring");
 const {
     Message,
     MessageEmbed,
@@ -35,29 +33,16 @@ module.exports.getDefaultGuildData = guild => {
     };
 }
 
-let lastCommit;
-
 /**
  * @returns {Promise<String>} Last commit hash
  */
 module.exports.getLastCommit = () => {
     return new Promise((resolve, reject) => {
-        if (lastCommit) resolve(lastCommit);
         const cmd = `git log -n 1 --pretty=format:"%H"`;
         child_proc.exec(cmd, (err, stdout, stderr) => {
             if (err) reject(err);
             if (stderr) reject("External git err " + err);
-            lastCommit = stdout;
             resolve(stdout);
         });
     });
 }
-
-module.exports.getWebSecret = async () => {
-    if (await fs.exists("cb.secret")) return await fs.readFile("cb.secret").toString();
-    else {
-        secret = randomstring.generate(500);
-        await fs.writeFile("cb.secret", secret);
-        return secret;
-    }
-};

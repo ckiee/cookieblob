@@ -16,14 +16,10 @@ main {
     background: #2C2F33 !important;
 }
 
-#header-sn li>a {
+.sidenav li>a {
     color: white !important;
     font-size: 1.5em !important;
     font-weight: normal !important;
-}
-
-#dashboard-sn li>a {
-    color: white !important;
 }
 
 .typewrite > .wrap { border-right: 0.08em solid #fff}
