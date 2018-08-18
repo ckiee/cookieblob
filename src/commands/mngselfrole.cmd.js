@@ -16,7 +16,7 @@ module.exports = {
         const {
             r
         } = cookieblob;
-        const role = msg.guild.roles.find(`name`, args.slice(1).join(` `));
+        const role = msg.guild.roles.find(role => role.name == args.slice(1).join(` `));
         if (!role) return await msg.channel.send(`:x: I couldn't find that role!`);
         let gd = await r.table(`guildData`).get(msg.guild.id).run();
         if (args[0] == `add`) {
