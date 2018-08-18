@@ -18,7 +18,7 @@ module.exports = {
         const {
             r
         } = cookieblob;
-        const role = msg.guild.roles.find(`name`, args.slice(1).join(` `));
+        const role = msg.guild.roles.find(role => role.name == args.slice(1).join(` `));
         const gd = await r.table(`guildData`).get(msg.guild.id).run();
         /**
          * @param {String} id
