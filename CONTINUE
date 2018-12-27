@@ -1,1 +1,1 @@
-docker run -v /home/ron/git/cookieblob/config.json:/usr/src/app/config.json -p 3000:3000 -e DB_ADDR=172.17.0.3:28015 76cae9ee3df8
+docker run -v /home/ron/git/cookieblob/config.json:/usr/src/app/config.json -p 3000:3000 -e DB_ADDR=172.17.0.3:28015 3ff9b5d0176d

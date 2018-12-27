@@ -1,5 +1,5 @@
 FROM jrottenberg/ffmpeg
-FROM node:10
+FROM node:8
 
 # copy ffmpeg bins from first image
 COPY --from=0 / /
