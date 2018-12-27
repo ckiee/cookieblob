@@ -1,9 +1,11 @@
 // Loader file for Cookieblob
 const Config = require(`./src/Config`);
 const ConfigInstance = new Config(require(`./config`));
-const r = require(`rethinkdbdash`)({
-    db: process.env.db || `cookieblob`
-}); // Connect to RethinkDB
+const dbOpts = {
+    db: process.env.db || `cookieblob`,
+};
+if (process.env.DB_ADDR) dbOpts.servers = [{host: process.env.DB_ADDR.split(":")[0], port: parseInt(process.env.DB_ADDR.split(":")[1],10)}]
+const r = require(`rethinkdbdash`)(dbOpts); // Connect to RethinkDB
 const Cookieblob = require(`./src/Cookieblob`);
 const CookieblobInstance = module.exports = new Cookieblob(r, ConfigInstance);
 const Death = require(`death`);
