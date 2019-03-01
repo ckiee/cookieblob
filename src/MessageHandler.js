@@ -55,6 +55,11 @@ module.exports = async (cookieblob, msg) => {
             }
         }
         // Finally run the command!
+        await msg.channel.send(`:warning: Cookieblob is now discontinued and will remain active for some more time then shut down.
+Please prepare by finding other bots to replace it.
+
+I will run the command anyway in 10 seconds.`);
+        await new Promise(resolve => {setTimeout(() => resolve(), 10000)}); 
         await cmd.run(cookieblob, msg, args);
         // This counts the amount of times a command has been used.
         (async () => {

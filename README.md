@@ -1,4 +1,10 @@
 # cookieblob
+
+# Cookieblob is discontinued!
+I will keep this repo up for people who want to self-host it or whatever but I won't maintain it.
+
+<hr>
+
 [![Discord Boats](https://discordboats.club/bot/324874714646577152/widget.png)](https://discordboats.club/bot/324874714646577152)
 
 Cookieblob is a open-source [discord](https://discordapp.com) bot.

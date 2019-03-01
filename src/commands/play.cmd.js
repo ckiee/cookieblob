@@ -11,6 +11,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (cookieblob, msg, args) => {
+        await msg.channel.send("Music has been disabled.");
         const {
             r
         } = cookieblob;
