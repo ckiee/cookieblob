@@ -33,7 +33,7 @@
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
     "helmet": "^3.12.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "node-opus": "^0.2.7",
     "passport": "^0.4.0",
     "passport-discord": "^0.1.3",
