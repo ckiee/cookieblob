@@ -1,32 +1,32 @@
 {
-	"name": "cookieblob-backend",
-	"version": "1.0.0",
-	"main": "src/index.ts",
-	"license": "GPL-3",
-	"dependencies": {
-		"cookie-parser": "^1.4.5",
-		"dotenv": "^8.2.0",
-		"dotenv-safe": "^8.2.0",
-		"express": "^4.17.1",
-		"express-session": "^1.17.1",
-		"helmet": "^3.22.0",
-		"morgan": "^1.10.0",
-		"passport": "^0.4.1",
-		"ts-node": "^8.10.1",
-		"typescript": "^3.8.3"
-	},
-	"scripts": {
-		"start": "ts-node src",
-		"dev": "nodemon -e ts,json --exec ts-node src"
-	},
-	"devDependencies": {
-		"@types/cookie-parser": "^1.4.2",
-		"@types/dotenv-safe": "^8.1.0",
-		"@types/express-session": "^1.17.0",
-		"@types/helmet": "^0.0.46",
-		"@types/morgan": "^1.9.0",
-		"@types/node": "^13.13.5",
-		"@types/passport": "^1.0.3",
-		"nodemon": "^2.0.3"
-	}
+    "name": "cookieblob-backend",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^8.2.0",
+        "dotenv-safe": "^8.2.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "helmet": "^3.22.0",
+        "morgan": "^1.10.0",
+        "passport": "^0.4.1",
+        "ts-node": "^8.10.1",
+        "typescript": "^3.8.3"
+    },
+    "scripts": {
+        "start": "ts-node src",
+        "dev": "nodemon -e ts,json --exec ts-node src"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.2",
+        "@types/dotenv-safe": "^8.1.0",
+        "@types/express-session": "^1.17.0",
+        "@types/helmet": "^0.0.46",
+        "@types/morgan": "^1.9.0",
+        "@types/node": "^13.13.5",
+        "@types/passport": "^1.0.3",
+        "nodemon": "^2.0.3"
+    }
 }
