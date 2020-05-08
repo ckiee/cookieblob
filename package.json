@@ -1,17 +1,27 @@
 {
-	"name": "cookieblob",
-	"version": "1.0.0",
-	"main": "index.js",
-	"repository": "git@github.com:ronthecookie/cookieblob",
-	"author": "Ron B <me@ronthecookie.me>",
-	"license": "GPL-3",
-	"scripts": {
-		"dev:frontend": "cd frontend && yarn autobuild",
-		"dev:backend": "cd backend && yarn dev",
-		"dev:bot": "cd bot && yarn start",
-		"dev": "concurrently yarn:dev:*"
-	},
-	"devDependencies": {
-		"concurrently": "^5.2.0"
-	}
+    "name": "cookieblob",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:ronthecookie/cookieblob",
+    "author": "Ron B <me@ronthecookie.me>",
+    "license": "GPL-3.0",
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "scripts": {
+        "install": "yarn --cwd frontend && yarn --cwd backend && yarn --cwd bot",
+        "dev:frontend": "cd frontend && yarn autobuild",
+        "dev:backend": "cd backend && yarn dev",
+        "dev:bot": "cd bot && yarn start",
+        "dev": "concurrently yarn:dev:*"
+    },
+    "devDependencies": {
+        "@commitlint/config-conventional": "^8.3.4",
+        "commitlint": "^8.3.5",
+        "concurrently": "^5.2.0",
+        "husky": "^4.2.5"
+    },
+    "dependencies": {}
 }
