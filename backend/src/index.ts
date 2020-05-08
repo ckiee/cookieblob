@@ -16,12 +16,12 @@ app.use(morgan("tiny"));
 app.use(helmet());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
-	session({
-		secret: process.env.SESSION_SECRET || "",
-		resave: false,
-		saveUninitialized: false,
-		cookie: {},
-	})
+    session({
+        secret: process.env.SESSION_SECRET || "",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {}
+    })
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -33,5 +33,10 @@ app.use("/api", apiRouter);
 
 // Static serve
 app.use(express.static(resolve("../frontend/public")));
+
+// Nowhere else to go so 404
+app.use((_req, res) => {
+    res.sendStatus(404);
+});
 
 app.listen(port, () => console.log(`listening on port ${port}`));
