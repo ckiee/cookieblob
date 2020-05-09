@@ -4,6 +4,21 @@ interface User extends Base<string> {}
 class User extends TimeStamps {
     @prop()
     public _id!: string; // discord snowflake instead of ObjectId
+    @prop({ required: true })
+    public username!: string;
+    @prop({ required: true })
+    public discrim!: string;
+
+    @prop({ required: true, default: "en-US" })
+    public locale!: string;
+    @prop({ required: true })
+    public accessToken!: string;
+    @prop({ required: true })
+    public refreshToken!: string;
+
+    get tag() {
+        return `${this.username}#${this.discrim}`;
+    }
 }
 
 const UserModel = getModelForClass(User);

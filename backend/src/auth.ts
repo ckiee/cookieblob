@@ -7,6 +7,16 @@ import {
     VerifyCallback,
     Scope
 } from "@oauth-everything/passport-discord";
+interface RawProfile {
+    id: string;
+    username: string;
+    avatar: string;
+    discriminator: string;
+    public_flags: number;
+    flags: number;
+    locale: string;
+    mfa_enabled: boolean;
+}
 export default function setupAuth() {
     passport.serializeUser((user: DocumentType<User>, done) => {
         done(null, user._id);
@@ -26,12 +36,20 @@ export default function setupAuth() {
             async (
                 accessToken: string,
                 refreshToken: string,
-                profile: Profile,
+                usersMe: Profile,
                 done: VerifyCallback<User>
             ) => {
+                const profile = usersMe._json as RawProfile;
                 const existing = await UserModel.findById(profile.id).exec();
                 if (!existing) {
-                    const newUser = await UserModel.create({ _id: profile.id });
+                    const newUser = await UserModel.create({
+                        _id: profile.id,
+                        username: profile.username,
+                        discrim: profile.discriminator,
+                        locale: profile.locale,
+                        accessToken,
+                        refreshToken
+                    });
                     done(null, newUser);
                 } else {
                     done(null, existing);

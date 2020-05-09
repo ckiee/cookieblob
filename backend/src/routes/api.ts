@@ -1,11 +1,8 @@
 import { Router } from "express";
 import passport from "passport";
-
+import authRouter from "./auth";
 const app = Router();
 
-app.get("/auth", passport.authenticate("discord"));
-app.get("/auth/callback", passport.authenticate("discord"), (req, res) => {
-    res.sendStatus(200);
-});
+app.use("/auth", authRouter);
 
 export default app;
