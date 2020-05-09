@@ -7,6 +7,7 @@ import {
     VerifyCallback,
     Scope
 } from "@oauth-everything/passport-discord";
+import { Request, Response } from "express";
 interface RawProfile {
     id: string;
     username: string;
@@ -57,4 +58,9 @@ export default function setupAuth() {
             }
         )
     );
+}
+export function requireAuth(req: Request, res: Response, next: Function) {
+    console.log(req.user, req.session);
+    if (req.user) next();
+    else res.status(401).json({ message: "Unauthorized" });
 }

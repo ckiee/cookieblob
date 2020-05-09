@@ -9,13 +9,16 @@ import dotenv from "dotenv-safe";
 import passport from "passport";
 import mongoose from "mongoose";
 import setupAuth from "./auth";
+import MongoStore from "connect-mongodb-session";
 const app = express();
 const port = process.env.PORT || 3000;
 dotenv.config();
 
 // Conect to mongo
+const mongoUrl =
+    process.env.MONGO_URL || "mongodb://localhost:27017/cookieblob";
 mongoose
-    .connect(process.env.MONGO_URL || "mongodb://localhost:27017/cookieblob", {
+    .connect(mongoUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -23,6 +26,11 @@ mongoose
     .catch((e) => {
         throw e;
     });
+// Mongo session store
+const store = new (MongoStore(session))({
+    uri: mongoUrl,
+    collection: "session"
+});
 
 // Middleware
 app.use(morgan("tiny"));
@@ -33,15 +41,17 @@ app.use(
         secret: process.env.SESSION_SECRET || "",
         resave: false,
         saveUninitialized: false,
-        cookie: {}
+        cookie: {},
+        store
     })
 );
+
+setupAuth(); // discord oauth
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-
-setupAuth(); // discord oauth
 
 // Routes
 app.use("/api", apiRouter);

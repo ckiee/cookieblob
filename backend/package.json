@@ -6,6 +6,7 @@
     "dependencies": {
         "@oauth-everything/passport-discord": "^1.0.2",
         "@typegoose/typegoose": "^7.0.0",
+        "connect-mongodb-session": "^2.3.1",
         "cookie-parser": "^1.4.5",
         "dotenv": "^8.2.0",
         "dotenv-safe": "^8.2.0",
@@ -23,6 +24,7 @@
         "dev": "nodemon -e ts,json --exec ts-node src"
     },
     "devDependencies": {
+        "@types/connect-mongodb-session": "^0.0.3",
         "@types/cookie-parser": "^1.4.2",
         "@types/dotenv-safe": "^8.1.0",
         "@types/express-session": "^1.17.0",
