@@ -59,9 +59,9 @@ app.use("/api", apiRouter);
 // Static serve
 app.use(express.static(resolve("../frontend/public")));
 
-// Nowhere else to go so 404
+// Nowhere else to go so we serve index.html because SPA
 app.use((_req, res) => {
-    res.sendStatus(404);
+    res.sendFile(resolve("../frontend/public/index.html"));
 });
 
 app.listen(port, () => console.log(`listening on port ${port}`));
