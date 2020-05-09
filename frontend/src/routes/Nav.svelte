@@ -1,11 +1,7 @@
-<script>
-    import { Link, link } from "svelte-routing";
-</script>
-
 <nav class="flex gap-10 items-center">
-    <a href="/" use:link class="flex items-center gap-2">
-        <img src="/assets/ablobnomcookie.gif" alt="blob eats cookie" />
+    <a href="/" class="flex items-center gap-2">
+        <img src="/assets/ablobnomcookie.gif" alt="animated blob nom cookie" />
         <p class="text-xl">Cookieblob</p>
     </a>
-    <Link to="/dashboard">Dashboard</Link>
+    <a href="/dashboard">Dashboard</a>
 </nav>

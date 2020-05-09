@@ -2359,11 +2359,6 @@ svelte-preprocess@^2.14.0:
     postcss-load-config "^2.0.0"
     strip-indent "^2.0.0"
 
-svelte-routing@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-1.4.2.tgz#291160b537c9c73e711731eb099c48bb24cc3419"
-  integrity sha512-CSCKRLeOp9vjsDGGOEgL9DPm9HZLgZuTNehyTCl3K+6fCVH1Aw/K/WicavAVNcbsHmdR4wgF//0YVR9hrcdvGA==
-
 svelte@^3.0.0:
   version "3.22.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.22.2.tgz#06585244191bf7a112af2a0025610f33d77c3715"
@@ -2426,6 +2421,10 @@ timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
+
+tinro@ronthecookie/tinro:
+  version "0.2.4"
+  resolved "https://codeload.github.com/ronthecookie/tinro/tar.gz/7e8d085656cb6e40b688846e7745b47855561fb7"
 
 tinydate@^1.0.0:
   version "1.2.0"

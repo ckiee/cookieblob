@@ -2,8 +2,7 @@
     import Home from "./routes/Home.svelte";
     import NotFound from "./routes/NotFound.svelte";
     import Nav from "./routes/Nav.svelte";
-
-    import { Router, Link, Route, link } from "svelte-routing";
+    import { Route } from "tinro";
     if (window.location.pathname == "/") {
     }
 </script>
@@ -13,12 +12,17 @@
 </style>
 
 <main class="bg-darker text-white">
-    <Router url={false}>
-        <div class="h-screen flex flex-col container mx-auto">
-            <Nav />
-            <!-- Routes -->
-            <Route path="/" component={Home} />
-            <Route path="*" component={NotFound} />
-        </div>
-    </Router>
+    <div class="h-screen flex flex-col container mx-auto">
+        <Nav />
+        <!-- Routes -->
+        <Route>
+            <Route path="/">
+                <Home />
+            </Route>
+
+            <Route fallback>
+                <NotFound />
+            </Route>
+        </Route>
+    </div>
 </main>

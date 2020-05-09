@@ -27,6 +27,6 @@
     "start:dev": "sirv public --dev"
   },
   "dependencies": {
-    "svelte-routing": "^1.4.2"
+    "tinro": "ronthecookie/tinro"
   }
 }
