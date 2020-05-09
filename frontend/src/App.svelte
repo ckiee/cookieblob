@@ -12,6 +12,8 @@
         <!-- <nav>
       <Link to="/" class="text-link">Home</Link>
     </nav> -->
-        <Route path="/" component={Home} />
+        <div class="container mx-auto">
+            <Route path="/" component={Home} />
+        </div>
     </Router>
 </main>
