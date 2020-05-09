@@ -2,14 +2,14 @@
 
 a utilitarian discord bot for server admins
 
-## selfhosting
+## Self hosting
 
-the project is licensed under version 3 of the GPL howver there are a few exceptions:
+The project is licensed under version 3 of the GPL however there are a few exceptions:
 
--   no using the cookieblob name in your bot
--   no monetization of cookieblob
--   no hosting a public version of cookieblob
--   no providing others with support with self hosting cookieblob instances
+-   No using the cookieblob name in your bot.
+-   No monetization of cookieblob.
+-   No hosting a public version of cookieblob.
+-   No providing others with support with self hosting cookieblob instances.
 
 ## contributions
 
