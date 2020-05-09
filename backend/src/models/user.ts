@@ -19,6 +19,14 @@ class User extends TimeStamps {
     get tag() {
         return `${this.username}#${this.discrim}`;
     }
+    get safe() {
+        return {
+            _id: this._id,
+            username: this.username,
+            discrim: this.discrim,
+            locale: this.locale
+        };
+    }
 }
 
 const UserModel = getModelForClass(User);

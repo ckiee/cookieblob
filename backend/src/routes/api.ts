@@ -1,8 +1,10 @@
 import { Router } from "express";
-import passport from "passport";
 import authRouter from "./auth";
+import userRouter from "./user";
+
 const app = Router();
 
 app.use("/auth", authRouter);
+app.use("/users", userRouter);
 
 export default app;

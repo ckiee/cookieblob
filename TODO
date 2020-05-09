@@ -7,6 +7,7 @@
 - tempban
 - user/guild stats/info (maybe web?)
 - chat filters on some channels (follow a format in some channels so like reports)
+- perf: use intents
 
 future:
 	- raid mode
