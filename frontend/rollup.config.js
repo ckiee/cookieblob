@@ -28,7 +28,7 @@ export default {
             // }
         }),
         postcss({
-            extract: "public/assets/global.css"
+            extract: "public/global.css"
         }),
 
         // If you have external dependencies installed from
