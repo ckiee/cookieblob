@@ -3,7 +3,7 @@
         <p class="text-center text-3xl">Cookieblob Login</p>
         <img
             class="w-64"
-            src="https://discordapp.com/assets/192cb9459cbc0f9e73e2591b700f1857.svg"
+            src="/assets/white-discord-logo.svg"
             alt="Discord Logo" />
     </a>
 </div>
