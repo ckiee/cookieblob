@@ -12,6 +12,8 @@ class User extends TimeStamps {
     @prop({ required: true, default: "en-US" })
     public locale!: string;
     @prop({ required: true })
+    public avatar!: string;
+    @prop({ required: true })
     public accessToken!: string;
     @prop({ required: true })
     public refreshToken!: string;
@@ -24,7 +26,8 @@ class User extends TimeStamps {
             _id: this._id,
             username: this.username,
             discrim: this.discrim,
-            locale: this.locale
+            locale: this.locale,
+            avatar: this.avatar
         };
     }
 }

@@ -48,6 +48,7 @@ export default function setupAuth() {
                         username: profile.username,
                         discrim: profile.discriminator,
                         locale: profile.locale,
+                        avatar: profile.avatar,
                         accessToken,
                         refreshToken
                     });

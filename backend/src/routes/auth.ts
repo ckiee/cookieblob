@@ -10,6 +10,11 @@ app.get(
 );
 app.get("/callback", passport.authenticate("discord"), (req, res) => {
     const guildId = req.query.guild_id as string | undefined;
+    res.redirect("/");
+});
+
+app.post("/logout", (req, res) => {
+    req.logOut();
     res.sendStatus(200);
 });
 
