@@ -2424,7 +2424,7 @@ timsort@^0.3.0:
 
 tinro@ronthecookie/tinro:
   version "0.2.4"
-  resolved "https://codeload.github.com/ronthecookie/tinro/tar.gz/7e8d085656cb6e40b688846e7745b47855561fb7"
+  resolved "https://codeload.github.com/ronthecookie/tinro/tar.gz/0f978790e5dfa26dc88569e33096c1c6bdac7e6e"
 
 tinydate@^1.0.0:
   version "1.2.0"
