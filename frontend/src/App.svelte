@@ -2,23 +2,31 @@
     import Home from "./routes/Home.svelte";
     import NotFound from "./routes/NotFound.svelte";
     import Nav from "./routes/Nav.svelte";
+    import Dashboard from "./routes/Dashboard.svelte";
     import { Route } from "tinro";
-    if (window.location.pathname == "/") {
-    }
+    import { user } from "./stores";
 </script>
 
 <style>
 
 </style>
 
-<main class="bg-darker text-white">
+<main class="bg-nqbl text-white">
     <div class="h-screen flex flex-col container mx-auto">
         <Nav />
         <!-- Routes -->
         <Route>
-            <Route path="/">
-                <Home />
-            </Route>
+            {#if $user}
+                <Route path="/" redirect="/dashboard" />
+                <Route path="/dashboard/*">
+                    <Dashboard />
+                </Route>
+            {:else}
+                <Route path="/dashboard/*" redirect="/" />
+                <Route path="/">
+                    <Home />
+                </Route>
+            {/if}
 
             <Route fallback>
                 <NotFound />

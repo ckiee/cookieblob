@@ -11,7 +11,8 @@
                 alt="animated blob nom cookie" />
             <p class="text-xl">Cookieblob</p>
         </a>
-        <a href="/dashboard">Dashboard</a>
+        <a href="https://discord.ronthecookie.me">Support Server</a>
+        <a href="/api/auth/invite">Invite</a>
 
     </div>
     {#if $user}
