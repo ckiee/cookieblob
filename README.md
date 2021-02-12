@@ -1,5 +1,11 @@
 # cookieblob
 
+## this project is very dead!
+
+it's just here for archival purposes. have fun.
+
+--
+
 a utilitarian discord bot for server admins
 
 ## Self hosting
